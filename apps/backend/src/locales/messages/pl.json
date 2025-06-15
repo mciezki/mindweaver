@@ -1,0 +1,26 @@
+{
+  "auth": {
+    "success": {
+      "registered": "Użytkownik zarejestrowany pomyślnie.",
+      "loggedIn": "Pomyślnie zalogowano.",
+      "profileFetched": "Witaj na swoim profilu!"
+    },
+    "error": {
+      "emailRequired": "Email i hasło są wymagane.",
+      "passwordTooShort": "Hasło musi mieć co najmniej 6 znaków.",
+      "passwordNoDigit": "Hasło musi zawierać co najmniej 1 cyfrę.",
+      "passwordNoUpper": "Hasło musi zawierać co najmniej jedną wielką literę",
+      "passwordNoSpecialChar": "Hasło musi zawierać co najmniej jeden znak specjalny",
+      "invalidEmailFormat": "Niepoprawny format adresu email.",
+      "emailExists": "Użytkownik z tym adresem email już istnieje.",
+      "invalidCredentials": "Nieprawidłowe dane uwierzytelniające.",
+      "noToken": "Brak autoryzacji: Brak tokena lub niepoprawny format.",
+      "tokenExpired": "Brak autoryzacji: Token wygasł.",
+      "invalidToken": "Brak autoryzacji: Nieprawidłowy token."
+    }
+  },
+  "common": {
+    "userNotFound": "Użytkownik nie znaleziony.",
+    "serverError": "Coś poszło nie tak!"
+  }
+}

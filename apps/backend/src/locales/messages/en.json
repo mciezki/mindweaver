@@ -1,0 +1,26 @@
+{
+  "auth": {
+    "success": {
+      "registered": "User registered successfully.",
+      "loggedIn": "Logged in successfully.",
+      "profileFetched": "Welcome to your profile!"
+    },
+    "error": {
+      "emailRequired": "Email and password are required.",
+      "passwordTooShort": "Password must be at least 6 characters long.",
+      "passwordNoDigit": "Password must contain at least one digit.",
+      "passwordNoUpper": "Password must contain at least one uppercase letter.",
+      "passwordNoSpecialChar": "Password must contain at least one special character.",
+      "invalidEmailFormat": "Invalid email format.",
+      "emailExists": "User with this email already exists.",
+      "invalidCredentials": "Invalid credentials.",
+      "noToken": "Unauthorized: No token provided or invalid format.",
+      "tokenExpired": "Unauthorized: Token has expired.",
+      "invalidToken": "Unauthorized: Invalid token."
+    }
+  },
+  "common": {
+    "userNotFound": "User not found.",
+    "serverError": "Something went wrong!"
+  }
+}
