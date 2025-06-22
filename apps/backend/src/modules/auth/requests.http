@@ -1,0 +1,27 @@
+### Register User
+POST http://localhost:4000/api/auth/register
+Content-Type: application/json
+
+{
+  "email": "test@example.com",
+  "password": "Password123!",
+  "name": "Maciek",
+  "surname": "Bobo",
+  "sex": "f",
+  "birthday": "2024-04-24T00:00:00.000Z"
+}
+
+### Login User
+POST http://localhost:4000/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "test@example.com",
+  "password": "Password123!"
+}
+
+### Get User Profile (Protected Route)
+GET http://localhost:4000/api/auth/profile
+Authorization: Bearer gyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImVtYWlsIjoidGVzdEBleGFtcGxlLmNvbSIsImlhdCI6MTc1MDU5OTAyMywiZXhwIjoxNzUwNjAyNjIzfQ.RouXhwwZHKc9o8bM8hoqWw7lK-AtfMJT2SqSBZ_dAa0
+
+###

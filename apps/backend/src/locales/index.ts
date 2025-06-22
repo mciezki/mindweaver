@@ -23,8 +23,6 @@ type Paths<T, D extends number = 5> = [D] extends [never]
 
 export type MessageKey = Paths<MessagesStructure>;
 
-type Messages = typeof enMessages;
-
 type Langauges = 'en' | 'pl';
 
 const allLanguages = {
