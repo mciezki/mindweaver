@@ -11,7 +11,7 @@ router.post('/register', validateRegister, register);
 router.post('/login', validateLogin, login);
 
 // TODO: fix and find why 404
-router.put('/update', authMiddleware, update);
+router.patch('/update', authMiddleware, update);
 
 // TODO: Make normal endpoint from database
 router.get('/profile', authMiddleware, (req, res) => {
