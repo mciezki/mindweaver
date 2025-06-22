@@ -10,7 +10,7 @@ const JWT_EXPIRES_IN = '1h';
 
 export const registerUser = async (
   registeredUser: RegisterRequest,
-): Promise<AuthResponse> => {
+): Promise<Omit<AuthResponse, 'token'>> => {
   const hashedPassword = await bcrypt.hash(registeredUser.password, 10);
 
   try {
@@ -29,14 +29,11 @@ export const registerUser = async (
         sex: true,
         createdAt: true,
         updatedAt: true,
+        type: true,
       },
     });
 
-    const token = jwt.sign({ userId: user.id, email: user.email }, JWT_SECRET, {
-      expiresIn: JWT_EXPIRES_IN,
-    });
-
-    return { user, token };
+    return { user };
   } catch (error: any) {
     if (error.code === 'P2002' && error.meta?.target?.includes('email')) {
       const err: any = new Error(getMessage('auth.error.emailExists'));
@@ -47,7 +44,9 @@ export const registerUser = async (
   }
 };
 
-export const loginUser = async (loginData: LoginRequest) => {
+export const loginUser = async (
+  loginData: LoginRequest,
+): Promise<AuthResponse> => {
   const user = await prisma.user.findUnique({
     where: { email: loginData.email },
   });
