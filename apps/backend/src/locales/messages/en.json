@@ -3,7 +3,8 @@
     "success": {
       "registered": "User registered successfully.",
       "loggedIn": "Logged in successfully.",
-      "profileFetched": "Welcome to your profile!"
+      "profileFetched": "Welcome to your profile!",
+      "profileUpdated": "Profile updated"
     },
     "error": {
       "emailRequired": "Email and password are required.",
@@ -17,7 +18,8 @@
       "invalidCredentials": "Invalid credentials.",
       "noToken": "Unauthorized: No token provided or invalid format.",
       "tokenExpired": "Unauthorized: Token has expired.",
-      "invalidToken": "Unauthorized: Invalid token."
+      "invalidToken": "Unauthorized: Invalid token.",
+      "invalidBirthdayFormat": "Invalid birthday format"
     }
   },
   "common": {
