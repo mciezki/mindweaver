@@ -9,8 +9,6 @@ const router = Router();
 
 router.post('/register', validateRegister, register);
 router.post('/login', validateLogin, login);
-
-// TODO: fix and find why 404
 router.patch('/update', authMiddleware, update);
 
 // TODO: Make normal endpoint from database
