@@ -3,12 +3,20 @@ POST http://localhost:4000/api/auth/register
 Content-Type: application/json
 
 {
-  "email": "test2@example.com",
+  "email": "georgiana.konopelski@ethereal.email",
   "password": "Password123!",
   "name": "Maciek",
   "surname": "Bobo",
   "sex": "f",
   "birthday": "2024-04-24T00:00:00.000Z"
+}
+
+### Activate user account with the received code
+POST http://localhost:4000/api/auth/activate
+Content-Type: application/json
+
+{
+  "token": "0QQI2"
 }
 
 ### Update User Profile
@@ -28,7 +36,7 @@ POST http://localhost:4000/api/auth/login
 Content-Type: application/json
 
 {
-  "email": "test2@example.com",
+  "email": "georgiana.konopelski@ethereal.email",
   "password": "Password123!"
 }
 
