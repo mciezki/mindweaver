@@ -1,10 +1,11 @@
 {
   "auth": {
     "success": {
-      "registered": "User registered successfully.",
+      "registered": "User registered successfully. Check your email for activation token.",
       "loggedIn": "Logged in successfully.",
       "profileFetched": "Welcome to your profile!",
-      "profileUpdated": "Profile updated"
+      "profileUpdated": "Profile updated",
+      "accountActivated": "Your account has been successfully activated. You are now logged in."
     },
     "error": {
       "emailRequired": "Email and password are required.",
@@ -19,11 +20,21 @@
       "noToken": "Unauthorized: No token provided or invalid format.",
       "tokenExpired": "Unauthorized: Token has expired.",
       "invalidToken": "Unauthorized: Invalid token.",
-      "invalidBirthdayFormat": "Invalid birthday format"
+      "invalidBirthdayFormat": "Invalid birthday format",
+      "accountNotActivated": "Account is not active",
+      "missingActivationToken": "Activation code is missing.",
+      "invalidActivationTokenFormat": "Invalid activation code format. It should be 5 characters long.",
+      "invalidActivationToken": "Invalid activation code.",
+      "tokenAlreadyUsed": "This activation code has already been used."
     }
   },
   "common": {
     "userNotFound": "User not found.",
     "serverError": "Something went wrong!"
+  },
+  "emails": {
+    "activation": {
+      "subject": "Activate Mindweave"
+    }
   }
 }
