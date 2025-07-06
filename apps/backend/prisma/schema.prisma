@@ -19,26 +19,37 @@ enum UserType {
 }
 
 model User {
-  id        String      @id @default(uuid())
-  email     String      @unique
-  password  String
-  name      String
-  surname   String
-  birthday  DateTime
-  sex       String
-  createdAt DateTime    @default(now())
-  updatedAt DateTime    @updatedAt
-  type      UserType    @default(USER)
-  active    Boolean     @default(false)
-  activationTokens ActivationToken[]
+  id                  String               @id @default(uuid())
+  email               String               @unique
+  password            String
+  name                String
+  surname             String
+  birthday            DateTime
+  sex                 String
+  createdAt           DateTime             @default(now())
+  updatedAt           DateTime             @updatedAt
+  type                UserType             @default(USER)
+  active              Boolean              @default(false)
+  activationTokens    ActivationToken[]
+  passwordResetTokens PasswordResetToken[]
 }
 
 model ActivationToken {
-  id String @id @default(uuid())
-  token String @unique
-  userId String
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id        String   @id @default(uuid())
+  token     String   @unique
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   expiresAt DateTime
-  used Boolean @default(false)
+  used      Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+model PasswordResetToken {
+  id        String   @id @default(uuid())
+  token     String   @unique
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
+  used      Boolean  @default(false)
   createdAt DateTime @default(now())
 }

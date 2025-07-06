@@ -5,7 +5,9 @@
       "loggedIn": "Pomyślnie zalogowano.",
       "profileFetched": "Witaj na swoim profilu!",
       "profileUpdated": "Profil zaktualizowany",
-      "accountActivated": "Twoje konto zostało aktywowane. Mozesz się zalogować."
+      "resetPasswordRequest": "Kod do zresetowania hasła został wysłany!",
+      "resetPassword": "Twoje hasło zostało zaktualizowane!",
+      "accountActivated": "Twoje konto zostało aktywowane. Możesz się zalogować."
     },
     "error": {
       "emailRequired": "Email i hasło są wymagane.",
@@ -25,6 +27,7 @@
       "missingActivationToken": "Nie znaleziono klucza aktywacyjny",
       "invalidActivationTokenFormat": "Niewłaściwy klucz aktywacyjny",
       "invalidActivationToken": "Niewłaściwy kod aktywacyjny",
+      "invalidPasswordResetToken": "Niewłaściwy kod resetu hasła",
       "tokenAlreadyUsed": "Ten kod został juz uzyty"
     }
   },
@@ -35,6 +38,9 @@
   "emails": {
     "activation": {
       "subject": "Aktywuj Mindweave"
+    },
+    "resetPassword": {
+      "subject": "Resetuj hasło | Mindweave"
     }
   }
 }

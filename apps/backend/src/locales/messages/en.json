@@ -5,10 +5,13 @@
       "loggedIn": "Logged in successfully.",
       "profileFetched": "Welcome to your profile!",
       "profileUpdated": "Profile updated",
+      "resetPasswordRequest": "Reset password code has been sent!",
+      "resetPassword": "Your password is updated!",
       "accountActivated": "Your account has been successfully activated. You are now logged in."
     },
     "error": {
       "emailRequired": "Email and password are required.",
+      "tokenRequired": "Token and password are required.",
       "dataRequired": "Personal data is required",
       "passwordTooShort": "Password must be at least 6 characters long.",
       "passwordNoDigit": "Password must contain at least one digit.",
@@ -25,6 +28,7 @@
       "missingActivationToken": "Activation code is missing.",
       "invalidActivationTokenFormat": "Invalid activation code format. It should be 5 characters long.",
       "invalidActivationToken": "Invalid activation code.",
+      "invalidPasswordResetToken": "Invalid reset password code.",
       "tokenAlreadyUsed": "This activation code has already been used."
     }
   },
@@ -35,6 +39,9 @@
   "emails": {
     "activation": {
       "subject": "Activate Mindweave"
+    },
+    "resetPassword": {
+      "subject": "Reset the password | Mindweave"
     }
   }
 }
