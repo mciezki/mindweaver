@@ -9,11 +9,11 @@ import jwt from 'jsonwebtoken';
 
 import prisma from '../../database/prisma';
 import { getMessage } from '../../locales';
-import { sendActivationEmail } from '../../services/email.service';
+import { sendActivationEmail, sendPasswordResetEmail } from '../../services/email.service';
 import { generateShortToken } from '../../utils/generate-short-token';
 
 const JWT_SECRET = process.env.JWT_SECRET || '';
-const JWT_EXPIRES_IN = '1h';
+const JWT_EXPIRES_IN = '24h';
 
 export const registerUser = async (
   registeredUser: RegisterRequest,
@@ -66,6 +66,8 @@ export const registerUser = async (
     throw error;
   }
 };
+
+// ______________________________________
 
 export const updateUser = async (
   userId: string,
@@ -129,6 +131,8 @@ export const updateUser = async (
   }
 };
 
+// ______________________________________
+
 export const loginUser = async (
   loginData: LoginRequest,
 ): Promise<AuthResponse> => {
@@ -168,6 +172,7 @@ export const loginUser = async (
   return { user: userWithoutPassword, token };
 };
 
+// ______________________________________
 
 export const activateAccount = async (activationToken: string): Promise<User> => {
   const activationRecord = await prisma.activationToken.findUnique({
@@ -216,4 +221,88 @@ export const activateAccount = async (activationToken: string): Promise<User> =>
   ])
 
   return { ...updatedUser }
+}
+
+// ______________________________________
+
+export const requestResetUserPassword = async (email: string): Promise<{ message: string }> => {
+  const user = await prisma.user.findUnique({ where: { email } })
+
+  if (!user) {
+    return { message: getMessage('auth.success.resetPasswordRequest') }
+  }
+
+  await prisma.passwordResetToken.deleteMany({
+    where: {
+      userId: user.id,
+      used: false,
+      expiresAt: {
+        gte: new Date()
+      }
+    }
+  });
+
+  const resetToken = generateShortToken(24);
+  const expiresAt = new Date();
+  expiresAt.setHours(expiresAt.getHours() + 24);
+
+  await prisma.passwordResetToken.create({
+    data: {
+      token: resetToken,
+      userId: user.id,
+      expiresAt: expiresAt
+    }
+  });
+
+  await sendPasswordResetEmail(email, resetToken);
+
+  return { message: getMessage('auth.success.resetPasswordRequest') }
+}
+
+// ______________________________________
+
+export const resetUserPassword = async (token: string, newPassword: string): Promise<{ message: string }> => {
+  const resetRecord = await prisma.passwordResetToken.findUnique({
+    where: { token },
+    include: { user: true }
+  });
+
+  if (!resetRecord) {
+    const err: any = new Error(getMessage('auth.error.invalidPasswordResetToken'))
+    err.statusCode = 400;
+    throw err
+  }
+
+  if (resetRecord.used) {
+    const err: any = new Error(getMessage('auth.error.tokenAlreadyUsed'));
+    err.statusCode = 400;
+    throw err;
+  }
+
+  if (resetRecord.expiresAt < new Date()) {
+    const err: any = new Error(getMessage('auth.error.tokenExpired'));
+    err.statusCode = 400;
+    throw err;
+  }
+
+  if (!resetRecord.user) {
+    const err: any = new Error(getMessage('common.userNotFound'));
+    err.statusCode = 404;
+    throw err;
+  }
+
+  const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+  await prisma.$transaction([
+    prisma.user.update({
+      where: { id: resetRecord.userId },
+      data: { password: hashedPassword }
+    }),
+    prisma.passwordResetToken.update({
+      where: { id: resetRecord.id },
+      data: { used: true }
+    })
+  ]);
+
+  return { message: getMessage('auth.success.resetPassword') }
 }

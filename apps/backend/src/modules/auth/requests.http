@@ -3,7 +3,7 @@ POST http://localhost:4000/api/auth/register
 Content-Type: application/json
 
 {
-  "email": "georgiana.konopelski@ethereal.email",
+  "email": "cleveland.nolan@ethereal.email",
   "password": "Password123!",
   "name": "Maciek",
   "surname": "Bobo",
@@ -16,13 +16,39 @@ POST http://localhost:4000/api/auth/activate
 Content-Type: application/json
 
 {
-  "token": "0QQI2"
+  "token": "91E0Y"
+}
+
+### Request Password Reset
+POST http://localhost:4000/api/auth/request-password-reset
+Content-Type: application/json
+
+{
+  "email": "cleveland.nolan@ethereal.email"
+}
+
+### Reset Password
+POST http://localhost:4000/api/auth/reset-password
+Content-Type: application/json
+
+{
+  "token": "WJG2LXJY3VUVU4BZCKU5O1I3",
+  "newPassword": "NewSecurePassword123!"
+}
+
+### Login User
+POST http://localhost:4000/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "cleveland.nolan@ethereal.email",
+  "password": "NewSecurePassword123!"
 }
 
 ### Update User Profile
 PATCH http://localhost:4000/api/auth/update
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImVtYWlsIjoidGVzdDJAZXhhbXBsZS5jb20iLCJpYXQiOjE3NTEwNTg4MjksImV4cCI6MTc1MTA2MjQyOX0.uHwfKV-wN4xkMaiiiuXfqxmxJfStDXRzYiJs6JFuScU
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJhZDI1YzkxZi1hZTc0LTRlYTUtODBmNS0wZDc4NDFkOWI1Y2EiLCJlbWFpbCI6ImNsZXZlbGFuZC5ub2xhbkBldGhlcmVhbC5lbWFpbCIsImlhdCI6MTc1MTgwMDAzNywiZXhwIjoxNzUxODg2NDM3fQ.sImTT8MqcoVCRGv5AZ4EaFtHNmEfChpNSWQK2eUI7m4
 
 {
   "name": "Pawełek",
@@ -31,17 +57,8 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImVtY
   "sex": "f"
 }
 
-### Login User
-POST http://localhost:4000/api/auth/login
-Content-Type: application/json
-
-{
-  "email": "georgiana.konopelski@ethereal.email",
-  "password": "Password123!"
-}
-
 ### Get User Profile (Protected Route)
 GET http://localhost:4000/api/auth/profile
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImVtYWlsIjoidGVzdDJAZXhhbXBsZS5jb20iLCJpYXQiOjE3NTEwNTg4MjksImV4cCI6MTc1MTA2MjQyOX0.uHwfKV-wN4xkMaiiiuXfqxmxJfStDXRzYiJs6JFuScU
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJhZDI1YzkxZi1hZTc0LTRlYTUtODBmNS0wZDc4NDFkOWI1Y2EiLCJlbWFpbCI6ImNsZXZlbGFuZC5ub2xhbkBldGhlcmVhbC5lbWFpbCIsImlhdCI6MTc1MTgwMDAzNywiZXhwIjoxNzUxODg2NDM3fQ.sImTT8MqcoVCRGv5AZ4EaFtHNmEfChpNSWQK2eUI7m4
 
 ###

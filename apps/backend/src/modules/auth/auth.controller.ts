@@ -2,7 +2,7 @@ import { RegisterRequest } from '@mindweave/types';
 import { NextFunction, Request, Response } from 'express';
 
 import { getMessage } from '../../locales';
-import { loginUser, registerUser, updateUser, activateAccount } from './auth.service';
+import { loginUser, registerUser, updateUser, activateAccount, requestResetUserPassword, resetUserPassword } from './auth.service';
 
 export const register = async (
   req: Request,
@@ -27,6 +27,8 @@ export const register = async (
     next(error);
   }
 };
+
+// ______________________________________
 
 export const update = async (
   req: Request,
@@ -55,6 +57,8 @@ export const update = async (
   }
 };
 
+// ______________________________________
+
 export const login = async (
   req: Request,
   res: Response,
@@ -72,6 +76,8 @@ export const login = async (
     next(error);
   }
 };
+
+// ______________________________________
 
 export const activate = async (req: Request,
   res: Response,
@@ -98,5 +104,35 @@ export const activate = async (req: Request,
     });
   } catch (error) {
     next(error);
+  }
+}
+
+// ______________________________________
+
+export const requestResetPassword = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { email } = req.body;
+
+    if (!email) {
+      const err: any = new Error(getMessage('auth.error.emailRequired'));
+      err.statusCode = 400;
+      throw err;
+    }
+
+    const result = await requestResetUserPassword(email)
+    res.status(200).json(result)
+  } catch (error) { next(error) }
+}
+
+// ______________________________________
+
+export const resetPassword = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { token, newPassword } = req.body;
+
+    const result = await resetUserPassword(token, newPassword);
+    res.status(200).json(result)
+  } catch (error) {
+    next(error)
   }
 }

@@ -55,6 +55,8 @@ export const validateRegister = (
   next();
 };
 
+// ______________________________________
+
 export const validateLogin = (
   req: Request,
   res: Response,
@@ -64,6 +66,68 @@ export const validateLogin = (
 
   if (!email || !password) {
     res.status(400).json({ message: getMessage('auth.error.emailRequired') });
+    return;
+  }
+
+  next();
+};
+
+// ______________________________________
+
+export const validateRequestResetPassword = (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): void => {
+  const { email } = req.body;
+
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    res
+      .status(400)
+      .json({ message: getMessage('auth.error.invalidEmailFormat') });
+    return;
+  }
+
+  next();
+};
+
+// ______________________________________
+
+export const validateResetPassword = (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): void => {
+  const { token, newPassword } = req.body;
+
+  if (!token || !newPassword) {
+    res.status(400).json({ message: getMessage('auth.error.emailRequired') });
+    return;
+  }
+
+  if (newPassword.length < 8) {
+    res
+      .status(400)
+      .json({ message: getMessage('auth.error.passwordTooShort') });
+    return;
+  }
+
+  const hasDigit = /[0-9]/.test(newPassword);
+  if (!hasDigit) {
+    res.status(400).json({ message: getMessage('auth.error.passwordNoDigit') });
+    return;
+  }
+
+  const hasUpper = /[A-Z]/.test(newPassword);
+  if (!hasUpper) {
+    res.status(400).json({ message: getMessage('auth.error.passwordNoUpper') });
+    return;
+  }
+  const hasSpecialChar = /[^\s\w]/.test(newPassword);
+  if (!hasSpecialChar) {
+    res
+      .status(400)
+      .json({ message: getMessage('auth.error.passwordNoSpecialChar') });
     return;
   }
 
