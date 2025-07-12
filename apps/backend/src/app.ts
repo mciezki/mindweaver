@@ -3,10 +3,12 @@ import express from 'express';
 
 import { errorHandler } from './middlewares/errorHandler';
 import authRoutes from './modules/auth/auth.routes';
+import cookieParser from 'cookie-parser';
 
 const app = express();
 
 app.use(express.json());
+app.use(cookieParser())
 app.use(
   cors({
     origin: process.env.DOMAIN_URL || 'http://localhost:3000',

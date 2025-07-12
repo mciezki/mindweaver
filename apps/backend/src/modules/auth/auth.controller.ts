@@ -2,7 +2,8 @@ import { RegisterRequest } from '@mindweave/types';
 import { NextFunction, Request, Response } from 'express';
 
 import { getMessage } from '../../locales';
-import { loginUser, registerUser, updateUser, activateAccount, requestResetUserPassword, resetUserPassword } from './auth.service';
+import { loginUser, registerUser, updateUser, activateAccount, requestResetUserPassword, resetUserPassword, revokeRefreshToken, refreshAccessToken } from './auth.service';
+import { COOKIES_BASIC_OPTIONS, JWT_REFRESH_EXPIRES_IN } from '../../utils/consts';
 
 export const register = async (
   req: Request,
@@ -67,15 +68,38 @@ export const login = async (
   try {
     const { email, password } = req.body;
 
-    const result = await loginUser({ email, password });
+    const { user, accessToken, refreshToken } = await loginUser({ email, password });
+
+    res.cookie('refreshToken', refreshToken, {
+      ...COOKIES_BASIC_OPTIONS,
+      expires: new Date(Date.now() + JWT_REFRESH_EXPIRES_IN * 24 * 60 * 60 * 1000)
+    })
 
     res
       .status(200)
-      .json({ message: getMessage('auth.success.loggedIn'), ...result });
+      .json({ message: getMessage('auth.success.loggedIn'), user, accessToken });
   } catch (error) {
     next(error);
   }
 };
+
+// ______________________________________
+
+export const logout = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const refreshToken = req.cookies.refreshToken;
+
+    if (refreshToken) {
+      await revokeRefreshToken(refreshToken);
+    }
+
+    res.clearCookie('refreshToken', COOKIES_BASIC_OPTIONS)
+
+    res.status(200).json()
+  } catch (error) {
+    next(error)
+  }
+}
 
 // ______________________________________
 
@@ -133,6 +157,35 @@ export const resetPassword = async (req: Request, res: Response, next: NextFunct
     const result = await resetUserPassword(token, newPassword);
     res.status(200).json(result)
   } catch (error) {
+    next(error)
+  }
+}
+
+// ______________________________________
+
+export const refresh = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const oldRefreshToken = req.cookies.refreshToken;
+
+    if (!oldRefreshToken) {
+      const err: any = new Error(getMessage('auth.error.invalidToken'));
+      err.statusCode = 401;
+      throw err;
+    }
+
+    const { user, accessToken, refreshToken } = await refreshAccessToken(oldRefreshToken);
+
+    res.cookie('refreshToken', refreshToken, {
+      ...COOKIES_BASIC_OPTIONS,
+      expires: new Date(Date.now() + JWT_REFRESH_EXPIRES_IN * 24 * 60 * 60 * 1000)
+    })
+
+    res.status(200).json({
+      user, accessToken
+    });
+
+  }
+  catch (error) {
     next(error)
   }
 }
