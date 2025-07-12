@@ -45,6 +45,10 @@ Content-Type: application/json
   "password": "NewSecurePassword123!"
 }
 
+### Refresh Access Token
+POST http://localhost:4000/api/auth/refresh
+Content-Type: application/json
+
 ### Update User Profile
 PATCH http://localhost:4000/api/auth/update
 Content-Type: application/json
@@ -59,6 +63,9 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJhZDI1Y
 
 ### Get User Profile (Protected Route)
 GET http://localhost:4000/api/auth/profile
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJhZDI1YzkxZi1hZTc0LTRlYTUtODBmNS0wZDc4NDFkOWI1Y2EiLCJlbWFpbCI6ImNsZXZlbGFuZC5ub2xhbkBldGhlcmVhbC5lbWFpbCIsImlhdCI6MTc1MTgwMDAzNywiZXhwIjoxNzUxODg2NDM3fQ.sImTT8MqcoVCRGv5AZ4EaFtHNmEfChpNSWQK2eUI7m4
-
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJhZDI1YzkxZi1hZTc0LTRlYTUtODBmNS0wZDc4NDFkOWI1Y2EiLCJlbWFpbCI6ImNsZXZlbGFuZC5ub2xhbkBldGhlcmVhbC5lbWFpbCIsImlhdCI6MTc1MjMyMDg3OSwiZXhwIjoxNzUyMzIxNzc5fQ.YvaaA_vLVQihIoceULE8_oyiTbf1khHTRjeBMwVs-JQ
 ###
+
+### Logout and Revoke Refresh Token
+POST http://localhost:4000/api/auth/logout
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJhZDI1YzkxZi1hZTc0LTRlYTUtODBmNS0wZDc4NDFkOWI1Y2EiLCJlbWFpbCI6ImNsZXZlbGFuZC5ub2xhbkBldGhlcmVhbC5lbWFpbCIsImlhdCI6MTc1MjMyMDg3OSwiZXhwIjoxNzUyMzIxNzc5fQ.YvaaA_vLVQihIoceULE8_oyiTbf1khHTRjeBMwVs-JQ

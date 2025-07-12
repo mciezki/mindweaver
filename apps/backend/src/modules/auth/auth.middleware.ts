@@ -28,10 +28,10 @@ export const authMiddleware = (
     return;
   }
 
-  const token = authHeader.split(' ')[1];
+  const accessToken = authHeader.split(' ')[1];
 
   try {
-    const decoded = jwt.verify(token, JWT_SECRET) as {
+    const decoded = jwt.verify(accessToken, JWT_SECRET) as {
       userId: string;
       email: string;
     };
