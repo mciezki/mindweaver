@@ -3,7 +3,7 @@ import { NextFunction, Request, Response } from 'express';
 
 import { getMessage } from '../../locales';
 import { loginUser, registerUser, updateUser, activateAccount, requestResetUserPassword, resetUserPassword, revokeRefreshToken, refreshAccessToken } from './auth.service';
-import { COOKIES_BASIC_OPTIONS, JWT_REFRESH_EXPIRES_IN } from '../../utils/consts';
+import { COOKIES_BASIC_OPTIONS, JWT_EXPIRES_IN_SECONDS, JWT_REFRESH_EXPIRES_IN } from '../../utils/consts';
 
 export const register = async (
   req: Request,
@@ -75,9 +75,14 @@ export const login = async (
       expires: new Date(Date.now() + JWT_REFRESH_EXPIRES_IN * 24 * 60 * 60 * 1000)
     })
 
+    res.cookie('accessToken', accessToken, {
+      ...COOKIES_BASIC_OPTIONS,
+      expires: new Date(Date.now() + JWT_EXPIRES_IN_SECONDS * 1000)
+    });
+
     res
       .status(200)
-      .json({ message: getMessage('auth.success.loggedIn'), user, accessToken });
+      .json({ message: getMessage('auth.success.loggedIn'), user });
   } catch (error) {
     next(error);
   }
@@ -94,9 +99,11 @@ export const logout = async (req: Request, res: Response, next: NextFunction) =>
     }
 
     res.clearCookie('refreshToken', COOKIES_BASIC_OPTIONS)
+    res.clearCookie('accessToken', COOKIES_BASIC_OPTIONS);
 
-    res.status(200).json()
+    res.status(200).json({ message: getMessage('auth.success.loggedOut') })
   } catch (error) {
+    console.log(error)
     next(error)
   }
 }
@@ -180,8 +187,13 @@ export const refresh = async (req: Request, res: Response, next: NextFunction) =
       expires: new Date(Date.now() + JWT_REFRESH_EXPIRES_IN * 24 * 60 * 60 * 1000)
     })
 
+    res.cookie('accessToken', accessToken, {
+      ...COOKIES_BASIC_OPTIONS,
+      expires: new Date(Date.now() + JWT_EXPIRES_IN_SECONDS * 1000)
+    });
+
     res.status(200).json({
-      user, accessToken
+      user
     });
 
   }

@@ -59,7 +59,7 @@ const LoggedOutDashboard = () => {
 export default LoggedOutDashboard;
 
 const DashboardContainer = styled(Box)(({ theme }) => ({
-  minHeight: '100vh',
+  minHeight: '100%',
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',

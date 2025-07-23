@@ -1,0 +1,10 @@
+const PUBLIC_DASHBOARD_PATH = '/'
+const LOGIN_PATH = '/login'
+const SIGN_UP_PATH = '/sign-up'
+const FORGOT_PASSWORD_PATH = '/forgot-password'
+const ACTIVE_ACCOUNT_PATH = '/active-account'
+const RESET_PASSWORD_PATH = '/reset-password'
+
+const DASHBOARD_PATH = '/dashboard'
+
+export { PUBLIC_DASHBOARD_PATH, LOGIN_PATH, SIGN_UP_PATH, FORGOT_PASSWORD_PATH, ACTIVE_ACCOUNT_PATH, RESET_PASSWORD_PATH, DASHBOARD_PATH }

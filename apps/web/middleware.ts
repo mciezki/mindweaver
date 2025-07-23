@@ -1,17 +1,18 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
+import { ACTIVE_ACCOUNT_PATH, DASHBOARD_PATH, FORGOT_PASSWORD_PATH, LOGIN_PATH, PUBLIC_DASHBOARD_PATH, RESET_PASSWORD_PATH, SIGN_UP_PATH } from './utils/paths';
 
 const publicRoutes = [
-    '/',
-    '/login',
-    '/sign-up',
-    '/forgot-password',
-    '/active-account',
-    '/reset-password',
+    PUBLIC_DASHBOARD_PATH,
+    LOGIN_PATH,
+    SIGN_UP_PATH,
+    FORGOT_PASSWORD_PATH,
+    ACTIVE_ACCOUNT_PATH,
+    RESET_PASSWORD_PATH,
 ];
 
 const privateRoutes = [
-    '/dashboard',
+    DASHBOARD_PATH,
     '/profile',
     '/settings',
 ];
@@ -19,12 +20,18 @@ const privateRoutes = [
 export function middleware(request: NextRequest) {
     const accessToken = request.cookies.get('accessToken')?.value;
 
-    const isPublicRoute = publicRoutes.some(route => new RegExp(`^${route}$`).test(request.nextUrl.pathname));
-    const isPrivateRoute = privateRoutes.some(route => new RegExp(`^${route}$`).test(request.nextUrl.pathname));
+    const { pathname } = request.nextUrl;
+    const isPublicRoute = publicRoutes.some(route => pathname === route || (route === PUBLIC_DASHBOARD_PATH && pathname === PUBLIC_DASHBOARD_PATH));
+
+    const isPrivateRoute = privateRoutes.some(route => pathname.startsWith(route));
 
     if (accessToken) {
-        if (isPublicRoute && (request.nextUrl.pathname === '/login' || request.nextUrl.pathname === '/sign-up' || request.nextUrl.pathname === '/')) {
-            return NextResponse.redirect(new URL('/dashboard', request.url));
+        if (
+            pathname === LOGIN_PATH ||
+            pathname === SIGN_UP_PATH ||
+            pathname === PUBLIC_DASHBOARD_PATH
+        ) {
+            return NextResponse.redirect(new URL(DASHBOARD_PATH, request.url));
         }
         return NextResponse.next();
     }
@@ -33,8 +40,8 @@ export function middleware(request: NextRequest) {
 
         if (isPrivateRoute) {
 
-            const loginUrl = new URL('/login', request.url);
-            loginUrl.searchParams.set('redirect', request.nextUrl.pathname);
+            const loginUrl = new URL(LOGIN_PATH, request.url);
+            loginUrl.searchParams.set('redirect', pathname);
             return NextResponse.redirect(loginUrl);
         }
 
