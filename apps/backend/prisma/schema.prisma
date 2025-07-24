@@ -31,11 +31,11 @@ model User {
   type      UserType @default(USER)
   active    Boolean  @default(false)
 
-  profileName  String? @map("profile_name")
+  profileName  String?
   slug         String? @unique
   description  String? @db.Text
-  profileImage String? @map("profile_image")
-  coverImage   String? @map("cover_image")
+  profileImage String?
+  coverImage   String?
 
   activationTokens    ActivationToken[]
   passwordResetTokens PasswordResetToken[]
