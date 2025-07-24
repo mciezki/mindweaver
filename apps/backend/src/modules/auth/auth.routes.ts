@@ -1,9 +1,15 @@
 import { Router } from 'express';
 
 import { getMessage } from '../../locales';
-import { login, register, update, activate, requestResetPassword, resetPassword, logout, refresh } from './auth.controller';
-import { authMiddleware } from './auth.middleware';
+import { authMiddleware } from '../../middlewares/auth.middleware';
 import { validateLogin, validateRegister, validateRequestResetPassword, validateResetPassword } from './auth.validator';
+import { register } from './controllers/register.controller';
+import { login } from './controllers/login.controller';
+import { logout } from './controllers/logout.controller';
+import { activate } from './controllers/activate.controller';
+import { requestResetPassword, resetPassword } from './controllers/reset-password.controller';
+import { update } from './controllers/update-user.controller';
+import { refresh } from './controllers/refresh-token.controller';
 
 const router = Router();
 

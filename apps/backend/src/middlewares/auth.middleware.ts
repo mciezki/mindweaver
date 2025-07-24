@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 
-import { getMessage } from '../../locales';
+import { getMessage } from '../locales';
 
 const JWT_SECRET = process.env.JWT_SECRET || '';
 
