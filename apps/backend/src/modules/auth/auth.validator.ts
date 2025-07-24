@@ -101,7 +101,7 @@ export const validateResetPassword = (
   const { token, newPassword } = req.body;
 
   if (!token || !newPassword) {
-    res.status(400).json({ message: getMessage('auth.error.emailRequired') });
+    res.status(400).json({ message: getMessage('auth.error.tokenRequired') });
     return;
   }
 

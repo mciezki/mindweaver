@@ -1,0 +1,158 @@
+{
+    "app": "MindWeave",
+    "common": {
+        "loading": "Loading...",
+        "error_message": "An unexpected error occurred. Please try again."
+    },
+    "dashboard": {
+        "title": "MindWeave: Craft Your Knowledge, Unleash Your Potential",
+        "description": "Transform your raw ideas into structured insights. MindWeave offers an elegant and powerful platform to journal your thoughts, develop projects, and explore connections that spark creativity. Cultivate your intellectual garden and watch your understanding grow, one woven idea at a time.",
+        "login": "Log In",
+        "signup": "Sign Up",
+        "logout": "Log out"
+    },
+    "login": {
+        "title": "Welcome Back!",
+        "subtitle": "Sign in to continue to your account.",
+        "form": {
+            "email": {
+                "label": "Email",
+                "placeholder": "Enter your email address",
+                "required": "Email is required.",
+                "invalid": "Invalid email address."
+            },
+            "password": {
+                "label": "Password",
+                "placeholder": "Enter your password",
+                "required": "Password is required."
+            },
+            "forgot_password": "Forgot Password?",
+            "button": "Log In"
+        },
+        "no_account": "Don't have an account?",
+        "sign_up_link": "Sign Up",
+        "not_active": "Forgot to activate your account?",
+        "activate_link": "Activate it now"
+    },
+    "activate_account": {
+        "title": "Account Activation",
+        "subtitle": "Enter the activation token you received in your email.",
+        "form": {
+            "token": {
+                "label": "Activation Token",
+                "placeholder": "e.g., 12345",
+                "required": "Token is required.",
+                "length": "Token must be 5 characters long."
+            },
+            "button": "Activate Account"
+        },
+        "error": {
+            "unknown": "An unexpected error occurred during account activation."
+        },
+        "successMessage": "Account successfully activated!",
+        "redirectToLogin": "Redirecting to login page in 3 seconds...",
+        "have_account": "Already have an account?",
+        "login_link": "Log In"
+    },
+    "register": {
+        "title": "Join MindWeave",
+        "subtitle": "Create your account to unlock full features.",
+        "form": {
+            "email": {
+                "label": "Email",
+                "placeholder": "Enter your email address",
+                "required": "Email is required.",
+                "invalid": "Invalid email address."
+            },
+            "password": {
+                "label": "Password",
+                "placeholder": "Create a password",
+                "required": "Password is required.",
+                "min_length": "Password must be at least 8 characters long.",
+                "uppercase_required": "Password must contain at least one uppercase letter.",
+                "lowercase_required": "Password must contain at least one lowercase letter.",
+                "number_required": "Password must contain at least one number.",
+                "special_char_required": "Password must contain at least one special character."
+            },
+            "confirm_password": {
+                "label": "Confirm Password",
+                "placeholder": "Re-enter your password",
+                "required": "Confirm password is required."
+            },
+            "passwords_mismatch": "Passwords don't match.",
+            "name": {
+                "label": "First Name",
+                "placeholder": "Enter your first name",
+                "required": "First name is required."
+            },
+            "surname": {
+                "label": "Last Name",
+                "placeholder": "Enter your last name",
+                "required": "Last name is required."
+            },
+            "birthday": {
+                "label": "Birthday",
+                "placeholder": "YYYY-MM-DD",
+                "required": "Birthday is required.",
+                "invalid_format": "Invalid date format. Expected YYYY-MM-DD.",
+                "invalid_date": "Invalid date."
+            },
+            "sex": {
+                "label": "Sex",
+                "male": "Male",
+                "female": "Female",
+                "invalid": "Sex must be 'm' or 'f'."
+            },
+            "button": "Register"
+        },
+        "already_have_account": "Already have an account?",
+        "login_link": "Log In"
+    },
+    "forgot_password": {
+        "title": "Forgot Your Password?",
+        "subtitle": "Enter your email address below and we'll send you a link to reset your password.",
+        "success_message": "If an account with that email exists, a password reset link has been sent.",
+        "error_message": "Failed to send reset email. Please try again later.",
+        "form": {
+            "email": {
+                "label": "Email",
+                "placeholder": "Enter your email address",
+                "required": "Email is required.",
+                "invalid": "Invalid email address."
+            },
+            "button": "Send Reset Link"
+        },
+        "back_to_login": "Back to Log In"
+    },
+    "reset_password": {
+        "title": "Reset Your Password",
+        "subtitle": "Enter your new password below.",
+        "success_message": "Your password has been successfully reset. You can now log in.",
+        "error_message": "Failed to reset password. The link may be invalid or expired.",
+        "form": {
+            "token": {
+                "label": "Token",
+                "placeholder": "Enter token from email message",
+                "required": "Token is required."
+            },
+            "password": {
+                "label": "New Password",
+                "placeholder": "Enter your new password",
+                "required": "Password is required.",
+                "min_length": "Password must be at least 8 characters long.",
+                "uppercase_required": "Password must contain at least one uppercase letter.",
+                "lowercase_required": "Password must contain at least one lowercase letter.",
+                "number_required": "Password must contain at least one number.",
+                "special_char_required": "Password must contain at least one special character."
+            },
+            "confirm_password": {
+                "label": "Confirm New Password",
+                "placeholder": "Re-enter your new password",
+                "required": "Confirm password is required."
+            },
+            "passwords_mismatch": "Passwords don't match.",
+            "button": "Reset Password"
+        },
+        "go_to_login": "Go to Log In"
+    }
+}

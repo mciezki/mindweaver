@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 
-import { getMessage } from '../../locales';
+import { getMessage } from '../locales';
 
 const JWT_SECRET = process.env.JWT_SECRET || '';
 
@@ -21,14 +21,12 @@ export const authMiddleware = (
   res: Response,
   next: NextFunction,
 ): void => {
-  const authHeader = req.headers.authorization;
+  const accessToken = req.cookies.accessToken;
 
-  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+  if (!accessToken) {
     res.status(401).json({ message: getMessage('auth.error.noToken') });
     return;
   }
-
-  const accessToken = authHeader.split(' ')[1];
 
   try {
     const decoded = jwt.verify(accessToken, JWT_SECRET) as {

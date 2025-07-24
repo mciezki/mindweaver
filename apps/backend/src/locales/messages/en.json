@@ -3,6 +3,7 @@
     "success": {
       "registered": "User registered successfully. Check your email for activation token.",
       "loggedIn": "Logged in successfully.",
+      "loggedOut": "Logged out successfully.",
       "profileFetched": "Welcome to your profile!",
       "profileUpdated": "Profile updated",
       "resetPasswordRequest": "Reset password code has been sent!",
