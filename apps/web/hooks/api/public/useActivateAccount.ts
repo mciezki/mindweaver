@@ -1,24 +1,26 @@
 import { useMutation } from '@tanstack/react-query';
 import { post } from '@/utils/api/apiClients';
-import { AuthResponse, RegisterRequest } from '@mindweave/types';
-import { useNotification } from '@/contexts/NotificationContext';
 import { PUBLIC_API } from '@/utils/api/apiPaths';
-import { ACTIVATE_ACCOUNT_PATH } from '@/utils/paths';
+import { useNotification } from '@/contexts/NotificationContext';
 import { useRouter } from 'next/navigation';
+import { LOGIN_PATH } from '@/utils/paths';
+import { ActivateAccountSchema } from '@/utils/validators/activate-account-schema';
 
+interface ApiResponse {
+    message: string;
+}
 
-export const useRegisterMutation = () => {
+export const useActivateAccount = () => {
     const { showNotification } = useNotification();
     const { push } = useRouter()
-
-    return useMutation<AuthResponse, Error, RegisterRequest>({
-        mutationFn: async (data: RegisterRequest) => {
-            const response = await post<AuthResponse, RegisterRequest>(PUBLIC_API.register, data);
+    return useMutation<ApiResponse, Error, ActivateAccountSchema>({
+        mutationFn: async (data: ActivateAccountSchema) => {
+            const response = await post<ApiResponse, ActivateAccountSchema>(PUBLIC_API.activate, data);
             return response;
         },
         onSuccess: (data) => {
-            showNotification((data as any)?.message || '', 'success');
-            push(ACTIVATE_ACCOUNT_PATH)
+            showNotification(data.message, 'success');
+            push(LOGIN_PATH)
         },
         onError: (error) => {
             const apiErrorMessage = (error as any)?.response?.data?.message;

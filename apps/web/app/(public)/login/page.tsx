@@ -8,7 +8,7 @@ import Link from 'next/link';
 import { Box, TextField, Button, Typography, styled, Alert, CircularProgress } from '@mui/material';
 import { loginSchema, LoginSchema } from '@/utils/validators/login-schema';
 import { useLoginMutation } from '@/hooks/api/public/useLogin';
-import { FORGOT_PASSWORD_PATH } from '@/utils/paths';
+import { ACTIVATE_ACCOUNT_PATH, FORGOT_PASSWORD_PATH, SIGN_UP_PATH } from '@/utils/paths';
 
 const LoginPage = () => {
   const { t } = useTranslation();
@@ -30,7 +30,7 @@ const LoginPage = () => {
   return (
     <Box
       sx={{
-        minHeight: '100vh',
+        height: '100%',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
@@ -88,15 +88,28 @@ const LoginPage = () => {
             {isPending ? t('common.loading') : t('login.form.button')}
           </Button>
         </form>
-
-        <Typography variant="body2" align="center" sx={{ color: 'text.secondary', mt: 2 }}>
-          {t('login.no_account')}
-          <Link href="/sign-up" passHref>
-            <Button component="span" color="primary" sx={{ textTransform: 'none' }}>
-              {t('login.sign_up_link')}
-            </Button>
-          </Link>
-        </Typography>
+        <Box>
+          <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <Typography variant="body2" align="center" sx={{ color: 'text.secondary', mt: 2 }}>
+              {t('login.no_account')}
+            </Typography>
+            <Link href={SIGN_UP_PATH} passHref>
+              <Button component="span" color="primary" sx={{ textTransform: 'none' }}>
+                {t('login.sign_up_link')}
+              </Button>
+            </Link>
+          </Box>
+          <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mt: 2 }}>
+            <Typography variant="body2" align="center" sx={{ color: 'text.secondary' }}>
+              {t('login.not_active')}
+            </Typography>
+            <Link href={ACTIVATE_ACCOUNT_PATH} passHref>
+              <Button component="span" color="primary" sx={{ textTransform: 'none' }}>
+                {t('login.activate_link')}
+              </Button>
+            </Link>
+          </Box>
+        </Box>
       </FormContainer>
     </Box>
   );

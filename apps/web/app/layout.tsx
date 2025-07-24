@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import AppProviders from '@/providers/AppProviders';
 
 export const metadata: Metadata = {
-  title: 'Mindweaver',
+  title: 'Mindweave',
   description: 'Your own creativity space',
   icons: {
     icon: '/favicon.ico',

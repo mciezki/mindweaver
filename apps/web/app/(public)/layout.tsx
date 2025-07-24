@@ -4,6 +4,8 @@ import { ReactNode } from 'react';
 import { AppBar, Toolbar, Box, Button, styled, Typography } from '@mui/material';
 import Link from 'next/link';
 import { useTranslation } from 'react-i18next';
+import { PUBLIC_DASHBOARD_PATH } from '@/utils/paths';
+import { useRouter } from 'next/navigation';
 
 
 interface PublicLayoutProps {
@@ -12,12 +14,13 @@ interface PublicLayoutProps {
 
 const Layout = ({ children }: PublicLayoutProps) => {
     const { t } = useTranslation();
+    const { push } = useRouter()
 
     return (
         <Box sx={{ flexGrow: 1, padding: '16px' }}>
             <StyledAppBar position="sticky">
                 <StyledToolbar>
-                    <LogoContainer >
+                    <LogoContainer onClick={() => push(PUBLIC_DASHBOARD_PATH)}>
                         <Typography
                             variant="h6"
                             component="div"

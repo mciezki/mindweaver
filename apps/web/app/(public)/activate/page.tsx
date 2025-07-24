@@ -5,30 +5,39 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
 import Link from 'next/link';
 
-import { Box, TextField, Button, Typography, styled, Alert, CircularProgress } from '@mui/material';
-import { forgotPasswordSchema, ForgotPasswordSchema } from '@/utils/validators/forgot-password-schema';
-import { useForgotPasswordMutation } from '@/hooks/api/public/useForgotPassword';
+import {
+    Box,
+    TextField,
+    Button,
+    Typography,
+    styled,
+    CircularProgress,
+} from '@mui/material';
+import { activateAccountSchema, ActivateAccountSchema } from '@/utils/validators/activate-account-schema';
+import { useActivateAccount } from '@/hooks/api/public/useActivateAccount';
+import { LOGIN_PATH } from '@/utils/paths';
 
-const ForgotPasswordPage = () => {
+const ActivateAccountPage = () => {
     const { t } = useTranslation();
 
     const {
         register,
         handleSubmit,
-        formState: { errors },
-    } = useForm<ForgotPasswordSchema>({
-        resolver: zodResolver(forgotPasswordSchema),
+        formState: { errors, isSubmitting },
+    } = useForm<ActivateAccountSchema>({
+        resolver: zodResolver(activateAccountSchema),
     });
 
-    const { mutate: sendResetPasswordEmail, isPending, isError, error } = useForgotPasswordMutation();
+    const { mutate: activate, isPending } = useActivateAccount();
 
-    const onSubmit = (data: ForgotPasswordSchema) => {
-        sendResetPasswordEmail(data)
+    const onSubmit = (data: ActivateAccountSchema) => {
+        activate(data);
     };
 
     return (
         <Box
             sx={{
+                height: '100%',
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
@@ -38,29 +47,24 @@ const ForgotPasswordPage = () => {
         >
             <FormContainer>
                 <Typography variant="h4" align="center" gutterBottom sx={{ color: 'primary.main', fontWeight: 600 }}>
-                    {t('forgot_password.title')}
+                    {t('activate_account.title')}
                 </Typography>
                 <Typography variant="body2" align="center" sx={{ color: 'text.secondary', mb: 2 }}>
-                    {t('forgot_password.subtitle')}
+                    {t('activate_account.subtitle')}
                 </Typography>
-
-                {isError && (
-                    <Alert severity="error">
-                        {t('forgot_password.error_message') || (error as any)?.response?.data?.message || t('common.error_message')}
-                    </Alert>
-                )}
 
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <TextField
-                        {...register('email')}
-                        label={t('forgot_password.form.email.label')}
-                        placeholder={t('forgot_password.form.email.placeholder')}
-                        type="email"
+                        {...register('token')}
+                        label={t('activate_account.form.token.label')}
+                        placeholder={t('activate_account.form.token.placeholder')}
+                        type="text"
                         fullWidth
                         margin="normal"
-                        error={!!errors.email}
-                        helperText={errors.email ? t('forgot_password.form.email.invalid') : ''}
+                        error={!!errors.token}
+                        helperText={errors.token ? errors.token.message : ''}
                     />
+
                     <Button
                         type="submit"
                         variant="contained"
@@ -68,17 +72,18 @@ const ForgotPasswordPage = () => {
                         fullWidth
                         size="large"
                         sx={{ mt: 2, mb: 2 }}
-                        disabled={isPending}
-                        startIcon={isPending ? <CircularProgress size={20} color="inherit" /> : null}
+                        disabled={isPending || isSubmitting}
+                        startIcon={isPending || isSubmitting ? <CircularProgress size={20} color="inherit" /> : null}
                     >
-                        {isPending ? t('common.loading') : t('forgot_password.form.button')}
+                        {isPending || isSubmitting ? t('common.loading') : t('activate_account.form.button')}
                     </Button>
                 </form>
 
                 <Typography variant="body2" align="center" sx={{ color: 'text.secondary', mt: 2 }}>
-                    <Link href="/login" passHref>
+                    {t('activate_account.have_account')}
+                    <Link href={LOGIN_PATH} passHref>
                         <Button component="span" color="primary" sx={{ textTransform: 'none' }}>
-                            {t('forgot_password.back_to_login')}
+                            {t('activate_account.login_link')}
                         </Button>
                     </Link>
                 </Typography>
@@ -87,7 +92,7 @@ const ForgotPasswordPage = () => {
     );
 };
 
-export default ForgotPasswordPage;
+export default ActivateAccountPage;
 
 const FormContainer = styled(Box)(({ theme }) => ({
     display: 'flex',

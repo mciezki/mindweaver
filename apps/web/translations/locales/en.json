@@ -1,11 +1,11 @@
 {
-    "app": "MindWeaver",
+    "app": "MindWeave",
     "common": {
         "loading": "Loading...",
         "error_message": "An unexpected error occurred. Please try again."
     },
     "dashboard": {
-        "title": "MindWeaver: Craft Your Knowledge, Unleash Your Potential",
+        "title": "MindWeave: Craft Your Knowledge, Unleash Your Potential",
         "description": "Transform your raw ideas into structured insights. MindWeave offers an elegant and powerful platform to journal your thoughts, develop projects, and explore connections that spark creativity. Cultivate your intellectual garden and watch your understanding grow, one woven idea at a time.",
         "login": "Log In",
         "signup": "Sign Up",
@@ -30,7 +30,29 @@
             "button": "Log In"
         },
         "no_account": "Don't have an account?",
-        "sign_up_link": "Sign Up"
+        "sign_up_link": "Sign Up",
+        "not_active": "Forgot to activate your account?",
+        "activate_link": "Activate it now"
+    },
+    "activate_account": {
+        "title": "Account Activation",
+        "subtitle": "Enter the activation token you received in your email.",
+        "form": {
+            "token": {
+                "label": "Activation Token",
+                "placeholder": "e.g., 12345",
+                "required": "Token is required.",
+                "length": "Token must be 5 characters long."
+            },
+            "button": "Activate Account"
+        },
+        "error": {
+            "unknown": "An unexpected error occurred during account activation."
+        },
+        "successMessage": "Account successfully activated!",
+        "redirectToLogin": "Redirecting to login page in 3 seconds...",
+        "have_account": "Already have an account?",
+        "login_link": "Log In"
     },
     "register": {
         "title": "Join MindWeave",
