@@ -8,7 +8,7 @@ import prisma from '../../../database/prisma';
 import { getMessage } from '../../../locales';
 
 
-export const updateUser = async (
+export const updateUserProfile = async (
   userId: string,
   updateData: Partial<RegisterRequest>,
 ): Promise<Omit<User, 'active'>> => {
@@ -51,6 +51,11 @@ export const updateUser = async (
         createdAt: true,
         updatedAt: true,
         type: true,
+        profileName: true,
+        slug: true,
+        description: true,
+        profileImage: true,
+        coverImage: true,
       },
     });
 
@@ -58,6 +63,11 @@ export const updateUser = async (
   } catch (error: any) {
     if (error.code === 'P2002' && error.meta?.target?.includes('email')) {
       const err: any = new Error(getMessage('auth.error.emailExists'));
+      err.statusCode = 409;
+      throw err;
+    }
+    if (error.code === 'P2002' && error.meta?.target?.includes('slug')) {
+      const err: any = new Error(getMessage('auth.error.slugAlreadyExists'));
       err.statusCode = 409;
       throw err;
     }

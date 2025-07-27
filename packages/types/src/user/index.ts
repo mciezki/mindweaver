@@ -9,4 +9,10 @@ export interface User {
   updatedAt: Date;
   type: string;
   active: boolean
+
+  profileName?: string | null;
+  slug?: string | null;
+  description?: string | null;
+  profileImage?: string | null;
+  coverImage?: string | null;
 }

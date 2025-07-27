@@ -2,13 +2,13 @@ import { Router } from 'express';
 
 import { getMessage } from '../../locales';
 import { authMiddleware } from '../../middlewares/auth.middleware';
-import { validateLogin, validateRegister, validateRequestResetPassword, validateResetPassword } from './auth.validator';
+import { validateLogin, validateRegister, validateRequestResetPassword, validateResetPassword, validateProfileUpdate } from './auth.validator';
 import { register } from './controllers/register.controller';
 import { login } from './controllers/login.controller';
 import { logout } from './controllers/logout.controller';
 import { activate } from './controllers/activate.controller';
 import { requestResetPassword, resetPassword } from './controllers/reset-password.controller';
-import { update } from './controllers/update-user.controller';
+import { updateProfile } from './controllers/update-user.controller';
 import { refresh } from './controllers/refresh-token.controller';
 
 const router = Router();
@@ -22,7 +22,7 @@ router.post('/activate', activate);
 router.post('/request-password-reset', validateRequestResetPassword, requestResetPassword)
 router.post('/reset-password', validateResetPassword, resetPassword)
 
-router.patch('/update', authMiddleware, update);
+router.patch('/profile/update', authMiddleware, validateProfileUpdate, updateProfile);
 
 router.post('/refresh', refresh)
 
