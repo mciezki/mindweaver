@@ -1,7 +1,4 @@
-import {
-  AuthResponse,
-  RegisterRequest,
-} from '@mindweave/types';
+import { AuthResponse, RegisterRequest } from '@mindweave/types';
 import bcrypt from 'bcryptjs';
 
 import prisma from '../../../database/prisma';
@@ -20,7 +17,7 @@ export const registerUser = async (
         ...registeredUser,
         password: hashedPassword,
         birthday: new Date(registeredUser.birthday),
-        active: false
+        active: false,
       },
       select: {
         id: true,
@@ -32,7 +29,7 @@ export const registerUser = async (
         createdAt: true,
         updatedAt: true,
         type: true,
-        active: true
+        active: true,
       },
     });
 
@@ -44,11 +41,15 @@ export const registerUser = async (
       data: {
         token: activationToken,
         userId: user.id,
-        expiresAt: expiresAt
-      }
-    })
+        expiresAt: expiresAt,
+      },
+    });
 
-    await sendActivationEmail(user.email, activationToken, user.name || user.email);
+    await sendActivationEmail(
+      user.email,
+      activationToken,
+      user.name || user.email,
+    );
 
     return { user };
   } catch (error: any) {

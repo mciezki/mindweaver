@@ -1,18 +1,14 @@
-import {
-  RegisterRequest,
-  User,
-} from '@mindweave/types';
+import { RegisterRequest, User } from '@mindweave/types';
 import bcrypt from 'bcryptjs';
 
 import prisma from '../../../database/prisma';
 import { getMessage } from '../../../locales';
 
-
 export const updateUserProfile = async (
   userId: string,
   updateData: Partial<RegisterRequest>,
 ): Promise<Omit<User, 'active'>> => {
-  console.log(updateData)
+  console.log(updateData);
   const { birthday, password, ...restOfUpdateData } = updateData;
 
   const dataToUpdate: Partial<RegisterRequest> = { ...restOfUpdateData };

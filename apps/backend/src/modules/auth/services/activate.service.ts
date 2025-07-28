@@ -1,21 +1,20 @@
-import {
-  User,
-} from '@mindweave/types';
+import { User } from '@mindweave/types';
 
 import prisma from '../../../database/prisma';
 import { getMessage } from '../../../locales';
 
-
-export const activateAccount = async (activationToken: string): Promise<User> => {
+export const activateAccount = async (
+  activationToken: string,
+): Promise<User> => {
   const activationRecord = await prisma.activationToken.findUnique({
     where: { token: activationToken },
-    include: { user: true }
-  })
+    include: { user: true },
+  });
 
   if (!activationRecord) {
     const err: any = new Error(getMessage('auth.error.invalidActivationToken'));
     err.statusCode = 400;
-    throw err
+    throw err;
   }
 
   if (activationRecord.used) {
@@ -41,16 +40,23 @@ export const activateAccount = async (activationToken: string): Promise<User> =>
       where: { id: activationRecord.userId },
       data: { active: true },
       select: {
-        id: true, email: true, name: true, surname: true,
-        birthday: true, sex: true, createdAt: true, updatedAt: true,
-        type: true, active: true,
-      }
+        id: true,
+        email: true,
+        name: true,
+        surname: true,
+        birthday: true,
+        sex: true,
+        createdAt: true,
+        updatedAt: true,
+        type: true,
+        active: true,
+      },
     }),
     prisma.activationToken.update({
       where: { id: activationRecord.id },
-      data: { used: true }
-    })
-  ])
+      data: { used: true },
+    }),
+  ]);
 
-  return { ...updatedUser }
-}
+  return { ...updatedUser };
+};

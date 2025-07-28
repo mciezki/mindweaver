@@ -1,5 +1,7 @@
 import { ReactNode } from 'react';
+
 import type { Metadata } from 'next';
+
 import AppProviders from '@/providers/AppProviders';
 
 export const metadata: Metadata = {
@@ -18,9 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <AppProviders>
-          {children}
-        </AppProviders>
+        <AppProviders>{children}</AppProviders>
       </body>
     </html>
   );

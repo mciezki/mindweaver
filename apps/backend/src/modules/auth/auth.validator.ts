@@ -153,99 +153,136 @@ export const validateProfileUpdate = (
   const active = req.body.active ?? undefined;
 
   if (type !== undefined) {
-    res.status(400).json({ message: getMessage('auth.error.cannotUpdateType') });
+    res
+      .status(400)
+      .json({ message: getMessage('auth.error.cannotUpdateType') });
     return;
   }
   if (active !== undefined) {
-    res.status(400).json({ message: getMessage('auth.error.cannotUpdateActiveStatus') });
+    res
+      .status(400)
+      .json({ message: getMessage('auth.error.cannotUpdateActiveStatus') });
     return;
   }
   if (password !== undefined) {
     if (password.length < 8) {
-      res.status(400).json({ message: getMessage('auth.error.passwordTooShort') });
+      res
+        .status(400)
+        .json({ message: getMessage('auth.error.passwordTooShort') });
       return;
     }
     const hasDigit = /[0-9]/.test(password);
     if (!hasDigit) {
-      res.status(400).json({ message: getMessage('auth.error.passwordNoDigit') });
+      res
+        .status(400)
+        .json({ message: getMessage('auth.error.passwordNoDigit') });
       return;
     }
     const hasUpper = /[A-Z]/.test(password);
     if (!hasUpper) {
-      res.status(400).json({ message: getMessage('auth.error.passwordNoUpper') });
+      res
+        .status(400)
+        .json({ message: getMessage('auth.error.passwordNoUpper') });
       return;
     }
     const hasSpecialChar = /[^\s\w]/.test(password);
     if (!hasSpecialChar) {
-      res.status(400).json({ message: getMessage('auth.error.passwordNoSpecialChar') });
+      res
+        .status(400)
+        .json({ message: getMessage('auth.error.passwordNoSpecialChar') });
       return;
     }
   }
 
   if (profileName !== undefined && typeof profileName !== 'string') {
-    res.status(400).json({ message: getMessage('profile.validation.profileName.invalid') });
+    res
+      .status(400)
+      .json({ message: getMessage('profile.validation.profileName.invalid') });
     return;
   }
   if (profileName !== undefined && profileName.length > 100) {
-    res.status(400).json({ message: getMessage('profile.validation.profileName.max') });
+    res
+      .status(400)
+      .json({ message: getMessage('profile.validation.profileName.max') });
     return;
   }
 
   if (slug !== undefined) {
     if (typeof slug !== 'string') {
-      res.status(400).json({ message: getMessage('profile.validation.slug.invalid') });
+      res
+        .status(400)
+        .json({ message: getMessage('profile.validation.slug.invalid') });
       return;
     }
     if (slug.length < 3 || slug.length > 50) {
-      res.status(400).json({ message: getMessage('profile.validation.slug.length') });
+      res
+        .status(400)
+        .json({ message: getMessage('profile.validation.slug.length') });
       return;
     }
     if (!/^[a-z0-9-]+$/.test(slug)) {
-      res.status(400).json({ message: getMessage('profile.validation.slug.format') });
+      res
+        .status(400)
+        .json({ message: getMessage('profile.validation.slug.format') });
       return;
     }
   }
 
   if (description !== undefined && typeof description !== 'string') {
-    res.status(400).json({ message: getMessage('profile.validation.description.invalid') });
+    res
+      .status(400)
+      .json({ message: getMessage('profile.validation.description.invalid') });
     return;
   }
   if (description !== undefined && description.length > 1000) {
-    res.status(400).json({ message: getMessage('profile.validation.description.max') });
+    res
+      .status(400)
+      .json({ message: getMessage('profile.validation.description.max') });
     return;
   }
 
   if (name !== undefined && typeof name !== 'string') {
-    res.status(400).json({ message: getMessage('profile.validation.name.invalid') });
+    res
+      .status(400)
+      .json({ message: getMessage('profile.validation.name.invalid') });
     return;
   }
   if (name !== undefined && (name.length < 2 || name.length > 50)) {
-    res.status(400).json({ message: getMessage('profile.validation.name.length') });
+    res
+      .status(400)
+      .json({ message: getMessage('profile.validation.name.length') });
     return;
   }
 
   if (surname !== undefined && typeof surname !== 'string') {
-    res.status(400).json({ message: getMessage('profile.validation.surname.invalid') });
+    res
+      .status(400)
+      .json({ message: getMessage('profile.validation.surname.invalid') });
     return;
   }
   if (surname !== undefined && (surname.length < 2 || surname.length > 50)) {
-    res.status(400).json({ message: getMessage('profile.validation.surname.length') });
+    res
+      .status(400)
+      .json({ message: getMessage('profile.validation.surname.length') });
     return;
   }
 
   if (sex !== undefined && typeof sex !== 'string') {
-    res.status(400).json({ message: getMessage('profile.validation.sex.invalid') });
+    res
+      .status(400)
+      .json({ message: getMessage('profile.validation.sex.invalid') });
     return;
   }
 
   if (birthday !== undefined) {
     const date = new Date(birthday);
     if (isNaN(date.getTime())) {
-      res.status(400).json({ message: getMessage('profile.validation.birthday.invalid') });
+      res
+        .status(400)
+        .json({ message: getMessage('profile.validation.birthday.invalid') });
       return;
     }
   }
-
 
   next();
 };

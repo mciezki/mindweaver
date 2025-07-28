@@ -8,7 +8,7 @@ export interface User {
   createdAt: Date;
   updatedAt: Date;
   type: string;
-  active: boolean
+  active: boolean;
 
   profileName?: string | null;
   slug?: string | null;

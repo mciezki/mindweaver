@@ -5,11 +5,13 @@ import { getMessage } from '../../../locales';
 import { sendPasswordResetEmail } from '../../../services/email.service';
 import { generateShortToken } from '../../../utils/functions/generate-short-token';
 
-export const requestResetUserPassword = async (email: string): Promise<{ message: string }> => {
-  const user = await prisma.user.findUnique({ where: { email } })
+export const requestResetUserPassword = async (
+  email: string,
+): Promise<{ message: string }> => {
+  const user = await prisma.user.findUnique({ where: { email } });
 
   if (!user) {
-    return { message: getMessage('auth.success.resetPasswordRequest') }
+    return { message: getMessage('auth.success.resetPasswordRequest') };
   }
 
   await prisma.passwordResetToken.deleteMany({
@@ -17,9 +19,9 @@ export const requestResetUserPassword = async (email: string): Promise<{ message
       userId: user.id,
       used: false,
       expiresAt: {
-        gte: new Date()
-      }
-    }
+        gte: new Date(),
+      },
+    },
   });
 
   const resetToken = generateShortToken(24);
@@ -30,27 +32,32 @@ export const requestResetUserPassword = async (email: string): Promise<{ message
     data: {
       token: resetToken,
       userId: user.id,
-      expiresAt: expiresAt
-    }
+      expiresAt: expiresAt,
+    },
   });
 
   await sendPasswordResetEmail(email, resetToken);
 
-  return { message: getMessage('auth.success.resetPasswordRequest') }
-}
+  return { message: getMessage('auth.success.resetPasswordRequest') };
+};
 
 // ______________________________________
 
-export const resetUserPassword = async (token: string, newPassword: string): Promise<{ message: string }> => {
+export const resetUserPassword = async (
+  token: string,
+  newPassword: string,
+): Promise<{ message: string }> => {
   const resetRecord = await prisma.passwordResetToken.findUnique({
     where: { token },
-    include: { user: true }
+    include: { user: true },
   });
 
   if (!resetRecord) {
-    const err: any = new Error(getMessage('auth.error.invalidPasswordResetToken'))
+    const err: any = new Error(
+      getMessage('auth.error.invalidPasswordResetToken'),
+    );
     err.statusCode = 400;
-    throw err
+    throw err;
   }
 
   if (resetRecord.used) {
@@ -76,13 +83,13 @@ export const resetUserPassword = async (token: string, newPassword: string): Pro
   await prisma.$transaction([
     prisma.user.update({
       where: { id: resetRecord.userId },
-      data: { password: hashedPassword }
+      data: { password: hashedPassword },
     }),
     prisma.passwordResetToken.update({
       where: { id: resetRecord.id },
-      data: { used: true }
-    })
+      data: { used: true },
+    }),
   ]);
 
-  return { message: getMessage('auth.success.resetPassword') }
-}
+  return { message: getMessage('auth.success.resetPassword') };
+};

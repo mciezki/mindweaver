@@ -2,8 +2,8 @@ import { RegisterRequest } from '@mindweave/types';
 import { NextFunction, Request, Response } from 'express';
 
 import { getMessage } from '../../../locales';
-import { updateUserProfile } from '../services/update-user.service';
 import { uploadImageToCloudinary } from '../../../services/cloudinary.service';
+import { updateUserProfile } from '../services/update-user.service';
 
 export const updateProfile = async (
   req: Request,
@@ -21,12 +21,16 @@ export const updateProfile = async (
       };
 
       if (files['profileImage'] && files['profileImage'][0]) {
-        const profileImageUrl = await uploadImageToCloudinary(files['profileImage'][0]);
+        const profileImageUrl = await uploadImageToCloudinary(
+          files['profileImage'][0],
+        );
         updateData.profileImage = profileImageUrl;
       }
 
       if (files['coverImage'] && files['coverImage'][0]) {
-        const coverImageUrl = await uploadImageToCloudinary(files['coverImage'][0]);
+        const coverImageUrl = await uploadImageToCloudinary(
+          files['coverImage'][0],
+        );
         updateData.coverImage = coverImageUrl;
       }
     }

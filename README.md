@@ -92,7 +92,7 @@ Follow these steps to set up and run the project locally.
     # Add FRONTEND_URL if needed for email links (e.g., for password reset or activation)
     FRONTEND_URL="http://localhost:3000"
     ```
-    *Replace placeholders with your actual database credentials and other settings.* For testing emails, consider using [Ethereal Email](https://ethereal.email/).
+    _Replace placeholders with your actual database credentials and other settings._ For testing emails, consider using [Ethereal Email](https://ethereal.email/).
 3.  **Run Prisma migrations and seed the database:**
     ```bash
     cd apps/backend
@@ -110,25 +110,29 @@ From the monorepo root:
 
 bash
 npm run dev
+
 # This will concurrently start both the backend and frontend in development mode.
+
 Frontend: Accessible at http://localhost:3000
 
 Backend API: Accessible at http://localhost:4000/api
 
 ### Project Structure
+
 .
 ├── apps/
-│   ├── backend/          # Express.js API (Node.js, TypeScript, Prisma)
-│   └── web/              # Next.js Frontend (React, TypeScript, Material-UI)
+│ ├── backend/ # Express.js API (Node.js, TypeScript, Prisma)
+│ └── web/ # Next.js Frontend (React, TypeScript, Material-UI)
 ├── packages/
-│   └── types/            # Shared TypeScript type definitions
+│ └── types/ # Shared TypeScript type definitions
 ├── .eslintrc.js
 ├── .prettierrc.js
-├── package.json          # Root monorepo configuration
-├── turbo.json            # TurboRepo configuration
-└── README.md             # This file
+├── package.json # Root monorepo configuration
+├── turbo.json # TurboRepo configuration
+└── README.md # This file
 
 ### Scripts
+
 You can run scripts from the monorepo root or within individual app directories.
 
 `npm install`: Installs dependencies for all workspaces.
@@ -142,6 +146,7 @@ You can run scripts from the monorepo root or within individual app directories.
 Refer to individual README.md files in apps/backend, apps/web, and packages/types for more specific scripts.
 
 ### Authentication & Authorization
+
 This application implements a robust authentication and authorization system:
 
 Access Token (JWT): Short-lived, used for authenticating requests to protected API routes. Stored in an HTTP-only cookie.
@@ -159,7 +164,9 @@ Account Activation: New users must activate their account via an email token for
 Password Reset: Secure mechanism for users to reset forgotten passwords via email token.
 
 ### Contributing
+
 Contributions are not needed.
 
 ### License
+
 This project is licensed under the ISC License. See the LICENSE file for details.

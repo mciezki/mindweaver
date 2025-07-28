@@ -1,12 +1,13 @@
 'use client';
 
 import React from 'react';
+import { useTranslation } from 'react-i18next';
+
 import { Box, Button, Typography, styled } from '@mui/material';
 import Image from 'next/image';
 import Link from 'next/link';
 
 import dashboardBg from '@/public/images/dashboardBg.png';
-import { useTranslation } from 'react-i18next';
 
 const LoggedOutDashboard = () => {
   const { t } = useTranslation();
@@ -24,7 +25,11 @@ const LoggedOutDashboard = () => {
           />
         </ImageWrapper>
         <ContentWrapper>
-          <Typography variant="h4" gutterBottom sx={{ color: 'primary.main', fontWeight: 600 }}>
+          <Typography
+            variant="h4"
+            gutterBottom
+            sx={{ color: 'primary.main', fontWeight: 600 }}
+          >
             {t('dashboard.title')}
           </Typography>
           <Typography variant="body1" sx={{ color: 'text.secondary' }}>
@@ -88,7 +93,8 @@ const ImageWrapper = styled(Box)(({ theme }) => ({
     left: 0,
     width: '100%',
     height: '100%',
-    background: 'linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 50%)',
+    background:
+      'linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 50%)',
     pointerEvents: 'none',
   },
 }));

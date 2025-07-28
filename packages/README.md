@@ -4,19 +4,19 @@ This package (`@mindweave/types`) serves as a central repository for shared Type
 
 ## Table of Contents
 
--   [Purpose](#purpose)
--   [Installation](#installation)
--   [Usage](#usage)
--   [Development](#development)
--   [Benefits](#benefits)
+- [Purpose](#purpose)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Development](#development)
+- [Benefits](#benefits)
 
 ## Purpose
 
 The main goal of this package is to:
 
--   Define common data structures (e.g., `User`, `LoginRequest`, `RegisterRequest`, `AuthResponse`) that are exchanged between the frontend and backend.
--   Provide a single source of truth for these types, reducing the risk of discrepancies and bugs.
--   Enable end-to-end type safety in the monorepo, allowing TypeScript to catch type-related errors at compile time.
+- Define common data structures (e.g., `User`, `LoginRequest`, `RegisterRequest`, `AuthResponse`) that are exchanged between the frontend and backend.
+- Provide a single source of truth for these types, reducing the risk of discrepancies and bugs.
+- Enable end-to-end type safety in the monorepo, allowing TypeScript to catch type-related errors at compile time.
 
 ## Installation
 
@@ -67,3 +67,4 @@ Clearer Communication: Serves as a clear contract for data exchange.
 
 
 
+```

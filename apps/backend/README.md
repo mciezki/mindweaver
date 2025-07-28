@@ -4,39 +4,39 @@ This is the backend service for the MindWeave application, built with Express.js
 
 ## Table of Contents
 
--   [Technologies](#technologies)
--   [Getting Started](#getting-started)
-    -   [Prerequisites](#prerequisites)
-    -   [Installation](#installation)
-    -   [Environment Variables](#environment-variables)
-    -   [Database Setup](#database-setup)
-    -   [Running the Server](#running-the-server)
--   [API Endpoints](#api-endpoints)
--   [Authentication Flow](#authentication-flow)
--   [Database Management](#database-management)
--   [Linting](#linting)
+- [Technologies](#technologies)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+  - [Environment Variables](#environment-variables)
+  - [Database Setup](#database-setup)
+  - [Running the Server](#running-the-server)
+- [API Endpoints](#api-endpoints)
+- [Authentication Flow](#authentication-flow)
+- [Database Management](#database-management)
+- [Linting](#linting)
 
 ## Technologies
 
--   **Node.js** & **Express.js**
--   **TypeScript**
--   **Prisma ORM** (for PostgreSQL)
--   **JSON Web Tokens (JWT)** for authentication
--   **bcryptjs** for password hashing
--   **Nodemailer** for email services (account activation, password reset)
--   **cookie-parser** for handling HTTP-only cookies
--   **cors** for Cross-Origin Resource Sharing
--   **nodemon** for development live-reloading
--   **ESLint** for code quality
+- **Node.js** & **Express.js**
+- **TypeScript**
+- **Prisma ORM** (for PostgreSQL)
+- **JSON Web Tokens (JWT)** for authentication
+- **bcryptjs** for password hashing
+- **Nodemailer** for email services (account activation, password reset)
+- **cookie-parser** for handling HTTP-only cookies
+- **cors** for Cross-Origin Resource Sharing
+- **nodemon** for development live-reloading
+- **ESLint** for code quality
 
 ## Getting Started
 
 ### Prerequisites
 
--   Node.js (v18+)
--   npm (v9+)
--   PostgreSQL database instance
--   Access to the monorepo root for initial setup
+- Node.js (v18+)
+- npm (v9+)
+- PostgreSQL database instance
+- Access to the monorepo root for initial setup
 
 ### Installation
 
@@ -48,7 +48,7 @@ This is the backend service for the MindWeave application, built with Express.js
     ```bash
     npm install
     ```
-    *Ensure `npm run build:types` was run from the monorepo root to get `@mindweave/types`.*
+    _Ensure `npm run build:types` was run from the monorepo root to get `@mindweave/types`._
 
 ### Environment Variables
 
@@ -65,47 +65,47 @@ EMAIL_USER=your_ethereal_user
 EMAIL_PASS=your_ethereal_password
 FRONTEND_URL="http://localhost:3000"
 
-*Adjust values as per your setup.*
+_Adjust values as per your setup._
 
 ### Database Setup
 
 Make sure your PostgreSQL database is running.
 
--   **Apply migrations & seed (destructive):**
-    ```bash
-    npm run db:setup
-    # This will reset the database, apply migrations, and run the seed script. Use with caution.
-    ```
--   **Apply migrations only:**
-    ```bash
-    npm run db:migrate
-    ```
--   **Push Prisma schema to database (for development without migrations):**
-    ```bash
-    npm run db:push
-    ```
--   **Run seed script:**
-    ```bash
-    npm run db:seed
-    ```
--   **Reset database (destructive):**
-    ```bash
-    npm run db:reset
-    ```
+- **Apply migrations & seed (destructive):**
+  ```bash
+  npm run db:setup
+  # This will reset the database, apply migrations, and run the seed script. Use with caution.
+  ```
+- **Apply migrations only:**
+  ```bash
+  npm run db:migrate
+  ```
+- **Push Prisma schema to database (for development without migrations):**
+  ```bash
+  npm run db:push
+  ```
+- **Run seed script:**
+  ```bash
+  npm run db:seed
+  ```
+- **Reset database (destructive):**
+  ```bash
+  npm run db:reset
+  ```
 
 ### Running the Server
 
--   **Development Mode (with hot-reloading):**
-    ```bash
-    npm run dev
-    # The API will be available at http://localhost:4000/api
-    ```
--   **Production Mode:**
-    ```bash
-    npm run build
-    npm run start
-    # The API will be available at http://localhost:4000/api
-    ```
+- **Development Mode (with hot-reloading):**
+  ```bash
+  npm run dev
+  # The API will be available at http://localhost:4000/api
+  ```
+- **Production Mode:**
+  ```bash
+  npm run build
+  npm run start
+  # The API will be available at http://localhost:4000/api
+  ```
 
 ## API Endpoints
 
@@ -113,15 +113,15 @@ The API base URL is `http://localhost:4000/api`.
 
 ### Authentication Endpoints (`/api/auth`)
 
--   `POST /auth/register`: Register a new user.
--   `POST /auth/login`: Authenticate user and issue `accessToken` and `refreshToken` (HTTP-only cookies).
--   `POST /auth/logout`: Revoke `refreshToken` and clear cookies.
--   `POST /auth/activate`: Activate user account with email token.
--   `POST /auth/request-password-reset`: Request a password reset email.
--   `POST /auth/reset-password`: Reset password using a token.
--   `POST /auth/refresh`: Obtain new `accessToken` and `refreshToken` using existing `refreshToken`.
--   `GET /auth/profile` (Protected): Fetch user profile data. Requires valid `accessToken` in cookie.
--   `PATCH /auth/update` (Protected): Update user profile data. Requires valid `accessToken` in cookie.
+- `POST /auth/register`: Register a new user.
+- `POST /auth/login`: Authenticate user and issue `accessToken` and `refreshToken` (HTTP-only cookies).
+- `POST /auth/logout`: Revoke `refreshToken` and clear cookies.
+- `POST /auth/activate`: Activate user account with email token.
+- `POST /auth/request-password-reset`: Request a password reset email.
+- `POST /auth/reset-password`: Reset password using a token.
+- `POST /auth/refresh`: Obtain new `accessToken` and `refreshToken` using existing `refreshToken`.
+- `GET /auth/profile` (Protected): Fetch user profile data. Requires valid `accessToken` in cookie.
+- `PATCH /auth/update` (Protected): Update user profile data. Requires valid `accessToken` in cookie.
 
 ## Authentication Flow
 
@@ -135,11 +135,13 @@ The API base URL is `http://localhost:4000/api`.
 
 This project uses Prisma for database interaction. The schema is defined in `prisma/schema.prisma`.
 
--   **Migrations:** Database schema changes are managed via Prisma Migrate.
--   **Seeding:** Initial data can be populated using `prisma/seed.ts`.
+- **Migrations:** Database schema changes are managed via Prisma Migrate.
+- **Seeding:** Initial data can be populated using `prisma/seed.ts`.
 
 ## Linting
 
 To check for linting errors:
+
 ```bash
 npm run lint
+```
