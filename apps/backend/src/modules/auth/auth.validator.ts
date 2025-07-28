@@ -141,8 +141,16 @@ export const validateProfileUpdate = (
   res: Response,
   next: NextFunction,
 ): void => {
-  const { profileName, slug, description, profileImage, coverImage,
-    name, surname, birthday, sex, password, email, type, active } = req.body;
+  const profileName = req.body.profileName ?? undefined;
+  const slug = req.body.slug ?? undefined;
+  const description = req.body.description ?? undefined;
+  const name = req.body.name ?? undefined;
+  const surname = req.body.surname ?? undefined;
+  const birthday = req.body.birthday ?? undefined;
+  const sex = req.body.sex ?? undefined;
+  const password = req.body.password ?? undefined;
+  const type = req.body.type ?? undefined;
+  const active = req.body.active ?? undefined;
 
   if (type !== undefined) {
     res.status(400).json({ message: getMessage('auth.error.cannotUpdateType') });
@@ -205,20 +213,6 @@ export const validateProfileUpdate = (
   if (description !== undefined && description.length > 1000) {
     res.status(400).json({ message: getMessage('profile.validation.description.max') });
     return;
-  }
-
-  if (profileImage !== undefined) {
-    if (typeof profileImage !== 'string' || !/^https?:\/\/.+\..+/.test(profileImage)) { // Prosta walidacja URL
-      res.status(400).json({ message: getMessage('profile.validation.profileImage.invalidUrl') });
-      return;
-    }
-  }
-
-  if (coverImage !== undefined) {
-    if (typeof coverImage !== 'string' || !/^https?:\/\/.+\..+/.test(coverImage)) { // Prosta walidacja URL
-      res.status(400).json({ message: getMessage('profile.validation.coverImage.invalidUrl') });
-      return;
-    }
   }
 
   if (name !== undefined && typeof name !== 'string') {

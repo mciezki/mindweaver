@@ -2,14 +2,16 @@
     "app": "MindWeave",
     "common": {
         "loading": "Loading...",
-        "error_message": "An unexpected error occurred. Please try again."
+        "error_message": "An unexpected error occurred. Please try again.",
+        "remove": "Remove"
     },
     "dashboard": {
         "title": "MindWeave: Craft Your Knowledge, Unleash Your Potential",
         "description": "Transform your raw ideas into structured insights. MindWeave offers an elegant and powerful platform to journal your thoughts, develop projects, and explore connections that spark creativity. Cultivate your intellectual garden and watch your understanding grow, one woven idea at a time.",
         "login": "Log In",
         "signup": "Sign Up",
-        "logout": "Log out"
+        "logout": "Log out",
+        "settings": "Settings"
     },
     "login": {
         "title": "Welcome Back!",
@@ -154,5 +156,58 @@
             "button": "Reset Password"
         },
         "go_to_login": "Go to Log In"
+    },
+    "profile": {
+        "title": "Edit Profile",
+        "subtitle": "Update your personal and profile information.",
+        "form": {
+            "profileName": {
+                "label": "Profile Name",
+                "placeholder": "Enter your public profile name",
+                "error": "Please enter a valid profile name"
+            },
+            "slug": {
+                "label": "Profile URL Slug",
+                "placeholder": "Enter a unique slug for your profile URL",
+                "error": "Please enter a valid slug (lowercase letters, numbers, hyphens only)"
+            },
+            "description": {
+                "label": "Description",
+                "placeholder": "Tell us about yourself...",
+                "error": "Description is too long"
+            },
+            "name": {
+                "label": "Name",
+                "placeholder": "Your first name",
+                "error": "Please enter your name"
+            },
+            "surname": {
+                "label": "Surname",
+                "placeholder": "Your last name",
+                "error": "Please enter your surname"
+            },
+            "birthday": {
+                "label": "Birthday",
+                "placeholder": "Your date of birth",
+                "error": "Invalid date or you must be at least 18 years old"
+            },
+            "sex": {
+                "label": "Sex",
+                "male": "Male",
+                "female": "Female",
+                "other": "Other",
+                "invalid": "Please select a valid sex"
+            },
+            "profileImage": {
+                "label": "Upload Profile Image"
+            },
+            "coverImage": {
+                "label": "Upload Cover Image"
+            },
+            "button": "Save Changes"
+        },
+        "error": {
+            "fetchFailed": "Failed to load user profile. Please try again."
+        }
     }
 }

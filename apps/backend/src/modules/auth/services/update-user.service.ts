@@ -12,6 +12,7 @@ export const updateUserProfile = async (
   userId: string,
   updateData: Partial<RegisterRequest>,
 ): Promise<Omit<User, 'active'>> => {
+  console.log(updateData)
   const { birthday, password, ...restOfUpdateData } = updateData;
 
   const dataToUpdate: Partial<RegisterRequest> = { ...restOfUpdateData };

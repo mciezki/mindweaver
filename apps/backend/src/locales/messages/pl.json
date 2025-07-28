@@ -84,5 +84,12 @@
         "subject": "Resetuj hasło | Mindweave"
       }
     }
+  },
+  "upload": {
+    "error": {
+      "invalidFileType": "Dozwolone są tylko pliki graficzne (JPG, JPEG, PNG, GIF, WebP).",
+      "fileTooLarge": "Rozmiar pliku przekracza limit 5MB.",
+      "cloudinaryUploadFailed": "Nie udało się przesłać obrazu do Cloudinary."
+    }
   }
 }

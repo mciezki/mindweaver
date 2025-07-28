@@ -5,6 +5,9 @@ export const PUBLIC_API = {
     activate: '/auth/activate',
     request_password_reset: '/auth/request-password-reset',
     reset_password: '/auth/reset-password',
-    update: '/auth/update',
     refresh: '/auth/refresh'
-} 
+}
+
+export const PRIVATE_API = {
+    update: '/auth/profile/update',
+}

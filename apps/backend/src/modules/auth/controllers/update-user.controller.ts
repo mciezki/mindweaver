@@ -3,6 +3,7 @@ import { NextFunction, Request, Response } from 'express';
 
 import { getMessage } from '../../../locales';
 import { updateUserProfile } from '../services/update-user.service';
+import { uploadImageToCloudinary } from '../../../services/cloudinary.service';
 
 export const updateProfile = async (
   req: Request,
@@ -11,9 +12,24 @@ export const updateProfile = async (
 ) => {
   try {
     const userId = req.user?.userId;
-    console.log(userId)
 
     const updateData: Partial<RegisterRequest> = req.body;
+
+    if (req.files) {
+      const files = req.files as {
+        [fieldname: string]: Express.Multer.File[];
+      };
+
+      if (files['profileImage'] && files['profileImage'][0]) {
+        const profileImageUrl = await uploadImageToCloudinary(files['profileImage'][0]);
+        updateData.profileImage = profileImageUrl;
+      }
+
+      if (files['coverImage'] && files['coverImage'][0]) {
+        const coverImageUrl = await uploadImageToCloudinary(files['coverImage'][0]);
+        updateData.coverImage = coverImageUrl;
+      }
+    }
 
     if (!userId) {
       const err: any = new Error(getMessage('auth.error.invalidToken'));

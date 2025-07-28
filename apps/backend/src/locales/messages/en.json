@@ -86,5 +86,12 @@
         "subject": "Reset the password | Mindweave"
       }
     }
+  },
+  "upload": {
+    "error": {
+      "invalidFileType": "Only image files (JPG, JPEG, PNG, GIF, WebP) are allowed.",
+      "fileTooLarge": "File size exceeds the limit of 5MB.",
+      "cloudinaryUploadFailed": "Failed to upload image to Cloudinary."
+    }
   }
 }

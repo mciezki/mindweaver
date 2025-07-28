@@ -22,12 +22,11 @@ export const registerSchema = z.object({
     surname: z
         .string()
         .min(1, 'register.form.surname.required'),
-    birthday: z // <--- To pole powinno być stringiem na poziomie formularza
+    birthday: z
         .string()
         .min(1, 'register.form.birthday.required')
         .regex(/^\d{4}-\d{2}-\d{2}$/, 'register.form.birthday.invalid_format')
         .refine((dateString) => {
-            // Ta walidacja sprawdza tylko poprawność stringa daty
             const date = new Date(dateString);
             return !isNaN(date.getTime()) && date.toISOString().slice(0, 10) === dateString;
         }, {

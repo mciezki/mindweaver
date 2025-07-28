@@ -1,5 +1,7 @@
 import { Router } from 'express';
 
+import upload from '../../config/multer.config';
+
 import { getMessage } from '../../locales';
 import { authMiddleware } from '../../middlewares/auth.middleware';
 import { validateLogin, validateRegister, validateRequestResetPassword, validateResetPassword, validateProfileUpdate } from './auth.validator';
@@ -22,7 +24,10 @@ router.post('/activate', activate);
 router.post('/request-password-reset', validateRequestResetPassword, requestResetPassword)
 router.post('/reset-password', validateResetPassword, resetPassword)
 
-router.patch('/profile/update', authMiddleware, validateProfileUpdate, updateProfile);
+router.patch('/profile/update', authMiddleware, upload.fields([
+  { name: 'profileImage', maxCount: 1 },
+  { name: 'coverImage', maxCount: 1 },
+]), validateProfileUpdate, updateProfile);
 
 router.post('/refresh', refresh)
 
