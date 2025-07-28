@@ -1,14 +1,28 @@
 'use client';
 
 import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
+
+import { zodResolver } from '@hookform/resolvers/zod';
+import {
+  Alert,
+  Box,
+  Button,
+  CircularProgress,
+  TextField,
+  Typography,
+  styled,
+} from '@mui/material';
 import Link from 'next/link';
 
-import { Box, TextField, Button, Typography, styled, Alert, CircularProgress } from '@mui/material';
-import { loginSchema, LoginSchema } from '@/utils/validators/login-schema';
 import { useLoginMutation } from '@/hooks/api/public/useLogin';
-import { ACTIVATE_ACCOUNT_PATH, FORGOT_PASSWORD_PATH, SIGN_UP_PATH } from '@/utils/paths';
+
+import {
+  ACTIVATE_ACCOUNT_PATH,
+  FORGOT_PASSWORD_PATH,
+  SIGN_UP_PATH,
+} from '@/utils/paths';
+import { LoginSchema, loginSchema } from '@/utils/validators/login-schema';
 
 const LoginPage = () => {
   const { t } = useTranslation();
@@ -24,7 +38,7 @@ const LoginPage = () => {
   const { mutate: login, isPending } = useLoginMutation();
 
   const onSubmit = (data: LoginSchema) => {
-    login(data)
+    login(data);
   };
 
   return (
@@ -39,10 +53,19 @@ const LoginPage = () => {
       }}
     >
       <FormContainer>
-        <Typography variant="h4" align="center" gutterBottom sx={{ color: 'primary.main', fontWeight: 600 }}>
+        <Typography
+          variant="h4"
+          align="center"
+          gutterBottom
+          sx={{ color: 'primary.main', fontWeight: 600 }}
+        >
           {t('login.title')}
         </Typography>
-        <Typography variant="body2" align="center" sx={{ color: 'text.secondary', mb: 2 }}>
+        <Typography
+          variant="body2"
+          align="center"
+          sx={{ color: 'text.secondary', mb: 2 }}
+        >
           {t('login.subtitle')}
         </Typography>
 
@@ -65,7 +88,9 @@ const LoginPage = () => {
             fullWidth
             margin="normal"
             error={!!errors.password}
-            helperText={errors.password ? t('login.form.password.required') : ''}
+            helperText={
+              errors.password ? t('login.form.password.required') : ''
+            }
           />
           <Button
             component={Link}
@@ -83,28 +108,59 @@ const LoginPage = () => {
             size="large"
             sx={{ mt: 2, mb: 2 }}
             disabled={isPending}
-            startIcon={isPending ? <CircularProgress size={20} color="inherit" /> : null}
+            startIcon={
+              isPending ? <CircularProgress size={20} color="inherit" /> : null
+            }
           >
             {isPending ? t('common.loading') : t('login.form.button')}
           </Button>
         </form>
         <Box>
-          <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <Typography variant="body2" align="center" sx={{ color: 'text.secondary', mt: 2 }}>
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+            }}
+          >
+            <Typography
+              variant="body2"
+              align="center"
+              sx={{ color: 'text.secondary', mt: 2 }}
+            >
               {t('login.no_account')}
             </Typography>
             <Link href={SIGN_UP_PATH} passHref>
-              <Button component="span" color="primary" sx={{ textTransform: 'none' }}>
+              <Button
+                component="span"
+                color="primary"
+                sx={{ textTransform: 'none' }}
+              >
                 {t('login.sign_up_link')}
               </Button>
             </Link>
           </Box>
-          <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mt: 2 }}>
-            <Typography variant="body2" align="center" sx={{ color: 'text.secondary' }}>
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              mt: 2,
+            }}
+          >
+            <Typography
+              variant="body2"
+              align="center"
+              sx={{ color: 'text.secondary' }}
+            >
               {t('login.not_active')}
             </Typography>
             <Link href={ACTIVATE_ACCOUNT_PATH} passHref>
-              <Button component="span" color="primary" sx={{ textTransform: 'none' }}>
+              <Button
+                component="span"
+                color="primary"
+                sx={{ textTransform: 'none' }}
+              >
                 {t('login.activate_link')}
               </Button>
             </Link>
@@ -116,7 +172,6 @@ const LoginPage = () => {
 };
 
 export default LoginPage;
-
 
 const FormContainer = styled(Box)(({ theme }) => ({
   display: 'flex',

@@ -30,19 +30,68 @@
       "invalidActivationTokenFormat": "Invalid activation code format. It should be 5 characters long.",
       "invalidActivationToken": "Invalid activation code.",
       "invalidPasswordResetToken": "Invalid reset password code.",
-      "tokenAlreadyUsed": "This activation code has already been used."
+      "tokenAlreadyUsed": "This activation code has already been used.",
+      "cannotUpdateType": "User type cannot be updated.",
+      "cannotUpdateActiveStatus": "Account active status cannot be updated.",
+      "slugAlreadyExists": "Slug already exists"
+    },
+    "profile": {
+      "validation": {
+        "profileName": {
+          "invalid": "Profile name must be a string.",
+          "max": "Profile name cannot exceed 100 characters."
+        },
+        "slug": {
+          "invalid": "Slug must be a string.",
+          "length": "Slug must be between 3 and 50 characters.",
+          "format": "Slug can only contain lowercase letters, numbers, and hyphens."
+        },
+        "description": {
+          "invalid": "Description must be a string.",
+          "max": "Description cannot exceed 1000 characters."
+        },
+        "profileImage": {
+          "invalidUrl": "Profile image must be a valid URL (http/https)."
+        },
+        "coverImage": {
+          "invalidUrl": "Cover image must be a valid URL (http/https)."
+        },
+        "name": {
+          "invalid": "Name must be a string.",
+          "length": "Name must be between 2 and 50 characters."
+        },
+        "surname": {
+          "invalid": "Surname must be a string.",
+          "length": "Surname must be between 2 and 50 characters."
+        },
+        "sex": {
+          "invalid": "Sex must be a string.",
+          "invalidValue": "Invalid sex value. Allowed: Male, Female, Other."
+        },
+        "birthday": {
+          "invalid": "Invalid birthday format.",
+          "underAge": "User must be at least 18 years old."
+        }
+      }
+    },
+    "common": {
+      "userNotFound": "User not found.",
+      "serverError": "Something went wrong!"
+    },
+    "emails": {
+      "activation": {
+        "subject": "Activate Mindweave"
+      },
+      "resetPassword": {
+        "subject": "Reset the password | Mindweave"
+      }
     }
   },
-  "common": {
-    "userNotFound": "User not found.",
-    "serverError": "Something went wrong!"
-  },
-  "emails": {
-    "activation": {
-      "subject": "Activate Mindweave"
-    },
-    "resetPassword": {
-      "subject": "Reset the password | Mindweave"
+  "upload": {
+    "error": {
+      "invalidFileType": "Only image files (JPG, JPEG, PNG, GIF, WebP) are allowed.",
+      "fileTooLarge": "File size exceeds the limit of 5MB.",
+      "cloudinaryUploadFailed": "Failed to upload image to Cloudinary."
     }
   }
 }

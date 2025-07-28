@@ -1,18 +1,31 @@
 'use client';
 
 import { Controller, useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
+
+import { zodResolver } from '@hookform/resolvers/zod';
+import { RegisterRequest } from '@mindweave/types';
+import {
+  Box,
+  Button,
+  CircularProgress,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+  Typography,
+  styled,
+} from '@mui/material';
 import Link from 'next/link';
 
-import {
-  Box, TextField, Button, Typography, styled, CircularProgress,
-  FormControl, InputLabel, Select, MenuItem,
-} from '@mui/material';
-
-import { registerApiSchema, registerSchema, RegisterSchema } from '@/utils/validators/register-schema';
 import { useRegisterMutation } from '@/hooks/api/public/useRegister';
-import { RegisterRequest } from '@mindweave/types';
+
+import {
+  RegisterSchema,
+  registerApiSchema,
+  registerSchema,
+} from '@/utils/validators/register-schema';
 
 const RegisterPage = () => {
   const { t } = useTranslation();
@@ -23,16 +36,15 @@ const RegisterPage = () => {
     register,
     handleSubmit,
     formState: { errors },
-    control
+    control,
   } = useForm<RegisterSchema>({
     resolver: zodResolver(registerSchema),
   });
 
-
   const onSubmit = (data: RegisterSchema) => {
     const apiData: RegisterRequest = registerApiSchema.parse(data);
 
-    signUpUser(apiData)
+    signUpUser(apiData);
   };
 
   return (
@@ -46,10 +58,19 @@ const RegisterPage = () => {
       }}
     >
       <FormContainer>
-        <Typography variant="h4" align="center" gutterBottom sx={{ color: 'primary.main', fontWeight: 600 }}>
+        <Typography
+          variant="h4"
+          align="center"
+          gutterBottom
+          sx={{ color: 'primary.main', fontWeight: 600 }}
+        >
           {t('register.title')}
         </Typography>
-        <Typography variant="body2" align="center" sx={{ color: 'text.secondary', mb: 2 }}>
+        <Typography
+          variant="body2"
+          align="center"
+          sx={{ color: 'text.secondary', mb: 2 }}
+        >
           {t('register.subtitle')}
         </Typography>
 
@@ -72,7 +93,9 @@ const RegisterPage = () => {
             fullWidth
             margin="normal"
             error={!!errors.password}
-            helperText={errors.password ? t('register.form.password.required') : ''}
+            helperText={
+              errors.password ? t('register.form.password.required') : ''
+            }
           />
           <TextField
             {...register('confirmPassword')}
@@ -82,7 +105,11 @@ const RegisterPage = () => {
             fullWidth
             margin="normal"
             error={!!errors.confirmPassword}
-            helperText={errors.confirmPassword ? t('register.form.confirm_password.required') : ''}
+            helperText={
+              errors.confirmPassword
+                ? t('register.form.confirm_password.required')
+                : ''
+            }
           />
           <TextField
             {...register('name')}
@@ -102,7 +129,9 @@ const RegisterPage = () => {
             fullWidth
             margin="normal"
             error={!!errors.surname}
-            helperText={errors.surname ? t('register.form.surname.required') : ''}
+            helperText={
+              errors.surname ? t('register.form.surname.required') : ''
+            }
           />
           <TextField
             {...register('birthday')}
@@ -113,10 +142,14 @@ const RegisterPage = () => {
             margin="normal"
             InputLabelProps={{ shrink: true }}
             error={!!errors.birthday}
-            helperText={errors.birthday ? t('register.form.birthday.required') : ''}
+            helperText={
+              errors.birthday ? t('register.form.birthday.required') : ''
+            }
           />
           <FormControl fullWidth margin="normal" error={!!errors.sex}>
-            <InputLabel id="sex-label">{t('register.form.sex.label')}</InputLabel>
+            <InputLabel id="sex-label">
+              {t('register.form.sex.label')}
+            </InputLabel>
             <Controller
               name="sex"
               control={control}
@@ -135,7 +168,11 @@ const RegisterPage = () => {
               )}
             />
             {errors.sex && (
-              <Typography variant="caption" color="error" sx={{ ml: 2, mt: 0.5 }}>
+              <Typography
+                variant="caption"
+                color="error"
+                sx={{ ml: 2, mt: 0.5 }}
+              >
                 {t('register.form.sex.invalid')}
               </Typography>
             )}
@@ -149,16 +186,26 @@ const RegisterPage = () => {
             size="large"
             sx={{ mt: 2, mb: 2 }}
             disabled={isPending}
-            startIcon={isPending ? <CircularProgress size={20} color="inherit" /> : null}
+            startIcon={
+              isPending ? <CircularProgress size={20} color="inherit" /> : null
+            }
           >
             {isPending ? t('common.loading') : t('register.form.button')}
           </Button>
         </form>
 
-        <Typography variant="body2" align="center" sx={{ color: 'text.secondary', mt: 2 }}>
-          {t('register.already_have_account')} {' '}
+        <Typography
+          variant="body2"
+          align="center"
+          sx={{ color: 'text.secondary', mt: 2 }}
+        >
+          {t('register.already_have_account')}{' '}
           <Link href="/login" passHref>
-            <Button component="span" color="primary" sx={{ textTransform: 'none' }}>
+            <Button
+              component="span"
+              color="primary"
+              sx={{ textTransform: 'none' }}
+            >
               {t('register.login_link')}
             </Button>
           </Link>

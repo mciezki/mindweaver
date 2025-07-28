@@ -28,19 +28,68 @@
       "invalidActivationTokenFormat": "Niewłaściwy klucz aktywacyjny",
       "invalidActivationToken": "Niewłaściwy kod aktywacyjny",
       "invalidPasswordResetToken": "Niewłaściwy kod resetu hasła",
-      "tokenAlreadyUsed": "Ten kod został juz uzyty"
+      "tokenAlreadyUsed": "Ten kod został juz uzyty",
+      "cannotUpdateType": "Typ użytkownika nie może być zmieniony.",
+      "cannotUpdateActiveStatus": "Status aktywności konta nie może być zmieniony.",
+      "slugAlreadyExists": "Ten identyfikator profilu (slug) jest już zajęty."
+    },
+    "profile": {
+      "validation": {
+        "profileName": {
+          "invalid": "Nazwa profilu musi być tekstem.",
+          "max": "Nazwa profilu nie może przekraczać 100 znaków."
+        },
+        "slug": {
+          "invalid": "Identyfikator (slug) musi być tekstem.",
+          "length": "Identyfikator (slug) musi mieć od 3 do 50 znaków.",
+          "format": "Identyfikator (slug) może zawierać tylko małe litery, cyfry i myślniki."
+        },
+        "description": {
+          "invalid": "Opis musi być tekstem.",
+          "max": "Opis nie może przekraczać 1000 znaków."
+        },
+        "profileImage": {
+          "invalidUrl": "Obraz profilu musi być prawidłowym adresem URL (http/https)."
+        },
+        "coverImage": {
+          "invalidUrl": "Obraz tła musi być prawidłowym adresem URL (http/https)."
+        },
+        "name": {
+          "invalid": "Imię musi być tekstem.",
+          "length": "Imię musi mieć od 2 do 50 znaków."
+        },
+        "surname": {
+          "invalid": "Nazwisko musi być tekstem.",
+          "length": "Nazwisko musi mieć od 2 do 50 znaków."
+        },
+        "sex": {
+          "invalid": "Płeć musi być tekstem.",
+          "invalidValue": "Nieprawidłowa wartość płci. Dozwolone: Mężczyzna, Kobieta, Inne."
+        },
+        "birthday": {
+          "invalid": "Nieprawidłowy format daty urodzenia.",
+          "underAge": "Użytkownik musi mieć co najmniej 18 lat."
+        }
+      }
+    },
+    "common": {
+      "userNotFound": "Użytkownik nie znaleziony.",
+      "serverError": "Coś poszło nie tak!"
+    },
+    "emails": {
+      "activation": {
+        "subject": "Aktywuj Mindweave"
+      },
+      "resetPassword": {
+        "subject": "Resetuj hasło | Mindweave"
+      }
     }
   },
-  "common": {
-    "userNotFound": "Użytkownik nie znaleziony.",
-    "serverError": "Coś poszło nie tak!"
-  },
-  "emails": {
-    "activation": {
-      "subject": "Aktywuj Mindweave"
-    },
-    "resetPassword": {
-      "subject": "Resetuj hasło | Mindweave"
+  "upload": {
+    "error": {
+      "invalidFileType": "Dozwolone są tylko pliki graficzne (JPG, JPEG, PNG, GIF, WebP).",
+      "fileTooLarge": "Rozmiar pliku przekracza limit 5MB.",
+      "cloudinaryUploadFailed": "Nie udało się przesłać obrazu do Cloudinary."
     }
   }
 }

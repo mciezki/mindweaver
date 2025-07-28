@@ -49,16 +49,42 @@ Content-Type: application/json
 POST http://localhost:4000/api/auth/refresh
 Content-Type: application/json
 
-### Update User Profile
-PATCH http://localhost:4000/api/auth/update
-Content-Type: application/json
+### Update User Profile with Images
+PATCH http://localhost:4000/api/auth/profile/update
+Content-Type: multipart/form-data; boundary=my-app-boundary
+Cookie: accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjZTIxYzQzZi0zNjkzLTQ5YTYtYWFjYS1iZDUwZDFkZjg3NDYiLCJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTc1MzczNzU1NSwiZXhwIjoxNzUzNzM4NDU1fQ.6yUbgvyckiDf0xktPDfErbCn2ZELmmwK9bu4LxArQqs
 
-{
-  "name": "Pawełek",
-  "surname": "Luzny",
-  "birthday": "1995-07-15T00:00:00.000Z",
-  "sex": "f"
-}
+--my-app-boundary
+Content-Disposition: form-data; name="name"
+
+Pawełek
+--my-app-boundary
+Content-Disposition: form-data; name="surname"
+
+Luzny
+--my-app-boundary
+Content-Disposition: form-data; name="birthday"
+
+2024-04-24T00:00:00.000Z
+--my-app-boundary
+Content-Disposition: form-data; name="sex"
+
+Male
+--my-app-boundary
+Content-Disposition: form-data; name="slug"
+
+bobo-lobo
+--my-app-boundary
+Content-Disposition: form-data; name="profileImage"; filename="my_avatar.jpg"
+Content-Type: image/jpeg
+
+< /Users/michas/Downloads/avatar.png
+--my-app-boundary
+Content-Disposition: form-data; name="coverImage"; filename="my_cover.png"
+Content-Type: image/png
+
+< /Users/michas/Downloads/background.jpg
+--my-app-boundary--
 
 ### Get User Profile (Protected Route)
 GET http://localhost:4000/api/auth/profile

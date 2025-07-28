@@ -23,7 +23,7 @@ async function main() {
       type: UserType.ADMIN,
       sex: 'f',
       birthday: '2024-04-24T00:00:00.000Z',
-      active: true
+      active: true,
     },
   });
 

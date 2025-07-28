@@ -1,14 +1,11 @@
-import {
-  AuthResponse,
-  LoginRequest,
-} from '@mindweave/types';
+import { AuthResponse, LoginRequest } from '@mindweave/types';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
 import prisma from '../../../database/prisma';
 import { getMessage } from '../../../locales';
-import { generateRefreshToken } from '../../../utils/functions/generate-refresh-token';
 import { JWT_EXPIRES_IN, JWT_REFRESH_EXPIRES_IN } from '../../../utils/consts';
+import { generateRefreshToken } from '../../../utils/functions/generate-refresh-token';
 
 const JWT_SECRET = process.env.JWT_SECRET || '';
 
@@ -42,20 +39,26 @@ export const loginUser = async (
     throw err;
   }
 
-  const accessToken = jwt.sign({ userId: user.id, email: user.email }, JWT_SECRET, {
-    expiresIn: JWT_EXPIRES_IN,
-  });
+  const accessToken = jwt.sign(
+    { userId: user.id, email: user.email },
+    JWT_SECRET,
+    {
+      expiresIn: JWT_EXPIRES_IN,
+    },
+  );
 
-  const { refreshToken, refreshTokenExpiresAt } = generateRefreshToken(JWT_REFRESH_EXPIRES_IN)
+  const { refreshToken, refreshTokenExpiresAt } = generateRefreshToken(
+    JWT_REFRESH_EXPIRES_IN,
+  );
 
   await prisma.refreshToken.create({
     data: {
       token: refreshToken,
       userId: user.id,
       expiresAt: refreshTokenExpiresAt,
-      isRevoked: false
-    }
-  })
+      isRevoked: false,
+    },
+  });
 
   const { password: _, ...userWithoutPassword } = user;
 

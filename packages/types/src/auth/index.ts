@@ -7,6 +7,12 @@ export interface RegisterRequest {
   surname: string;
   birthday: Date;
   sex: 'm' | 'f';
+
+  profileName?: string | null;
+  slug?: string | null;
+  description?: string | null;
+  profileImage?: string | null;
+  coverImage?: string | null;
 }
 
 export interface LoginRequest {

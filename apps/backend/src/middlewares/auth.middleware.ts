@@ -34,6 +34,7 @@ export const authMiddleware = (
       email: string;
     };
     req.user = decoded;
+
     next();
   } catch (error) {
     if (error instanceof jwt.TokenExpiredError) {
