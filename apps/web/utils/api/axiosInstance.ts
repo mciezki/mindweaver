@@ -71,7 +71,7 @@ axiosInstance.interceptors.response.use(
       isRefreshing = true;
 
       try {
-        const refreshResponse = await axiosInstance.post('/auth/refresh');
+        const refreshResponse = await axiosInstance.post(PUBLIC_API.refresh);
         isRefreshing = false;
         processQueue(null);
         return axiosInstance(originalRequest);

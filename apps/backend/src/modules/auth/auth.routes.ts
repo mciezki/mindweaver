@@ -13,6 +13,7 @@ import {
 import { activate } from './controllers/activate.controller';
 import { login } from './controllers/login.controller';
 import { logout } from './controllers/logout.controller';
+import { profile } from './controllers/profile.controller';
 import { refresh } from './controllers/refresh-token.controller';
 import { register } from './controllers/register.controller';
 import {
@@ -49,12 +50,6 @@ router.patch(
 
 router.post('/refresh', refresh);
 
-// TODO: Make normal endpoint from database
-router.get('/profile', authMiddleware, (req, res) => {
-  res.status(200).json({
-    message: getMessage('auth.success.profileFetched'),
-    user: req.user,
-  });
-});
+router.get('/profile', authMiddleware, profile);
 
 export default router;
