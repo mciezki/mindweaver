@@ -76,7 +76,8 @@
     },
     "common": {
       "userNotFound": "User not found.",
-      "serverError": "Something went wrong!"
+      "serverError": "Something went wrong!",
+      "noUserId": "Invalid user id"
     },
     "emails": {
       "activation": {

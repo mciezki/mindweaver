@@ -88,6 +88,7 @@ Content-Type: image/png
 
 ### Get User Profile (Protected Route)
 GET http://localhost:4000/api/auth/profile
+Cookie: accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjZTIxYzQzZi0zNjkzLTQ5YTYtYWFjYS1iZDUwZDFkZjg3NDYiLCJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTc1MzczNzU1NSwiZXhwIjoxNzUzNzM4NDU1fQ.6yUbgvyckiDf0xktPDfErbCn2ZELmmwK9bu4LxArQqs
 ###
 
 ### Logout and Revoke Refresh Token

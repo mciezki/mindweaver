@@ -10,4 +10,5 @@ export const PUBLIC_API = {
 
 export const PRIVATE_API = {
   update: '/auth/profile/update',
+  profile: '/auth/profile',
 };

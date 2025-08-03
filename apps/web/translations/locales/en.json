@@ -166,6 +166,11 @@
         "placeholder": "Enter your public profile name",
         "error": "Please enter a valid profile name"
       },
+      "password": {
+        "label": "Password",
+        "placeholder": "Enter new password",
+        "error": "Please enter a valid password"
+      },
       "slug": {
         "label": "Profile URL Slug",
         "placeholder": "Enter a unique slug for your profile URL",
