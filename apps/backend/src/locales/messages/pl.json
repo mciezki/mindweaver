@@ -91,5 +91,10 @@
       "fileTooLarge": "Rozmiar pliku przekracza limit 5MB.",
       "cloudinaryUploadFailed": "Nie udało się przesłać obrazu do Cloudinary."
     }
+  },
+  "pagination": {
+    "error": {
+      "invalidParams": "Niewłaściwe parametry wyszukiwania"
+    }
   }
 }

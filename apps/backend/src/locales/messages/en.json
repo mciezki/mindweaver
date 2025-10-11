@@ -94,5 +94,10 @@
       "fileTooLarge": "File size exceeds the limit of 5MB.",
       "cloudinaryUploadFailed": "Failed to upload image to Cloudinary."
     }
+  },
+  "pagination": {
+    "error": {
+      "invalidParams": "Invalid search params"
+    }
   }
 }

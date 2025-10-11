@@ -1,7 +1,6 @@
 import { Router } from 'express';
 
 import upload from '../../config/multer.config';
-import { getMessage } from '../../locales';
 import { authMiddleware } from '../../middlewares/auth.middleware';
 import {
   validateLogin,
