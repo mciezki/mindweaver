@@ -1,0 +1,17 @@
+### Get User Details by slug (Public Route)
+GET http://localhost:4000/api/users/parfosz-krul
+
+### Get User Details by id (Public Route)
+GET http://localhost:4000/api/users/ad72c4ff-441c-4186-9059-181ce4237645
+
+### Get all users (Public Route)
+GET http://localhost:4000/api/users
+
+### Get all users with search (Public Route)
+GET http://localhost:4000/api/users?search=parfosz
+
+### Get all users with pagination page 1 (Public Route)
+GET http://localhost:4000/api/users?page=1&limit=2
+
+### Get all users with pagination page 2 (Public Route)
+GET http://localhost:4000/api/users?page=2&limit=2
