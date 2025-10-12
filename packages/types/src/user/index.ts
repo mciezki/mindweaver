@@ -34,3 +34,8 @@ export interface PublicUserListResponse {
     limit: number,
   }
 }
+
+
+export interface ProposedUserSlug {
+  slug: string;
+}
