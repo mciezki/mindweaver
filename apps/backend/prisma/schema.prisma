@@ -40,6 +40,11 @@ model User {
   activationTokens    ActivationToken[]
   passwordResetTokens PasswordResetToken[]
   refreshTokens       RefreshToken[]
+  socialThreads       SocialThread[]
+  userLikes           SocialThreadLike[]
+  userComments        SocialThreadComment[]
+  userShares          SocialThreadShare[]
+  userCommentsLikes   SocialThreadCommentLike[]
 }
 
 model ActivationToken {
@@ -70,4 +75,67 @@ model RefreshToken {
   expiresAt DateTime
   isRevoked Boolean  @default(false)
   createdAt DateTime @default(now())
+}
+
+model SocialThread {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  content   String   @db.Text
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  mediaUrls String[]
+
+  likes    SocialThreadLike[]
+  comments SocialThreadComment[]
+  shares   SocialThreadShare[]
+}
+
+model SocialThreadLike {
+  id        String       @id @default(uuid())
+  threadId  String
+  thread    SocialThread @relation(fields: [threadId], references: [id], onDelete: Cascade)
+  userId    String
+  user      User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime     @default(now())
+
+  @@unique([userId, threadId])
+}
+
+model SocialThreadComment {
+  id        String       @id @default(uuid())
+  threadId  String
+  content   String       @db.Text
+  thread    SocialThread @relation(fields: [threadId], references: [id], onDelete: Cascade)
+  userId    String?
+  user      User?        @relation(fields: [userId], references: [id], onDelete: SetNull)
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+
+  parentId String?
+  parent   SocialThreadComment?  @relation("CommentReplies", fields: [parentId], references: [id], onDelete: Cascade)
+  replies  SocialThreadComment[] @relation("CommentReplies")
+
+  likes SocialThreadCommentLike[]
+}
+
+model SocialThreadCommentLike {
+  id        String              @id @default(uuid())
+  commentId String
+  comment   SocialThreadComment @relation(fields: [commentId], references: [id], onDelete: Cascade)
+  userId    String
+  user      User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime            @default(now())
+
+  @@unique([commentId, userId])
+}
+
+model SocialThreadShare {
+  id        String       @id @default(uuid())
+  threadId  String
+  thread    SocialThread @relation(fields: [threadId], references: [id], onDelete: Cascade)
+  userId    String
+  user      User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime     @default(now())
+  content   String?      @db.Text
 }

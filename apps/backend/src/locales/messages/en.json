@@ -1,4 +1,9 @@
 {
+  "error": {
+    "badRequest": "Bad request.",
+    "notFound": "Resource not found.",
+    "serverError": "A server error occurred. Please try again later."
+  },
   "auth": {
     "success": {
       "registered": "User registered successfully. Check your email for activation token.",
@@ -33,7 +38,9 @@
       "tokenAlreadyUsed": "This activation code has already been used.",
       "cannotUpdateType": "User type cannot be updated.",
       "cannotUpdateActiveStatus": "Account active status cannot be updated.",
-      "slugAlreadyExists": "Slug already exists"
+      "slugAlreadyExists": "Slug already exists",
+      "unauthorized": "Unauthorized. Please log in.",
+      "forbidden": "You do not have permission to perform this action."
     },
     "profile": {
       "validation": {

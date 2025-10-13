@@ -1,4 +1,9 @@
 {
+  "error": {
+    "badRequest": "Nieprawidłowe zapytanie.",
+    "notFound": "Nie znaleziono zasobu.",
+    "serverError": "Wystąpił błąd serwera. Spróbuj ponownie później."
+  },
   "auth": {
     "success": {
       "registered": "Użytkownik zarejestrowany pomyślnie. Sprawdź swojego maila w celu aktywacji konta.",
@@ -31,7 +36,9 @@
       "tokenAlreadyUsed": "Ten kod został juz uzyty",
       "cannotUpdateType": "Typ użytkownika nie może być zmieniony.",
       "cannotUpdateActiveStatus": "Status aktywności konta nie może być zmieniony.",
-      "slugAlreadyExists": "Ten identyfikator profilu (slug) jest już zajęty."
+      "slugAlreadyExists": "Ten identyfikator profilu (slug) jest już zajęty.",
+      "unauthorized": "Brak autoryzacji. Proszę się zalogować.",
+      "forbidden": "Nie masz uprawnień do wykonania tej akcji."
     },
     "profile": {
       "validation": {
