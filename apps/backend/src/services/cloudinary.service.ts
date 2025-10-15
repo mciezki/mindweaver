@@ -30,6 +30,20 @@ export const uploadImageToCloudinary = async (
   }
 };
 
+export const uploadMultipleFilesToCloudinary = async (
+  files: Express.Multer.File[],
+): Promise<string[]> => {
+  if (!files || files.length === 0) {
+    return [];
+  }
+
+  const uploadPromises = files.map((file) => uploadImageToCloudinary(file));
+
+  const urls = await Promise.all(uploadPromises);
+
+  return urls;
+};
+
 export const deleteImageFromCloudinary = async (
   imageUrl: string,
 ): Promise<void> => {
@@ -43,5 +57,40 @@ export const deleteImageFromCloudinary = async (
     }
   } catch (error: any) {
     console.error('Cloudinary delete error:', error);
+  }
+};
+
+const getPublicIdFromUrl = (imageUrl: string): string | null => {
+  const parts = imageUrl.split('/');
+  const folderIndex = parts.indexOf('mindweave_threads');
+
+  if (folderIndex === -1 || folderIndex + 1 >= parts.length) {
+    console.warn('Could not extract publicId from image URL:', imageUrl);
+    return null;
+  }
+
+  const publicIdWithExtension = parts.slice(folderIndex).join('/');
+  const publicId = publicIdWithExtension.substring(0, publicIdWithExtension.lastIndexOf('.'));
+
+  return publicId;
+};
+
+export const deleteMultipleImagesFromCloudinary = async (
+  imageUrls: string[],
+): Promise<void> => {
+  if (!imageUrls || imageUrls.length === 0) {
+    return;
+  }
+
+  try {
+    const publicIds = imageUrls
+      .map(getPublicIdFromUrl)
+      .filter((id): id is string => id !== null);
+
+    if (publicIds.length > 0) {
+      await cloudinary.api.delete_resources(publicIds);
+    }
+  } catch (error: any) {
+    console.error('Cloudinary multiple delete error:', error);
   }
 };

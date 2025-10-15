@@ -24,12 +24,14 @@ export const createOwnershipMiddleware = (modelName: PrismaModelName) => {
         try {
             const loggedUserId = req.user?.userId;
             if (!loggedUserId) {
-                return res.status(401).json({ message: getMessage('auth.error.unauthorized') });
+                res.status(401).json({ message: getMessage('auth.error.unauthorized') });
+                return
             }
 
             const { id: resourceId } = req.params;
             if (!resourceId) {
-                return res.status(400).json({ message: getMessage('error.badRequest') });
+                res.status(400).json({ message: getMessage('error.badRequest') });
+                return
             }
 
             const resource = await (prisma[modelName] as any).findUnique({
@@ -42,11 +44,13 @@ export const createOwnershipMiddleware = (modelName: PrismaModelName) => {
             });
 
             if (!resource) {
-                return res.status(404).json({ message: getMessage('error.notFound') });
+                res.status(404).json({ message: getMessage('error.notFound') });
+                return
             }
 
             if (resource.userId !== loggedUserId) {
-                return res.status(403).json({ message: getMessage('auth.error.forbidden') });
+                res.status(403).json({ message: getMessage('auth.error.forbidden') });
+                return
             }
 
             next();

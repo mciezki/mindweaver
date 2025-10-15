@@ -106,5 +106,12 @@
     "error": {
       "invalidParams": "Invalid search params"
     }
+  },
+  "threads": {
+    "success": {
+      "created": "Thread has been created!",
+      "deleted": "Thread has been deleted!",
+      "updated": "Thread has been updated!"
+    }
   }
 }
