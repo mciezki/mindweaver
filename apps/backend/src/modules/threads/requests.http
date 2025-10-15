@@ -1,0 +1,55 @@
+### Create a new thread with media (Private Route)
+POST http://localhost:4000/api/threads/create
+Cookie: accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlN2YxYTdmNy1mODQ1LTQ4YTctYjVlZC0yNzU3ZTlkM2Q5NmYiLCJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTc2MDU2NjM0MCwiZXhwIjoxNzYwNTY3MjQwfQ.t-7ZBRjQ2vpZrGmyhEQXJm1DyOtW2T9ceRSTdyNVrmc
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="content"
+
+To jest treść mojego nowego, ekscytującego wątku z obrazkiem!
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="media"; filename="background.jpg"
+Content-Type: image/jpeg
+
+< /Users/michas/Downloads/background.jpg
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="media"; filename="avatar.png"
+Content-Type: image/png
+
+< /Users/michas/Downloads/avatar.png
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
+
+### Create a new thread without media (Private Route)
+POST http://localhost:4000/api/threads/create
+Cookie: accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlN2YxYTdmNy1mODQ1LTQ4YTctYjVlZC0yNzU3ZTlkM2Q5NmYiLCJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTc2MDU2Mjk3NCwiZXhwIjoxNzYwNTYzODc0fQ.veo5eWTYQhSoeN08z8XhK3wtZOybfq7GaRzX3gUgenU
+Content-Type: application/json
+
+{
+  "content": "To jest prosty wątek tekstowy, bez żadnych mediów."
+}
+
+
+### Delete a thread (Private Route)
+DELETE http://localhost:4000/api/threads/1951082c-e0bc-4be8-87b9-1a1ba3bf3014
+Cookie: accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlN2YxYTdmNy1mODQ1LTQ4YTctYjVlZC0yNzU3ZTlkM2Q5NmYiLCJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTc2MDU2Mjk3NCwiZXhwIjoxNzYwNTYzODc0fQ.veo5eWTYQhSoeN08z8XhK3wtZOybfq7GaRzX3gUgenU
+
+
+### Update an existing thread (Private Route)
+PATCH http://localhost:4000/api/threads/656fe7cf-8096-4c03-b7b7-b724ebd35a61
+Cookie: accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlN2YxYTdmNy1mODQ1LTQ4YTctYjVlZC0yNzU3ZTlkM2Q5NmYiLCJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTc2MDU2NjM0MCwiZXhwIjoxNzYwNTY3MjQwfQ.t-7ZBRjQ2vpZrGmyhEQXJm1DyOtW2T9ceRSTdyNVrmc
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="content"
+
+To jest zaktualizowana, nowa treść mojego wątku.
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="existingMediaUrls"
+
+["https://res.cloudinary.com/dfvtjkt7y/image/upload/v1760566442/mindweave_profiles/fhw63qpg9im4jjmwwub4.png"]
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="media"; filename="nowy-obrazek.png"
+Content-Type: image/png
+
+< /Users/michas/Downloads/filmfest.png
+------WebKitFormBoundary7MA4YWxkTrZu0gW--

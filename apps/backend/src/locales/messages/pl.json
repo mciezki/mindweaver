@@ -103,5 +103,12 @@
     "error": {
       "invalidParams": "Niewłaściwe parametry wyszukiwania"
     }
+  },
+  "threads": {
+    "success": {
+      "created": "Wątek został założony!",
+      "deleted": "Wątek został usunięty!",
+      "updated": "Wątek został zaktualizowany!"
+    }
   }
 }

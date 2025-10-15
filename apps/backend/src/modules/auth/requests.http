@@ -42,7 +42,7 @@ Content-Type: application/json
 
 {
   "email": "admin@admin.com",
-  "password": "Qwertyuiop1!"
+  "password": "admin"
 }
 
 ### Refresh Access Token
