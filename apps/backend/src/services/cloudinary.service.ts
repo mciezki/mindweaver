@@ -70,7 +70,10 @@ const getPublicIdFromUrl = (imageUrl: string): string | null => {
   }
 
   const publicIdWithExtension = parts.slice(folderIndex).join('/');
-  const publicId = publicIdWithExtension.substring(0, publicIdWithExtension.lastIndexOf('.'));
+  const publicId = publicIdWithExtension.substring(
+    0,
+    publicIdWithExtension.lastIndexOf('.'),
+  );
 
   return publicId;
 };

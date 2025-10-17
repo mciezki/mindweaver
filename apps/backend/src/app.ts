@@ -5,8 +5,8 @@ import express from 'express';
 
 import { errorHandler } from './middlewares/errorHandler';
 import authRoutes from './modules/auth/auth.routes';
-import usersRoutes from './modules/users/users.routes';
 import threadsRoutes from './modules/threads/threads.routes';
+import usersRoutes from './modules/users/users.routes';
 
 const app = express();
 

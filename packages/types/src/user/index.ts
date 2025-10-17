@@ -1,4 +1,4 @@
-import { ListWithPagination } from "../common/pagination";
+import { ListWithPagination } from '../common/pagination';
 
 export interface User {
   id: string;
@@ -19,22 +19,22 @@ export interface User {
   coverImage?: string | null;
 }
 
-export interface PublicUser extends Omit<User, 'updatedAt' | 'type' | 'active'> { }
+export interface PublicUser
+  extends Omit<User, 'updatedAt' | 'type' | 'active'> {}
 
 export interface PublicUserList extends ListWithPagination {
-  users: PublicUser[]
+  users: PublicUser[];
 }
 
 export interface PublicUserListResponse {
-  users: PublicUser[],
+  users: PublicUser[];
   meta: {
-    totalCount: number,
-    currentPage: number,
-    totalPages: number,
-    limit: number,
-  }
+    totalCount: number;
+    currentPage: number;
+    totalPages: number;
+    limit: number;
+  };
 }
-
 
 export interface ProposedUserSlug {
   slug: string;
