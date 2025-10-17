@@ -1,7 +1,7 @@
 import { UserType } from '@prisma/client';
 import bcrypt from 'bcryptjs';
 
-import prisma from '../src/database/prisma'
+import prisma from '../src/database/prisma';
 
 async function main() {
   console.log('Seeding starts...');
@@ -70,7 +70,9 @@ async function main() {
       commentId: adminComment.id,
     },
   });
-  console.log(`Like for the first comment created with ID: ${firstCommentLike.id}`);
+  console.log(
+    `Like for the first comment created with ID: ${firstCommentLike.id}`,
+  );
 
   const replyLike = await prisma.socialThreadCommentLike.create({
     data: {

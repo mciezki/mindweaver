@@ -1,13 +1,19 @@
-import { NextFunction, Request, Response } from "express";
-import { getThread } from "../services/thread.service";
+import { NextFunction, Request, Response } from 'express';
 
-export const thread = async (req: Request, res: Response, next: NextFunction) => {
-    try {
-        const { id } = req.params;
+import { getThread } from '../services/thread.service';
 
-        const thread = await getThread(id);
+export const thread = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const { id } = req.params;
 
-        res.status(200).json(thread)
+    const thread = await getThread(id);
 
-    } catch (error) { next(error) }
+    res.status(200).json(thread);
+  } catch (error) {
+    next(error);
+  }
 };
