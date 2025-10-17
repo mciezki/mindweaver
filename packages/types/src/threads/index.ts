@@ -1,5 +1,5 @@
-import { ListWithPagination } from "../common/pagination";
-import { User } from "../user";
+import { ListWithPagination } from '../common/pagination';
+import { User } from '../user';
 
 export interface CreateThreadRequest {
   content: string;
@@ -13,11 +13,14 @@ export interface UpdateThreadRequest {
 
 export interface ThreadResponse {
   id: string;
-  user: Pick<User, 'id' | 'profileName' | 'name' | 'surname' | 'type' | 'profileImage'>
+  user: Pick<
+    User,
+    'id' | 'profileName' | 'name' | 'surname' | 'type' | 'profileImage'
+  >;
   content: string;
   createdAt: Date;
   updatedAt: Date;
-  mediaUrls: string[]
+  mediaUrls: string[];
 }
 
 export interface PublicThreadsList extends ListWithPagination {
