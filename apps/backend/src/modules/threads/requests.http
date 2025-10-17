@@ -53,3 +53,18 @@ Content-Type: image/png
 
 < /Users/michas/Downloads/filmfest.png
 ------WebKitFormBoundary7MA4YWxkTrZu0gW--
+
+### Get all public threads (first page, default limit)
+GET http://localhost:4000/api/threads/
+
+### Get all public threads with pagination (page 2, 5 items per page)
+GET http://localhost:4000/api/threads?page=2&limit=5
+
+### Get all public threads with a search term
+GET http://localhost:4000/api/threads?search=test
+
+### Get all public threads with search and pagination
+GET http://localhost:4000/api/threads?search=zaktualizowana&page=1&limit=3
+
+### Get a single thread by its ID (Public Route)
+GET http://localhost:4000/api/threads/ab809b06-de0e-4c7e-b95e-5af9e57c891c

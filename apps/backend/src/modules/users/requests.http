@@ -19,3 +19,6 @@ GET http://localhost:4000/api/users?page=2&limit=2
 ### Get generated slug (Private Route)
 GET http://localhost:4000/api/users/slug
 Cookie: accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjZTIxYzQzZi0zNjkzLTQ5YTYtYWFjYS1iZDUwZDFkZjg3NDYiLCJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTc2MDI5NTE5NywiZXhwIjoxNzYwMjk2MDk3fQ.Dt4APZ3axhVV1cNb4L8EL24c__YzDbecTZD89SppDxA
+
+### Get all user threads (Public Route)
+GET http://localhost:4000/api/users/e7f1a7f7-f845-48a7-b5ed-2757e9d3d96f/threads

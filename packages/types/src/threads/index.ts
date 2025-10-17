@@ -1,3 +1,4 @@
+import { ListWithPagination } from "../common/pagination";
 import { User } from "../user";
 
 export interface CreateThreadRequest {
@@ -17,4 +18,18 @@ export interface ThreadResponse {
     createdAt: Date;
     updatedAt: Date;
     mediaUrls: string[]
+}
+
+export interface PublicThreadsList extends ListWithPagination {
+    threads: ThreadResponse[];
+}
+
+export interface PublicThreadsResponse {
+    threads: ThreadResponse[];
+    meta: {
+        totalCount: number;
+        currentPage: number;
+        totalPages: number;
+        limit: number;
+    };
 }

@@ -109,6 +109,16 @@
       "created": "Wątek został założony!",
       "deleted": "Wątek został usunięty!",
       "updated": "Wątek został zaktualizowany!"
+    },
+    "error": {
+      "notFound": "Wątek nie został znaleziony",
+      "invalidId": "Niepoprawny indentyfikator"
+    },
+    "validation": {
+      "content": {
+        "required": "Treść nie może być pusta",
+        "max": "Treść nie może mieć więcej niż 1000 znaków"
+      }
     }
   }
 }
