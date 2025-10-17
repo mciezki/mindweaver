@@ -112,6 +112,16 @@
       "created": "Thread has been created!",
       "deleted": "Thread has been deleted!",
       "updated": "Thread has been updated!"
+    },
+    "error": {
+      "notFound": "Thread not found",
+      "invalidId": "Invalid ID"
+    },
+    "validation": {
+      "content": {
+        "required": "Content is required",
+        "max": "Content cannot be longer than 1000 signs"
+      }
     }
   }
 }
