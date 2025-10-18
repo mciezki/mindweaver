@@ -7,6 +7,7 @@ import { createThread } from './controllers/create-thread.controller';
 import { deleteThread } from './controllers/delete-thread.controller';
 import { thread } from './controllers/thread.controller';
 import { threads } from './controllers/threads.controller';
+import { threadLike } from './controllers/toggle-thread-like.controller';
 import { updateThread } from './controllers/update-thread.controller';
 import {
   validateCreateThread,
@@ -35,5 +36,6 @@ router.patch(
 router.delete('/:id', authMiddleware, isThreadOwner, deleteThread);
 router.get('/', threads);
 router.get('/:id', thread);
+router.post('/:id/like', authMiddleware, threadLike);
 
 export default router;

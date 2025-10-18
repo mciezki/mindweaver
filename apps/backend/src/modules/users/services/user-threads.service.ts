@@ -42,6 +42,11 @@ export const getUserThreadsList = async (
         createdAt: true,
         updatedAt: true,
         mediaUrls: true,
+        _count: {
+          select: {
+            likes: true,
+          },
+        },
         user: {
           select: {
             id: true,
