@@ -17,8 +17,8 @@ export const getUserThreadsList = async (
   const searchCondition: Prisma.SocialThreadWhereInput | undefined =
     search.trim() !== ''
       ? {
-          OR: [{ content: { contains: search, mode: 'insensitive' } }],
-        }
+        OR: [{ content: { contains: search, mode: 'insensitive' } }],
+      }
       : undefined;
 
   const whereCondition: Prisma.SocialThreadWhereInput = {
@@ -42,6 +42,11 @@ export const getUserThreadsList = async (
         createdAt: true,
         updatedAt: true,
         mediaUrls: true,
+        _count: {
+          select: {
+            likes: true
+          }
+        },
         user: {
           select: {
             id: true,

@@ -12,6 +12,7 @@ import {
   validateCreateThread,
   validateUpdateThread,
 } from './threads.validator';
+import { threadLike } from './controllers/toggle-thread-like.controller';
 
 const isThreadOwner = createOwnershipMiddleware('socialThread');
 
@@ -35,5 +36,6 @@ router.patch(
 router.delete('/:id', authMiddleware, isThreadOwner, deleteThread);
 router.get('/', threads);
 router.get('/:id', thread);
+router.post('/:id/like', authMiddleware, threadLike);
 
 export default router;

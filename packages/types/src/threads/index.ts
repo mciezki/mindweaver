@@ -1,6 +1,12 @@
 import { ListWithPagination } from '../common/pagination';
 import { User } from '../user';
 
+export interface ThreadLike {
+  id: string
+  threadId: string
+  user: User
+}
+
 export interface CreateThreadRequest {
   content: string;
   mediaUrls?: string[];
@@ -21,6 +27,8 @@ export interface ThreadResponse {
   createdAt: Date;
   updatedAt: Date;
   mediaUrls: string[];
+
+  likes: ThreadLike[]
 }
 
 export interface PublicThreadsList extends ListWithPagination {
@@ -35,4 +43,8 @@ export interface PublicThreadsResponse {
     totalPages: number;
     limit: number;
   };
+}
+
+export interface ToggleLikeResponse {
+  liked: boolean;
 }
