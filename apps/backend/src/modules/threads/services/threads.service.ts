@@ -43,8 +43,8 @@ export const getPublicThreadsList = async (
     mediaUrls: true,
     _count: {
       select: {
-        likes: true
-      }
+        likes: true,
+      },
     },
     user: {
       select: {

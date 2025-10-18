@@ -19,8 +19,8 @@ export const getThread = async (
         mediaUrls: true,
         _count: {
           select: {
-            likes: true
-          }
+            likes: true,
+          },
         },
         user: {
           select: {

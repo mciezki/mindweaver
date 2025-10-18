@@ -7,12 +7,12 @@ import { createThread } from './controllers/create-thread.controller';
 import { deleteThread } from './controllers/delete-thread.controller';
 import { thread } from './controllers/thread.controller';
 import { threads } from './controllers/threads.controller';
+import { threadLike } from './controllers/toggle-thread-like.controller';
 import { updateThread } from './controllers/update-thread.controller';
 import {
   validateCreateThread,
   validateUpdateThread,
 } from './threads.validator';
-import { threadLike } from './controllers/toggle-thread-like.controller';
 
 const isThreadOwner = createOwnershipMiddleware('socialThread');
 
