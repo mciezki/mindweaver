@@ -57,30 +57,11 @@ export const updateThread = async (
       (url) => !finalMediaUrls.includes(url),
     );
 
-    await Promise.all([
-      deleteMultipleImagesFromCloudinary(urlsToDelete),
-      updateUserThread(id, { content, mediaUrls: finalMediaUrls }),
-    ]);
+    await deleteMultipleImagesFromCloudinary(urlsToDelete);
 
-    const updatedThread = await prisma.socialThread.findUnique({
-      where: { id },
-      select: {
-        id: true,
-        content: true,
-        createdAt: true,
-        updatedAt: true,
-        mediaUrls: true,
-        user: {
-          select: {
-            id: true,
-            profileName: true,
-            name: true,
-            surname: true,
-            type: true,
-            profileImage: true,
-          },
-        },
-      },
+    const updatedThread = await updateUserThread(id, {
+      content,
+      mediaUrls: finalMediaUrls,
     });
 
     res.status(200).json({

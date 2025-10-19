@@ -1,4 +1,4 @@
-import { ThreadResponse, ToggleLikeResponse } from '@mindweave/types';
+import { ToggleLikeResponse } from '@mindweave/types';
 
 import prisma from '../../../database/prisma';
 import { getMessage } from '../../../locales';

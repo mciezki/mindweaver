@@ -41,11 +41,6 @@ export const getPublicThreadsList = async (
     createdAt: true,
     updatedAt: true,
     mediaUrls: true,
-    _count: {
-      select: {
-        likes: true,
-      },
-    },
     user: {
       select: {
         id: true,
@@ -54,6 +49,11 @@ export const getPublicThreadsList = async (
         surname: true,
         type: true,
         profileImage: true,
+      },
+    },
+    _count: {
+      select: {
+        likes: true,
       },
     },
   };
@@ -65,7 +65,7 @@ export const getPublicThreadsList = async (
     });
 
     if (hasSearchTerm) {
-      threads = await prisma.socialThread.findMany({
+      const threadsFromDb = await prisma.socialThread.findMany({
         where: whereCondition,
         skip: skip,
         take: limit,
@@ -74,6 +74,13 @@ export const getPublicThreadsList = async (
         },
         select: threadSelect,
       });
+
+      threads = threadsFromDb.map(({ _count, ...threadData }) => ({
+        ...threadData,
+        counts: {
+          likes: _count.likes,
+        },
+      }));
     } else {
       if (totalCount === 0) {
         threads = [];
@@ -94,8 +101,16 @@ export const getPublicThreadsList = async (
         );
 
         const results = await Promise.all(promises);
+
         const validThreads = results.filter((thread) => thread !== null);
-        threads = shuffleArray(validThreads) as ThreadResponse[];
+        const mappedThreads = validThreads.map(({ _count, ...threadData }) => ({
+          ...threadData,
+          counts: {
+            likes: _count.likes,
+          },
+        }));
+
+        threads = shuffleArray(mappedThreads) as ThreadResponse[];
       }
     }
 

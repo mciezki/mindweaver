@@ -29,7 +29,7 @@ export const getUserThreadsList = async (
   };
 
   try {
-    const threads = await prisma.socialThread.findMany({
+    const threadsFromDb = await prisma.socialThread.findMany({
       where: whereCondition,
       skip: skip,
       take: limit,
@@ -42,11 +42,6 @@ export const getUserThreadsList = async (
         createdAt: true,
         updatedAt: true,
         mediaUrls: true,
-        _count: {
-          select: {
-            likes: true,
-          },
-        },
         user: {
           select: {
             id: true,
@@ -57,8 +52,18 @@ export const getUserThreadsList = async (
             profileImage: true,
           },
         },
+        _count: {
+          select: {
+            likes: true,
+          },
+        },
       },
     });
+
+    const threads = threadsFromDb.map(({ _count, ...threadData }) => ({
+      ...threadData,
+      counts: { likes: _count.likes },
+    }));
 
     const totalCount = await prisma.socialThread.count({
       where: whereCondition,
