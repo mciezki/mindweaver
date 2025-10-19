@@ -41,14 +41,14 @@ export const getThread = async (
       throw err;
     }
 
-    const { _count, ...threadData } = threadFromDb
+    const { _count, ...threadData } = threadFromDb;
 
-    return ({
-      ...threadData, counts: {
-        likes: _count.likes
-      }
-    });
-
+    return {
+      ...threadData,
+      counts: {
+        likes: _count.likes,
+      },
+    };
   } catch (error: any) {
     if (error.code === 'P2023') {
       const err: any = new Error(getMessage('threads.error.invalidId'));

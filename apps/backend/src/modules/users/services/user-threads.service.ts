@@ -17,8 +17,8 @@ export const getUserThreadsList = async (
   const searchCondition: Prisma.SocialThreadWhereInput | undefined =
     search.trim() !== ''
       ? {
-        OR: [{ content: { contains: search, mode: 'insensitive' } }],
-      }
+          OR: [{ content: { contains: search, mode: 'insensitive' } }],
+        }
       : undefined;
 
   const whereCondition: Prisma.SocialThreadWhereInput = {
@@ -62,8 +62,8 @@ export const getUserThreadsList = async (
 
     const threads = threadsFromDb.map(({ _count, ...threadData }) => ({
       ...threadData,
-      counts: { likes: _count.likes }
-    }))
+      counts: { likes: _count.likes },
+    }));
 
     const totalCount = await prisma.socialThread.count({
       where: whereCondition,

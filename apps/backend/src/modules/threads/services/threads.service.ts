@@ -78,9 +78,9 @@ export const getPublicThreadsList = async (
       threads = threadsFromDb.map(({ _count, ...threadData }) => ({
         ...threadData,
         counts: {
-          likes: _count.likes
-        }
-      }))
+          likes: _count.likes,
+        },
+      }));
     } else {
       if (totalCount === 0) {
         threads = [];
@@ -91,24 +91,24 @@ export const getPublicThreadsList = async (
           randomOffsets.add(Math.floor(Math.random() * totalCount));
         }
 
-        const promises = Array.from(randomOffsets).map((offset) => prisma.socialThread.findFirst({
-          where: whereCondition,
-          skip: offset,
-          take: 1,
-          select: threadSelect,
-        })
+        const promises = Array.from(randomOffsets).map((offset) =>
+          prisma.socialThread.findFirst({
+            where: whereCondition,
+            skip: offset,
+            take: 1,
+            select: threadSelect,
+          }),
         );
 
         const results = await Promise.all(promises);
-
 
         const validThreads = results.filter((thread) => thread !== null);
         const mappedThreads = validThreads.map(({ _count, ...threadData }) => ({
           ...threadData,
           counts: {
-            likes: _count.likes
-          }
-        }))
+            likes: _count.likes,
+          },
+        }));
 
         threads = shuffleArray(mappedThreads) as ThreadResponse[];
       }

@@ -59,7 +59,10 @@ export const updateThread = async (
 
     await deleteMultipleImagesFromCloudinary(urlsToDelete);
 
-    const updatedThread = await updateUserThread(id, { content, mediaUrls: finalMediaUrls })
+    const updatedThread = await updateUserThread(id, {
+      content,
+      mediaUrls: finalMediaUrls,
+    });
 
     res.status(200).json({
       message: getMessage('threads.success.updated'),

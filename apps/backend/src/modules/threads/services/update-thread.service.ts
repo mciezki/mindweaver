@@ -45,8 +45,8 @@ export const updateUserThread = async (
       },
     });
 
-    const { _count, ...rest } = updatedThread
-    const transformedThread = { ...rest, counts: { likes: _count.likes } }
+    const { _count, ...rest } = updatedThread;
+    const transformedThread = { ...rest, counts: { likes: _count.likes } };
 
     return transformedThread;
   } catch (error: any) {
