@@ -31,9 +31,10 @@ export const createNewThread = async (
           },
         },
       },
+
     });
 
-    return newThread;
+    return ({ ...newThread, counts: { likes: 0 } });
   } catch (error: any) {
     if (error.code === 'P2025') {
       const err: any = new Error(getMessage('common.userNotFound'));

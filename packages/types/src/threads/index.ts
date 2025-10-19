@@ -1,6 +1,10 @@
 import { ListWithPagination } from '../common/pagination';
 import { User } from '../user';
 
+export interface ThreadCounts {
+  likes: number;
+}
+
 export interface ThreadLike {
   id: string;
   threadId: string;
@@ -27,8 +31,7 @@ export interface ThreadResponse {
   createdAt: Date;
   updatedAt: Date;
   mediaUrls: string[];
-
-  likes: ThreadLike[];
+  counts: ThreadCounts;
 }
 
 export interface PublicThreadsList extends ListWithPagination {

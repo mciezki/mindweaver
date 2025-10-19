@@ -7,7 +7,7 @@ export const getThread = async (
   id: string | undefined,
 ): Promise<ThreadResponse> => {
   try {
-    const thread = await prisma.socialThread.findUnique({
+    const threadFromDb = await prisma.socialThread.findUnique({
       where: {
         id,
       },
@@ -17,11 +17,6 @@ export const getThread = async (
         createdAt: true,
         updatedAt: true,
         mediaUrls: true,
-        _count: {
-          select: {
-            likes: true,
-          },
-        },
         user: {
           select: {
             id: true,
@@ -32,16 +27,28 @@ export const getThread = async (
             profileImage: true,
           },
         },
+        _count: {
+          select: {
+            likes: true,
+          },
+        },
       },
     });
 
-    if (!thread) {
+    if (!threadFromDb) {
       const err: any = new Error(getMessage('threads.error.notFound'));
       err.statusCode = 404;
       throw err;
     }
 
-    return thread;
+    const { _count, ...threadData } = threadFromDb
+
+    return ({
+      ...threadData, counts: {
+        likes: _count.likes
+      }
+    });
+
   } catch (error: any) {
     if (error.code === 'P2023') {
       const err: any = new Error(getMessage('threads.error.invalidId'));

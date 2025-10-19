@@ -37,10 +37,18 @@ export const updateUserThread = async (
             profileImage: true,
           },
         },
+        _count: {
+          select: {
+            likes: true,
+          },
+        },
       },
     });
 
-    return updatedThread;
+    const { _count, ...rest } = updatedThread
+    const transformedThread = { ...rest, counts: { likes: _count.likes } }
+
+    return transformedThread;
   } catch (error: any) {
     if (error.code === 'P2025') {
       const err: any = new Error(getMessage('error.notFound'));
