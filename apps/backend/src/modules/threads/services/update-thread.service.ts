@@ -40,13 +40,17 @@ export const updateUserThread = async (
         _count: {
           select: {
             likes: true,
+            comments: true,
           },
         },
       },
     });
 
     const { _count, ...rest } = updatedThread;
-    const transformedThread = { ...rest, counts: { likes: _count.likes } };
+    const transformedThread = {
+      ...rest,
+      counts: { likes: _count.likes, comments: _count.comments },
+    };
 
     return transformedThread;
   } catch (error: any) {

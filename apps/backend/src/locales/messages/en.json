@@ -122,6 +122,9 @@
         "required": "Content is required",
         "max": "Content cannot be longer than 1000 signs"
       }
+    },
+    "comment": {
+      "deleted": "Comment deleted"
     }
   }
 }

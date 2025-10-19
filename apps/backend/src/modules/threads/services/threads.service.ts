@@ -54,6 +54,7 @@ export const getPublicThreadsList = async (
     _count: {
       select: {
         likes: true,
+        comments: true,
       },
     },
   };
@@ -79,6 +80,7 @@ export const getPublicThreadsList = async (
         ...threadData,
         counts: {
           likes: _count.likes,
+          comments: _count.comments,
         },
       }));
     } else {
@@ -107,6 +109,7 @@ export const getPublicThreadsList = async (
           ...threadData,
           counts: {
             likes: _count.likes,
+            comments: _count.comments,
           },
         }));
 

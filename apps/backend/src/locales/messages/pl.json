@@ -119,6 +119,9 @@
         "required": "Treść nie może być pusta",
         "max": "Treść nie może mieć więcej niż 1000 znaków"
       }
+    },
+    "comment": {
+      "deleted": "Komentarz usunięty"
     }
   }
 }

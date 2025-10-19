@@ -3,12 +3,18 @@ import { User } from '../user';
 
 export interface ThreadCounts {
   likes: number;
+  comments: number;
 }
 
 export interface ThreadLike {
   id: string;
   threadId: string;
   user: User;
+}
+
+export interface ThreadCommentRequest {
+  content: string;
+  parentId?: string;
 }
 
 export interface CreateThreadRequest {
@@ -19,6 +25,24 @@ export interface CreateThreadRequest {
 export interface UpdateThreadRequest {
   content: string;
   existingMediaUrls: string[];
+}
+
+export interface CommentCounts {
+  likes: number;
+  replies: number;
+}
+
+export interface CommentResponse {
+  id: string;
+  content: string;
+  createdAt: Date;
+  updatedAt: Date;
+  user: Pick<
+    User,
+    'id' | 'name' | 'surname' | 'profileName' | 'profileImage'
+  > | null;
+  parentId: string | null;
+  counts: CommentCounts;
 }
 
 export interface ThreadResponse {

@@ -72,3 +72,16 @@ GET http://localhost:4000/api/threads/ab809b06-de0e-4c7e-b95e-5af9e57c891c
 ### Toggle like on a thread (Private Route)
 POST http://localhost:4000/api/threads/ab809b06-de0e-4c7e-b95e-5af9e57c891c/like
 Cookie: accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlN2YxYTdmNy1mODQ1LTQ4YTctYjVlZC0yNzU3ZTlkM2Q5NmYiLCJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTc2MDg3MDkzNywiZXhwIjoxNzYwODcxODM3fQ.WvmOMuXweuN3PhTQlGQhZMYvb_tCaZqRkn8HXrxHvdg
+
+### Add comment to a thread (Private Route)
+POST http://localhost:4000/api/threads/ab809b06-de0e-4c7e-b95e-5af9e57c891c/comment
+Cookie: accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlN2YxYTdmNy1mODQ1LTQ4YTctYjVlZC0yNzU3ZTlkM2Q5NmYiLCJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTc2MDg3ODE4MSwiZXhwIjoxNzYwODc5MDgxfQ.pLNW3HFbE4MSfM4jIpeTwvQJUB3wUZS2ROqcMRM438k
+Content-Type: application/json
+
+{
+  "content": "It's amazing comment"
+}
+
+### Delete comment from a thread (Private Route)
+DELETE http://localhost:4000/api/threads/comments/62960900-2cce-4895-9c73-2ec31a7678dd
+Cookie: accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlN2YxYTdmNy1mODQ1LTQ4YTctYjVlZC0yNzU3ZTlkM2Q5NmYiLCJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTc2MDg3ODE4MSwiZXhwIjoxNzYwODc5MDgxfQ.pLNW3HFbE4MSfM4jIpeTwvQJUB3wUZS2ROqcMRM438k

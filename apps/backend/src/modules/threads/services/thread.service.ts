@@ -30,6 +30,7 @@ export const getThread = async (
         _count: {
           select: {
             likes: true,
+            comments: true,
           },
         },
       },
@@ -47,6 +48,7 @@ export const getThread = async (
       ...threadData,
       counts: {
         likes: _count.likes,
+        comments: _count.comments,
       },
     };
   } catch (error: any) {
