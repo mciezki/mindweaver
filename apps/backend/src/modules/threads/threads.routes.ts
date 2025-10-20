@@ -3,7 +3,7 @@ import { Router } from 'express';
 import upload from '../../config/multer.config';
 import { authMiddleware } from '../../middlewares/auth.middleware';
 import { createOwnershipMiddleware } from '../../middlewares/createOwnership.middleware';
-import { threadComment } from './controllers/comments/create-comment.controller';
+import { createComment } from './controllers/comments/create-comment.controller';
 import { deleteComment } from './controllers/comments/delete-comment.controller';
 import { createThread } from './controllers/create-thread.controller';
 import { deleteThread } from './controllers/delete-thread.controller';
@@ -15,10 +15,14 @@ import {
   validateCreateThread,
   validateCreateThreadComment,
   validateUpdateThread,
+  validateUpdateThreadComment,
 } from './threads.validator';
+import { updateComment } from './controllers/comments/update-comment.controller';
+import { comments } from './controllers/comments/comments.controller';
+import { commentReplies } from './controllers/comments/comment-replies.controller';
 
-const isThreadOwner = createOwnershipMiddleware('socialThread');
-const isCommentOwner = createOwnershipMiddleware('socialThreadComment');
+const isThreadOwner = createOwnershipMiddleware('socialThread', 'threadId');
+const isCommentOwner = createOwnershipMiddleware('socialThreadComment', 'commentId');
 
 const router = Router();
 
@@ -31,7 +35,7 @@ router.post(
 );
 
 router.patch(
-  '/:id',
+  '/:threadId',
   authMiddleware,
   isThreadOwner,
   upload.array('media', 5),
@@ -39,20 +43,24 @@ router.patch(
   updateThread,
 );
 
-router.delete('/:id', authMiddleware, isThreadOwner, deleteThread);
+router.delete('/:threadId', authMiddleware, isThreadOwner, deleteThread);
 router.get('/', threads);
-router.get('/:id', thread);
+router.get('/:threadId', thread);
 
 // likes
-router.post('/:id/like', authMiddleware, threadLike);
+router.post('/:threadId/like', authMiddleware, threadLike);
 
 // comments
+router.get('/:threadId/comments', authMiddleware, comments)
+
 router.post(
-  '/:id/comment',
+  '/:threadId/comments',
   authMiddleware,
   validateCreateThreadComment,
-  threadComment,
+  createComment,
 );
-router.delete('/comments/:id', authMiddleware, isCommentOwner, deleteComment);
+router.delete('/comments/:commentId', authMiddleware, isCommentOwner, deleteComment);
+router.patch('/comments/:commentId', authMiddleware, isCommentOwner, validateUpdateThreadComment, updateComment);
+router.get('/comments/:commentId/replies', authMiddleware, commentReplies);
 
 export default router;

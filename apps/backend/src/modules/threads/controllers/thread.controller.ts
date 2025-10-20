@@ -8,9 +8,9 @@ export const thread = async (
   next: NextFunction,
 ) => {
   try {
-    const { id } = req.params;
+    const { threadId } = req.params;
 
-    const thread = await getThread(id);
+    const thread = await getThread(threadId);
 
     res.status(200).json(thread);
   } catch (error) {

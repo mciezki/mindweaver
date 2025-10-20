@@ -121,7 +121,8 @@
       }
     },
     "comment": {
-      "deleted": "Komentarz usunięty"
+      "deleted": "Komentarz usunięty",
+      "updated": "Komentarz zaktualizowany"
     }
   }
 }

@@ -19,10 +19,10 @@ export const updateThread = async (
   next: NextFunction,
 ) => {
   try {
-    const { id } = req.params;
+    const { threadId } = req.params;
 
     const currentThread = await prisma.socialThread.findUnique({
-      where: { id },
+      where: { id: threadId },
       select: { mediaUrls: true },
     });
 
@@ -59,7 +59,7 @@ export const updateThread = async (
 
     await deleteMultipleImagesFromCloudinary(urlsToDelete);
 
-    const updatedThread = await updateUserThread(id, {
+    const updatedThread = await updateUserThread(threadId, {
       content,
       mediaUrls: finalMediaUrls,
     });

@@ -11,7 +11,7 @@ export const deleteThread = async (
   try {
     const userId = req.user?.userId;
 
-    const { id } = req.params;
+    const { threadId } = req.params;
 
     if (!userId) {
       const err: any = new Error(getMessage('auth.error.invalidToken'));
@@ -19,7 +19,7 @@ export const deleteThread = async (
       throw err;
     }
 
-    await deleteUserThread(id);
+    await deleteUserThread(threadId);
 
     res.status(200).json({
       message: getMessage('threads.success.deleted'),

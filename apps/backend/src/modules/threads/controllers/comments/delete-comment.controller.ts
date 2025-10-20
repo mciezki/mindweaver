@@ -9,9 +9,9 @@ export const deleteComment = async (
   next: NextFunction,
 ) => {
   try {
-    const { id } = req.params;
+    const { commentId } = req.params;
 
-    await deleteThreadComment(id);
+    await deleteThreadComment(commentId);
 
     res.status(200).json({
       message: getMessage('threads.comment.deleted'),

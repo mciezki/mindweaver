@@ -124,7 +124,8 @@
       }
     },
     "comment": {
-      "deleted": "Comment deleted"
+      "deleted": "Comment deleted",
+      "updated": "Comment updated"
     }
   }
 }

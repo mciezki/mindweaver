@@ -75,3 +75,17 @@ export interface PublicThreadsResponse {
 export interface ToggleLikeResponse {
   liked: boolean;
 }
+
+export interface ThreadCommentsList extends ListWithPagination {
+  comments: CommentResponse[]
+}
+
+export interface ThreadCommentsResponse {
+  threads: CommentResponse[];
+  meta: {
+    totalCount: number;
+    currentPage: number;
+    totalPages: number;
+    limit: number;
+  };
+}

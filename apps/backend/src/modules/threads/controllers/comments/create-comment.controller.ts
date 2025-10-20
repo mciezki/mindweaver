@@ -3,13 +3,13 @@ import { NextFunction, Request, Response } from 'express';
 import { getMessage } from '../../../../locales';
 import { createThreadComment } from '../../services/comments/create-comment.service';
 
-export const threadComment = async (
+export const createComment = async (
   req: Request,
   res: Response,
   next: NextFunction,
 ) => {
   try {
-    const { id: threadId } = req.params;
+    const { threadId } = req.params;
     const userId = req.user?.userId;
     const { content, parentId } = req.body;
 

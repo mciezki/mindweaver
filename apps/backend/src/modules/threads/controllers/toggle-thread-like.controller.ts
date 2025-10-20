@@ -9,7 +9,7 @@ export const threadLike = async (
   next: NextFunction,
 ) => {
   try {
-    const { id: threadId } = req.params;
+    const { threadId } = req.params;
     const userId = req.user?.userId;
 
     if (!userId) {
