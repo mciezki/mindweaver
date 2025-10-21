@@ -52,7 +52,7 @@ export const createThreadComment = async (
     return newComment;
   } catch (error: any) {
     if (error.code === 'P2003') {
-      const err: any = new Error(getMessage('threads.error.notFound'));
+      const err: any = new Error(getMessage('threads.comment.notFound'));
       err.statusCode = 404;
       throw err;
     }

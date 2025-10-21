@@ -8,7 +8,7 @@ export const deleteThreadComment = async (id: string): Promise<void> => {
     });
   } catch (error: any) {
     if (error.code === 'P2025') {
-      const err: any = new Error(getMessage('common.userNotFound'));
+      const err: any = new Error(getMessage('threads.comment.notFound'));
       err.statusCode = 404;
       throw err;
     }

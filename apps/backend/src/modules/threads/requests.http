@@ -104,3 +104,7 @@ Cookie: accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlN2YxYTd
 ### Get all replies for a specific comment (Private Route)
 GET http://localhost:4000/api/threads/comments/cb6dcac8-2344-40d5-ad25-b5bc9f23d908/replies
 Cookie: accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlN2YxYTdmNy1mODQ1LTQ4YTctYjVlZC0yNzU3ZTlkM2Q5NmYiLCJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTc2MDk5NDE5MiwiZXhwIjoxNzYwOTk1MDkyfQ.cQFeiOetPji0gHhLtEBOVjDvlknsTjme4AWonsWyDo8
+
+### Toggle like on a comment (Private Route)
+POST http://localhost:4000/api/threads/comments/533208c5-76e8-4bb0-8a05-7ddffc2c5b20/like
+Cookie: accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlN2YxYTdmNy1mODQ1LTQ4YTctYjVlZC0yNzU3ZTlkM2Q5NmYiLCJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTc2MTA3ODA5OSwiZXhwIjoxNzYxMDc4OTk5fQ.zu75DXFOYrABnYB5neabFJV-eVg0qQ1xMQ1bLx8PqlU

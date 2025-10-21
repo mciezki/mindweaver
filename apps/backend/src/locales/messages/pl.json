@@ -122,7 +122,8 @@
     },
     "comment": {
       "deleted": "Komentarz usunięty",
-      "updated": "Komentarz zaktualizowany"
+      "updated": "Komentarz zaktualizowany",
+      "notFound": "Komentarz nie został znaleziony"
     }
   }
 }

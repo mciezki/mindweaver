@@ -20,6 +20,7 @@ import {
 import { updateComment } from './controllers/comments/update-comment.controller';
 import { comments } from './controllers/comments/comments.controller';
 import { commentReplies } from './controllers/comments/comment-replies.controller';
+import { commentLike } from './controllers/comments/toggle-comment-like.controller';
 
 const isThreadOwner = createOwnershipMiddleware('socialThread', 'threadId');
 const isCommentOwner = createOwnershipMiddleware('socialThreadComment', 'commentId');
@@ -62,5 +63,6 @@ router.post(
 router.delete('/comments/:commentId', authMiddleware, isCommentOwner, deleteComment);
 router.patch('/comments/:commentId', authMiddleware, isCommentOwner, validateUpdateThreadComment, updateComment);
 router.get('/comments/:commentId/replies', authMiddleware, commentReplies);
+router.post('/comments/:commentId/like', authMiddleware, commentLike);
 
 export default router;
