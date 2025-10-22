@@ -18,7 +18,10 @@ type PrismaModelName = Exclude<
   | '$extends'
 >;
 
-export const createOwnershipMiddleware = (modelName: PrismaModelName, paramName: string = 'id') => {
+export const createOwnershipMiddleware = (
+  modelName: PrismaModelName,
+  paramName: string = 'id',
+) => {
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
       const loggedUserId = req.user?.userId;

@@ -9,7 +9,7 @@ export const commentReplies = async (
   next: NextFunction,
 ) => {
   try {
-    const { commentId } = req.params
+    const { commentId } = req.params;
     const { page, limit } = req.query;
 
     const pageNumber = parseInt(page as string) || 1;

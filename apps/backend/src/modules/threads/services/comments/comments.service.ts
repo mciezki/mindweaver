@@ -1,7 +1,4 @@
-import {
-  PaginationOptions,
-  ThreadCommentsList,
-} from '@mindweave/types';
+import { PaginationOptions, ThreadCommentsList } from '@mindweave/types';
 
 import prisma from '../../../../database/prisma';
 
@@ -53,14 +50,13 @@ export const getThreadComments = async (
       prisma.socialThreadComment.count({ where: whereCondition }),
     ]);
 
-
     const comments = commentsFromDb.map(({ _count, ...rest }) => ({
       ...rest,
       counts: {
         likes: _count.likes,
-        replies: _count.replies
-      }
-    }))
+        replies: _count.replies,
+      },
+    }));
 
     const totalPages = Math.ceil(totalCount / limit);
 

@@ -3,10 +3,16 @@ import { Router } from 'express';
 import upload from '../../config/multer.config';
 import { authMiddleware } from '../../middlewares/auth.middleware';
 import { createOwnershipMiddleware } from '../../middlewares/createOwnership.middleware';
+import { commentLikes } from './controllers/comments/comment-likes.controller';
+import { commentReplies } from './controllers/comments/comment-replies.controller';
+import { comments } from './controllers/comments/comments.controller';
 import { createComment } from './controllers/comments/create-comment.controller';
 import { deleteComment } from './controllers/comments/delete-comment.controller';
+import { commentLike } from './controllers/comments/toggle-comment-like.controller';
+import { updateComment } from './controllers/comments/update-comment.controller';
 import { createThread } from './controllers/create-thread.controller';
 import { deleteThread } from './controllers/delete-thread.controller';
+import { threadLikes } from './controllers/thread-likes.controller';
 import { thread } from './controllers/thread.controller';
 import { threads } from './controllers/threads.controller';
 import { threadLike } from './controllers/toggle-thread-like.controller';
@@ -17,15 +23,12 @@ import {
   validateUpdateThread,
   validateUpdateThreadComment,
 } from './threads.validator';
-import { updateComment } from './controllers/comments/update-comment.controller';
-import { comments } from './controllers/comments/comments.controller';
-import { commentReplies } from './controllers/comments/comment-replies.controller';
-import { commentLike } from './controllers/comments/toggle-comment-like.controller';
-import { threadLikes } from './controllers/thread-likes.controller';
-import { commentLikes } from './controllers/comments/comment-likes.controller';
 
 const isThreadOwner = createOwnershipMiddleware('socialThread', 'threadId');
-const isCommentOwner = createOwnershipMiddleware('socialThreadComment', 'commentId');
+const isCommentOwner = createOwnershipMiddleware(
+  'socialThreadComment',
+  'commentId',
+);
 
 const router = Router();
 
@@ -55,7 +58,7 @@ router.post('/:threadId/like', authMiddleware, threadLike);
 router.get('/:threadId/likes', authMiddleware, threadLikes);
 
 // comments
-router.get('/:threadId/comments', authMiddleware, comments)
+router.get('/:threadId/comments', authMiddleware, comments);
 
 router.post(
   '/:threadId/comments',
@@ -63,8 +66,19 @@ router.post(
   validateCreateThreadComment,
   createComment,
 );
-router.delete('/comments/:commentId', authMiddleware, isCommentOwner, deleteComment);
-router.patch('/comments/:commentId', authMiddleware, isCommentOwner, validateUpdateThreadComment, updateComment);
+router.delete(
+  '/comments/:commentId',
+  authMiddleware,
+  isCommentOwner,
+  deleteComment,
+);
+router.patch(
+  '/comments/:commentId',
+  authMiddleware,
+  isCommentOwner,
+  validateUpdateThreadComment,
+  updateComment,
+);
 router.get('/comments/:commentId/replies', authMiddleware, commentReplies);
 router.get('/comments/:commentId/likes', authMiddleware, commentLikes);
 router.post('/comments/:commentId/like', authMiddleware, commentLike);

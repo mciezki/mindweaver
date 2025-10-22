@@ -8,10 +8,7 @@ export interface ThreadCounts {
 
 export interface Like {
   id: string;
-  user: Pick<
-    User,
-    'id' | 'name' | 'surname' | 'profileName' | 'profileImage'
-  >;
+  user: Pick<User, 'id' | 'name' | 'surname' | 'profileName' | 'profileImage'>;
 }
 
 export interface ThreadCommentRequest {
@@ -79,7 +76,7 @@ export interface ToggleLikeResponse {
 }
 
 export interface ThreadCommentsList extends ListWithPagination {
-  comments: CommentResponse[]
+  comments: CommentResponse[];
 }
 
 export interface ThreadCommentsResponse {
@@ -93,7 +90,7 @@ export interface ThreadCommentsResponse {
 }
 
 export interface LikesList extends ListWithPagination {
-  likes: Like[]
+  likes: Like[];
 }
 
 export interface LikesResponse {
