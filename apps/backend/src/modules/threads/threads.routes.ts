@@ -21,6 +21,8 @@ import { updateComment } from './controllers/comments/update-comment.controller'
 import { comments } from './controllers/comments/comments.controller';
 import { commentReplies } from './controllers/comments/comment-replies.controller';
 import { commentLike } from './controllers/comments/toggle-comment-like.controller';
+import { threadLikes } from './controllers/thread-likes.controller';
+import { commentLikes } from './controllers/comments/comment-likes.controller';
 
 const isThreadOwner = createOwnershipMiddleware('socialThread', 'threadId');
 const isCommentOwner = createOwnershipMiddleware('socialThreadComment', 'commentId');
@@ -50,6 +52,7 @@ router.get('/:threadId', thread);
 
 // likes
 router.post('/:threadId/like', authMiddleware, threadLike);
+router.get('/:threadId/likes', authMiddleware, threadLikes);
 
 // comments
 router.get('/:threadId/comments', authMiddleware, comments)
@@ -63,6 +66,7 @@ router.post(
 router.delete('/comments/:commentId', authMiddleware, isCommentOwner, deleteComment);
 router.patch('/comments/:commentId', authMiddleware, isCommentOwner, validateUpdateThreadComment, updateComment);
 router.get('/comments/:commentId/replies', authMiddleware, commentReplies);
+router.get('/comments/:commentId/likes', authMiddleware, commentLikes);
 router.post('/comments/:commentId/like', authMiddleware, commentLike);
 
 export default router;

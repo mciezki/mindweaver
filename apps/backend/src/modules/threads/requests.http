@@ -71,7 +71,11 @@ GET http://localhost:4000/api/threads/ab809b06-de0e-4c7e-b95e-5af9e57c891c
 
 ### Toggle like on a thread (Private Route)
 POST http://localhost:4000/api/threads/ab809b06-de0e-4c7e-b95e-5af9e57c891c/like
-Cookie: accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlN2YxYTdmNy1mODQ1LTQ4YTctYjVlZC0yNzU3ZTlkM2Q5NmYiLCJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTc2MDk5NDE5MiwiZXhwIjoxNzYwOTk1MDkyfQ.cQFeiOetPji0gHhLtEBOVjDvlknsTjme4AWonsWyDo8
+Cookie: accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlN2YxYTdmNy1mODQ1LTQ4YTctYjVlZC0yNzU3ZTlkM2Q5NmYiLCJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTc2MTE2NTQwNSwiZXhwIjoxNzYxMTY2MzA1fQ.sMueVGZMmHpSM0CfPTbpKsS3D3hYqHZjKDQKX_YYseo
+
+### Get all likes for a specific thread (Private Route)
+GET http://localhost:4000/api/threads/ab809b06-de0e-4c7e-b95e-5af9e57c891c/likes
+Cookie: accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlN2YxYTdmNy1mODQ1LTQ4YTctYjVlZC0yNzU3ZTlkM2Q5NmYiLCJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTc2MTE2NTQwNSwiZXhwIjoxNzYxMTY2MzA1fQ.sMueVGZMmHpSM0CfPTbpKsS3D3hYqHZjKDQKX_YYseo
 
 ### Get all comments for a thread (Private Route)
 GET http://localhost:4000/api/threads/ab809b06-de0e-4c7e-b95e-5af9e57c891c/comments
@@ -108,3 +112,7 @@ Cookie: accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlN2YxYTd
 ### Toggle like on a comment (Private Route)
 POST http://localhost:4000/api/threads/comments/533208c5-76e8-4bb0-8a05-7ddffc2c5b20/like
 Cookie: accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlN2YxYTdmNy1mODQ1LTQ4YTctYjVlZC0yNzU3ZTlkM2Q5NmYiLCJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTc2MTA3ODA5OSwiZXhwIjoxNzYxMDc4OTk5fQ.zu75DXFOYrABnYB5neabFJV-eVg0qQ1xMQ1bLx8PqlU
+
+### Get all likes for a specific comment (Private Route)
+GET http://localhost:4000/api/threads/comments/533208c5-76e8-4bb0-8a05-7ddffc2c5b20/likes
+Cookie: accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlN2YxYTdmNy1mODQ1LTQ4YTctYjVlZC0yNzU3ZTlkM2Q5NmYiLCJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTc2MTE2NTQwNSwiZXhwIjoxNzYxMTY2MzA1fQ.sMueVGZMmHpSM0CfPTbpKsS3D3hYqHZjKDQKX_YYseo

@@ -6,10 +6,12 @@ export interface ThreadCounts {
   comments: number;
 }
 
-export interface ThreadLike {
+export interface Like {
   id: string;
-  threadId: string;
-  user: User;
+  user: Pick<
+    User,
+    'id' | 'name' | 'surname' | 'profileName' | 'profileImage'
+  >;
 }
 
 export interface ThreadCommentRequest {
@@ -82,6 +84,20 @@ export interface ThreadCommentsList extends ListWithPagination {
 
 export interface ThreadCommentsResponse {
   threads: CommentResponse[];
+  meta: {
+    totalCount: number;
+    currentPage: number;
+    totalPages: number;
+    limit: number;
+  };
+}
+
+export interface LikesList extends ListWithPagination {
+  likes: Like[]
+}
+
+export interface LikesResponse {
+  threads: Like[];
   meta: {
     totalCount: number;
     currentPage: number;
