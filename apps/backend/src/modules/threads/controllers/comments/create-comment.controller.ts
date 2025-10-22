@@ -1,9 +1,9 @@
 import { NextFunction, Request, Response } from 'express';
 
-import { getMessage } from '../../../locales';
-import { toggleThreadLike } from '../services/toggle-thread-like.service';
+import { getMessage } from '../../../../locales';
+import { createThreadComment } from '../../services/comments/create-comment.service';
 
-export const threadLike = async (
+export const createComment = async (
   req: Request,
   res: Response,
   next: NextFunction,
@@ -11,6 +11,7 @@ export const threadLike = async (
   try {
     const { threadId } = req.params;
     const userId = req.user?.userId;
+    const { content, parentId } = req.body;
 
     if (!userId) {
       const err: any = new Error(getMessage('auth.error.invalidToken'));
@@ -18,9 +19,12 @@ export const threadLike = async (
       throw err;
     }
 
-    const result = await toggleThreadLike(userId, threadId);
+    const result = await createThreadComment(userId, threadId, {
+      content,
+      parentId,
+    });
 
-    res.status(200).json(result);
+    res.status(201).json(result);
   } catch (error) {
     next(error);
   }

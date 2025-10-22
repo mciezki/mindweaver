@@ -3,12 +3,17 @@ import { User } from '../user';
 
 export interface ThreadCounts {
   likes: number;
+  comments: number;
 }
 
-export interface ThreadLike {
+export interface Like {
   id: string;
-  threadId: string;
-  user: User;
+  user: Pick<User, 'id' | 'name' | 'surname' | 'profileName' | 'profileImage'>;
+}
+
+export interface ThreadCommentRequest {
+  content: string;
+  parentId?: string;
 }
 
 export interface CreateThreadRequest {
@@ -19,6 +24,24 @@ export interface CreateThreadRequest {
 export interface UpdateThreadRequest {
   content: string;
   existingMediaUrls: string[];
+}
+
+export interface CommentCounts {
+  likes: number;
+  replies: number;
+}
+
+export interface CommentResponse {
+  id: string;
+  content: string;
+  createdAt: Date;
+  updatedAt: Date;
+  user: Pick<
+    User,
+    'id' | 'name' | 'surname' | 'profileName' | 'profileImage'
+  > | null;
+  parentId: string | null;
+  counts: CommentCounts;
 }
 
 export interface ThreadResponse {
@@ -50,4 +73,32 @@ export interface PublicThreadsResponse {
 
 export interface ToggleLikeResponse {
   liked: boolean;
+}
+
+export interface ThreadCommentsList extends ListWithPagination {
+  comments: CommentResponse[];
+}
+
+export interface ThreadCommentsResponse {
+  threads: CommentResponse[];
+  meta: {
+    totalCount: number;
+    currentPage: number;
+    totalPages: number;
+    limit: number;
+  };
+}
+
+export interface LikesList extends ListWithPagination {
+  likes: Like[];
+}
+
+export interface LikesResponse {
+  threads: Like[];
+  meta: {
+    totalCount: number;
+    currentPage: number;
+    totalPages: number;
+    limit: number;
+  };
 }

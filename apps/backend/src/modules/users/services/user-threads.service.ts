@@ -55,6 +55,7 @@ export const getUserThreadsList = async (
         _count: {
           select: {
             likes: true,
+            comments: true,
           },
         },
       },
@@ -62,7 +63,7 @@ export const getUserThreadsList = async (
 
     const threads = threadsFromDb.map(({ _count, ...threadData }) => ({
       ...threadData,
-      counts: { likes: _count.likes },
+      counts: { likes: _count.likes, comments: _count.comments },
     }));
 
     const totalCount = await prisma.socialThread.count({

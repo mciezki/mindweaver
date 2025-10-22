@@ -1,17 +1,16 @@
 import { NextFunction, Request, Response } from 'express';
 
-import { getMessage } from '../../../locales';
-import { deleteUserThread } from '../services/delete-thread.service';
+import { getMessage } from '../../../../locales';
+import { toggleCommentLike } from '../../services/comments/toggle-comment-like.service';
 
-export const deleteThread = async (
+export const commentLike = async (
   req: Request,
   res: Response,
   next: NextFunction,
 ) => {
   try {
+    const { commentId } = req.params;
     const userId = req.user?.userId;
-
-    const { threadId } = req.params;
 
     if (!userId) {
       const err: any = new Error(getMessage('auth.error.invalidToken'));
@@ -19,11 +18,9 @@ export const deleteThread = async (
       throw err;
     }
 
-    await deleteUserThread(threadId);
+    const result = await toggleCommentLike(userId, commentId);
 
-    res.status(200).json({
-      message: getMessage('threads.success.deleted'),
-    });
+    res.status(200).json(result);
   } catch (error) {
     next(error);
   }

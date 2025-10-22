@@ -71,4 +71,48 @@ GET http://localhost:4000/api/threads/ab809b06-de0e-4c7e-b95e-5af9e57c891c
 
 ### Toggle like on a thread (Private Route)
 POST http://localhost:4000/api/threads/ab809b06-de0e-4c7e-b95e-5af9e57c891c/like
-Cookie: accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlN2YxYTdmNy1mODQ1LTQ4YTctYjVlZC0yNzU3ZTlkM2Q5NmYiLCJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTc2MDg3MDkzNywiZXhwIjoxNzYwODcxODM3fQ.WvmOMuXweuN3PhTQlGQhZMYvb_tCaZqRkn8HXrxHvdg
+Cookie: accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlN2YxYTdmNy1mODQ1LTQ4YTctYjVlZC0yNzU3ZTlkM2Q5NmYiLCJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTc2MTE2NTQwNSwiZXhwIjoxNzYxMTY2MzA1fQ.sMueVGZMmHpSM0CfPTbpKsS3D3hYqHZjKDQKX_YYseo
+
+### Get all likes for a specific thread (Private Route)
+GET http://localhost:4000/api/threads/ab809b06-de0e-4c7e-b95e-5af9e57c891c/likes
+Cookie: accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlN2YxYTdmNy1mODQ1LTQ4YTctYjVlZC0yNzU3ZTlkM2Q5NmYiLCJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTc2MTE2NTQwNSwiZXhwIjoxNzYxMTY2MzA1fQ.sMueVGZMmHpSM0CfPTbpKsS3D3hYqHZjKDQKX_YYseo
+
+### Get all comments for a thread (Private Route)
+GET http://localhost:4000/api/threads/ab809b06-de0e-4c7e-b95e-5af9e57c891c/comments
+Cookie: accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlN2YxYTdmNy1mODQ1LTQ4YTctYjVlZC0yNzU3ZTlkM2Q5NmYiLCJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTc2MDk5NDE5MiwiZXhwIjoxNzYwOTk1MDkyfQ.cQFeiOetPji0gHhLtEBOVjDvlknsTjme4AWonsWyDo8
+
+### Add comment to a thread (Private Route)
+POST http://localhost:4000/api/threads/ab809b06-de0e-4c7e-b95e-5af9e57c891c/comments
+Cookie: accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlN2YxYTdmNy1mODQ1LTQ4YTctYjVlZC0yNzU3ZTlkM2Q5NmYiLCJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTc2MDk5NDE5MiwiZXhwIjoxNzYwOTk1MDkyfQ.cQFeiOetPji0gHhLtEBOVjDvlknsTjme4AWonsWyDo8
+Content-Type: application/json
+
+{
+  "content": "It's amazing comment 2",
+  "parentId": "cb6dcac8-2344-40d5-ad25-b5bc9f23d908"
+}
+
+### Delete comment from a thread (Private Route)
+DELETE http://localhost:4000/api/threads/comments/5de15bc5-e04a-4ce5-8f4d-b9e15e63b9c3
+Cookie: accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlN2YxYTdmNy1mODQ1LTQ4YTctYjVlZC0yNzU3ZTlkM2Q5NmYiLCJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTc2MDk5NDE5MiwiZXhwIjoxNzYwOTk1MDkyfQ.cQFeiOetPji0gHhLtEBOVjDvlknsTjme4AWonsWyDo8
+
+### Update a comment (Private Route)
+PATCH http://localhost:4000/api/threads/comments/5de15bc5-e04a-4ce5-8f4d-b9e15e63b9c3
+Content-Type: application/json
+Cookie: accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlN2YxYTdmNy1mODQ1LTQ4YTctYjVlZC0yNzU3ZTlkM2Q5NmYiLCJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTc2MDk5NDE5MiwiZXhwIjoxNzYwOTk1MDkyfQ.cQFeiOetPji0gHhLtEBOVjDvlknsTjme4AWonsWyDo8
+
+{
+  "content": "To jest nowa, zaktualizowana treść mojego komentarza."
+}
+
+
+### Get all replies for a specific comment (Private Route)
+GET http://localhost:4000/api/threads/comments/cb6dcac8-2344-40d5-ad25-b5bc9f23d908/replies
+Cookie: accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlN2YxYTdmNy1mODQ1LTQ4YTctYjVlZC0yNzU3ZTlkM2Q5NmYiLCJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTc2MDk5NDE5MiwiZXhwIjoxNzYwOTk1MDkyfQ.cQFeiOetPji0gHhLtEBOVjDvlknsTjme4AWonsWyDo8
+
+### Toggle like on a comment (Private Route)
+POST http://localhost:4000/api/threads/comments/533208c5-76e8-4bb0-8a05-7ddffc2c5b20/like
+Cookie: accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlN2YxYTdmNy1mODQ1LTQ4YTctYjVlZC0yNzU3ZTlkM2Q5NmYiLCJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTc2MTA3ODA5OSwiZXhwIjoxNzYxMDc4OTk5fQ.zu75DXFOYrABnYB5neabFJV-eVg0qQ1xMQ1bLx8PqlU
+
+### Get all likes for a specific comment (Private Route)
+GET http://localhost:4000/api/threads/comments/533208c5-76e8-4bb0-8a05-7ddffc2c5b20/likes
+Cookie: accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlN2YxYTdmNy1mODQ1LTQ4YTctYjVlZC0yNzU3ZTlkM2Q5NmYiLCJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTc2MTE2NTQwNSwiZXhwIjoxNzYxMTY2MzA1fQ.sMueVGZMmHpSM0CfPTbpKsS3D3hYqHZjKDQKX_YYseo
