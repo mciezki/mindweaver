@@ -12,6 +12,7 @@ import { commentLike } from './controllers/comments/toggle-comment-like.controll
 import { updateComment } from './controllers/comments/update-comment.controller';
 import { createThread } from './controllers/create-thread.controller';
 import { deleteThread } from './controllers/delete-thread.controller';
+import { shareThread } from './controllers/share-thread.controller';
 import { threadLikes } from './controllers/thread-likes.controller';
 import { thread } from './controllers/thread.controller';
 import { threads } from './controllers/threads.controller';
@@ -24,7 +25,6 @@ import {
   validateUpdateThread,
   validateUpdateThreadComment,
 } from './threads.validator';
-import { shareThread } from './controllers/share-thread.controller';
 
 const isThreadOwner = createOwnershipMiddleware('socialThread', 'threadId');
 const isCommentOwner = createOwnershipMiddleware(
@@ -54,7 +54,12 @@ router.patch(
 router.delete('/:threadId', authMiddleware, isThreadOwner, deleteThread);
 router.get('/', threads);
 router.get('/:threadId', thread);
-router.post('/:threadId/share', authMiddleware, validateShareThread, shareThread);
+router.post(
+  '/:threadId/share',
+  authMiddleware,
+  validateShareThread,
+  shareThread,
+);
 
 // likes
 router.post('/:threadId/like', authMiddleware, threadLike);

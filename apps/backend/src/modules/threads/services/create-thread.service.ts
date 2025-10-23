@@ -39,7 +39,7 @@ export const createNewThread = async (
                 profileImage: true,
               },
             },
-          }
+          },
         },
         user: {
           select: {

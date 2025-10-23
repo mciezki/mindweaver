@@ -2,7 +2,10 @@ import { ThreadResponse } from '@mindweave/types';
 
 import prisma from '../../../database/prisma';
 import { getMessage } from '../../../locales';
-import { fullThreadSelectShape, simpleThreadSelectShape } from '../threads.utils';
+import {
+  fullThreadSelectShape,
+  simpleThreadSelectShape,
+} from '../threads.utils';
 
 export const getThread = async (
   id: string | undefined,
@@ -33,7 +36,7 @@ export const getThread = async (
       counts: {
         likes: _count.likes,
         comments: _count.comments,
-        shares: _count.shares
+        shares: _count.shares,
       },
     };
   } catch (error: any) {

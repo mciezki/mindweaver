@@ -1,11 +1,11 @@
-import {
-  PaginationOptions,
-  PublicThreadsList,
-} from '@mindweave/types';
+import { PaginationOptions, PublicThreadsList } from '@mindweave/types';
 import { Prisma } from '@prisma/client';
 
 import prisma from '../../../database/prisma';
-import { fullThreadSelectShape, simpleThreadSelectShape } from '../../threads/threads.utils';
+import {
+  fullThreadSelectShape,
+  simpleThreadSelectShape,
+} from '../../threads/threads.utils';
 
 export const getUserThreadsList = async (
   slugOrId: string | undefined,
@@ -17,8 +17,8 @@ export const getUserThreadsList = async (
   const searchCondition: Prisma.SocialThreadWhereInput | undefined =
     search.trim() !== ''
       ? {
-        OR: [{ content: { contains: search, mode: 'insensitive' } }],
-      }
+          OR: [{ content: { contains: search, mode: 'insensitive' } }],
+        }
       : undefined;
 
   const whereCondition: Prisma.SocialThreadWhereInput = {
@@ -46,7 +46,11 @@ export const getUserThreadsList = async (
 
     const threads = threadsFromDb.map(({ _count, ...threadData }) => ({
       ...threadData,
-      counts: { likes: _count.likes, comments: _count.comments, shares: _count.shares },
+      counts: {
+        likes: _count.likes,
+        comments: _count.comments,
+        shares: _count.shares,
+      },
     }));
 
     const totalCount = await prisma.socialThread.count({

@@ -7,7 +7,10 @@ import { Prisma } from '@prisma/client';
 
 import prisma from '../../../database/prisma';
 import { shuffleArray } from '../../../utils/functions/shuffle-array';
-import { fullThreadSelectShape, simpleThreadSelectShape } from '../threads.utils';
+import {
+  fullThreadSelectShape,
+  simpleThreadSelectShape,
+} from '../threads.utils';
 
 export const getPublicThreadsList = async (
   options: PaginationOptions,
@@ -36,8 +39,6 @@ export const getPublicThreadsList = async (
     }),
   };
 
-
-
   try {
     let threads: ThreadResponse[];
     const totalCount = await prisma.socialThread.count({
@@ -65,7 +66,7 @@ export const getPublicThreadsList = async (
         counts: {
           likes: _count.likes,
           comments: _count.comments,
-          shares: _count.shares
+          shares: _count.shares,
         },
       }));
     } else {
@@ -95,14 +96,16 @@ export const getPublicThreadsList = async (
         const results = await Promise.all(promises);
 
         const validThreads = results.filter((thread) => thread !== null);
-        const mappedThreads = validThreads.map(({ _count, ...threadData }): ThreadResponse => ({
-          ...threadData,
-          counts: {
-            likes: _count.likes,
-            comments: _count.comments,
-            shares: _count.shares
-          },
-        }));
+        const mappedThreads = validThreads.map(
+          ({ _count, ...threadData }): ThreadResponse => ({
+            ...threadData,
+            counts: {
+              likes: _count.likes,
+              comments: _count.comments,
+              shares: _count.shares,
+            },
+          }),
+        );
 
         threads = shuffleArray(mappedThreads) as ThreadResponse[];
       }

@@ -3,7 +3,10 @@ import { Prisma } from '@prisma/client';
 
 import prisma from '../../../database/prisma';
 import { getMessage } from '../../../locales';
-import { fullThreadSelectShape, simpleThreadSelectShape } from '../threads.utils';
+import {
+  fullThreadSelectShape,
+  simpleThreadSelectShape,
+} from '../threads.utils';
 
 export const updateUserThread = async (
   id: string,
@@ -33,7 +36,11 @@ export const updateUserThread = async (
     const { _count, ...rest } = updatedThread;
     const transformedThread = {
       ...rest,
-      counts: { likes: _count.likes, comments: _count.comments, shares: _count.shares },
+      counts: {
+        likes: _count.likes,
+        comments: _count.comments,
+        shares: _count.shares,
+      },
     };
 
     return transformedThread;

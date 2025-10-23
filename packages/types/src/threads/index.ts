@@ -16,7 +16,7 @@ export interface ThreadBase {
 export interface ThreadCounts {
   likes: number;
   comments: number;
-  shares: number
+  shares: number;
 }
 
 export interface Like {
@@ -58,8 +58,8 @@ export interface CommentResponse {
 }
 
 export interface ThreadResponse extends ThreadBase {
-  originalThreadId: string | null
-  originalThread: ThreadBase | null
+  originalThreadId: string | null;
+  originalThread: ThreadBase | null;
   counts: ThreadCounts;
 }
 
