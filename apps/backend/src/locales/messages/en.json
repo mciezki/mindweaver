@@ -111,7 +111,8 @@
     "success": {
       "created": "Thread has been created!",
       "deleted": "Thread has been deleted!",
-      "updated": "Thread has been updated!"
+      "updated": "Thread has been updated!",
+      "shared": "Thread has been shared!"
     },
     "error": {
       "notFound": "Thread not found",

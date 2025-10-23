@@ -1,0 +1,67 @@
+import { CreateThreadRequest, ThreadResponse } from '@mindweave/types';
+
+import prisma from '../../../database/prisma';
+import { getMessage } from '../../../locales';
+
+export const shareUserThread = async (
+    userId: string,
+    threadId: string,
+    threadData: Partial<CreateThreadRequest>,
+): Promise<ThreadResponse> => {
+    try {
+        const sharedThread = await prisma.socialThread.create({
+            data: {
+                content: threadData.content,
+                user: { connect: { id: userId } },
+                originalThread: { connect: { id: threadId } }
+            },
+            select: {
+                id: true,
+                content: true,
+                createdAt: true,
+                updatedAt: true,
+                mediaUrls: true,
+                originalThreadId: true,
+                originalThread: {
+                    select: {
+                        id: true,
+                        content: true,
+                        createdAt: true,
+                        updatedAt: true,
+                        mediaUrls: true,
+                        originalThreadId: true,
+                        user: {
+                            select: {
+                                id: true,
+                                profileName: true,
+                                name: true,
+                                surname: true,
+                                type: true,
+                                profileImage: true,
+                            },
+                        },
+                    }
+                },
+                user: {
+                    select: {
+                        id: true,
+                        profileName: true,
+                        name: true,
+                        surname: true,
+                        type: true,
+                        profileImage: true,
+                    },
+                },
+            },
+        });
+
+        return { ...sharedThread, counts: { likes: 0, comments: 0, shares: 0 } };
+    } catch (error: any) {
+        if (error.code === 'P2003') {
+            const err: any = new Error(getMessage('threads.error.notFound'));
+            err.statusCode = 404;
+            throw err;
+        }
+        throw error;
+    }
+};

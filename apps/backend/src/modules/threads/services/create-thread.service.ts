@@ -20,6 +20,27 @@ export const createNewThread = async (
         createdAt: true,
         updatedAt: true,
         mediaUrls: true,
+        originalThreadId: true,
+        originalThread: {
+          select: {
+            id: true,
+            content: true,
+            createdAt: true,
+            updatedAt: true,
+            mediaUrls: true,
+            originalThreadId: true,
+            user: {
+              select: {
+                id: true,
+                profileName: true,
+                name: true,
+                surname: true,
+                type: true,
+                profileImage: true,
+              },
+            },
+          }
+        },
         user: {
           select: {
             id: true,
@@ -33,7 +54,7 @@ export const createNewThread = async (
       },
     });
 
-    return { ...newThread, counts: { likes: 0, comments: 0 } };
+    return { ...newThread, counts: { likes: 0, comments: 0, shares: 0 } };
   } catch (error: any) {
     if (error.code === 'P2025') {
       const err: any = new Error(getMessage('common.userNotFound'));

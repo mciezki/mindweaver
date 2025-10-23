@@ -20,9 +20,11 @@ import { updateThread } from './controllers/update-thread.controller';
 import {
   validateCreateThread,
   validateCreateThreadComment,
+  validateShareThread,
   validateUpdateThread,
   validateUpdateThreadComment,
 } from './threads.validator';
+import { shareThread } from './controllers/share-thread.controller';
 
 const isThreadOwner = createOwnershipMiddleware('socialThread', 'threadId');
 const isCommentOwner = createOwnershipMiddleware(
@@ -52,6 +54,7 @@ router.patch(
 router.delete('/:threadId', authMiddleware, isThreadOwner, deleteThread);
 router.get('/', threads);
 router.get('/:threadId', thread);
+router.post('/:threadId/share', authMiddleware, validateShareThread, shareThread);
 
 // likes
 router.post('/:threadId/like', authMiddleware, threadLike);
