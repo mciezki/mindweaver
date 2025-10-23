@@ -26,6 +26,23 @@ export const validateCreateThread = (
   next();
 };
 
+export const validateShareThread = (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): void => {
+  const { content } = req.body;
+
+  if (content !== undefined && content.length > 1000) {
+    res
+      .status(400)
+      .json({ message: getMessage('threads.validation.content.max') });
+    return;
+  }
+
+  next();
+};
+
 export const validateUpdateThread = (
   req: Request,
   res: Response,

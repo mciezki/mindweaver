@@ -7,6 +7,10 @@ import { Prisma } from '@prisma/client';
 
 import prisma from '../../../database/prisma';
 import { shuffleArray } from '../../../utils/functions/shuffle-array';
+import {
+  fullThreadSelectShape,
+  simpleThreadSelectShape,
+} from '../threads.utils';
 
 export const getPublicThreadsList = async (
   options: PaginationOptions,
@@ -35,30 +39,6 @@ export const getPublicThreadsList = async (
     }),
   };
 
-  const threadSelect = {
-    id: true,
-    content: true,
-    createdAt: true,
-    updatedAt: true,
-    mediaUrls: true,
-    user: {
-      select: {
-        id: true,
-        profileName: true,
-        name: true,
-        surname: true,
-        type: true,
-        profileImage: true,
-      },
-    },
-    _count: {
-      select: {
-        likes: true,
-        comments: true,
-      },
-    },
-  };
-
   try {
     let threads: ThreadResponse[];
     const totalCount = await prisma.socialThread.count({
@@ -73,7 +53,12 @@ export const getPublicThreadsList = async (
         orderBy: {
           createdAt: 'desc',
         },
-        select: threadSelect,
+        select: {
+          ...fullThreadSelectShape,
+          originalThread: {
+            select: simpleThreadSelectShape,
+          },
+        },
       });
 
       threads = threadsFromDb.map(({ _count, ...threadData }) => ({
@@ -81,6 +66,7 @@ export const getPublicThreadsList = async (
         counts: {
           likes: _count.likes,
           comments: _count.comments,
+          shares: _count.shares,
         },
       }));
     } else {
@@ -98,20 +84,28 @@ export const getPublicThreadsList = async (
             where: whereCondition,
             skip: offset,
             take: 1,
-            select: threadSelect,
+            select: {
+              ...fullThreadSelectShape,
+              originalThread: {
+                select: simpleThreadSelectShape,
+              },
+            },
           }),
         );
 
         const results = await Promise.all(promises);
 
         const validThreads = results.filter((thread) => thread !== null);
-        const mappedThreads = validThreads.map(({ _count, ...threadData }) => ({
-          ...threadData,
-          counts: {
-            likes: _count.likes,
-            comments: _count.comments,
-          },
-        }));
+        const mappedThreads = validThreads.map(
+          ({ _count, ...threadData }): ThreadResponse => ({
+            ...threadData,
+            counts: {
+              likes: _count.likes,
+              comments: _count.comments,
+              shares: _count.shares,
+            },
+          }),
+        );
 
         threads = shuffleArray(mappedThreads) as ThreadResponse[];
       }

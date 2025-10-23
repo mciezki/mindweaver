@@ -108,7 +108,8 @@
     "success": {
       "created": "Wątek został założony!",
       "deleted": "Wątek został usunięty!",
-      "updated": "Wątek został zaktualizowany!"
+      "updated": "Wątek został zaktualizowany!",
+      "shared": "Wątek został udostępniony!"
     },
     "error": {
       "notFound": "Wątek nie został znaleziony",

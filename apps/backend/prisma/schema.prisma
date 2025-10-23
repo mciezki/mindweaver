@@ -43,7 +43,6 @@ model User {
   socialThreads       SocialThread[]
   userLikes           SocialThreadLike[]
   userComments        SocialThreadComment[]
-  userShares          SocialThreadShare[]
   userCommentsLikes   SocialThreadCommentLike[]
 }
 
@@ -78,17 +77,19 @@ model RefreshToken {
 }
 
 model SocialThread {
-  id        String   @id @default(uuid())
-  userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  content   String   @db.Text
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  mediaUrls String[]
+  id               String        @id @default(uuid())
+  userId           String
+  user             User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  content          String?       @db.Text
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
+  mediaUrls        String[]
+  originalThreadId String?
+  originalThread   SocialThread? @relation("Shares", fields: [originalThreadId], references: [id], onDelete: SetNull)
 
   likes    SocialThreadLike[]
   comments SocialThreadComment[]
-  shares   SocialThreadShare[]
+  shares   SocialThread[]        @relation("Shares")
 }
 
 model SocialThreadLike {
@@ -128,14 +129,4 @@ model SocialThreadCommentLike {
   createdAt DateTime            @default(now())
 
   @@unique([commentId, userId])
-}
-
-model SocialThreadShare {
-  id        String       @id @default(uuid())
-  threadId  String
-  thread    SocialThread @relation(fields: [threadId], references: [id], onDelete: Cascade)
-  userId    String
-  user      User         @relation(fields: [userId], references: [id], onDelete: Cascade)
-  createdAt DateTime     @default(now())
-  content   String?      @db.Text
 }

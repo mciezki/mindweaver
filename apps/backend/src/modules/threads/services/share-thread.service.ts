@@ -3,16 +3,17 @@ import { CreateThreadRequest, ThreadResponse } from '@mindweave/types';
 import prisma from '../../../database/prisma';
 import { getMessage } from '../../../locales';
 
-export const createNewThread = async (
+export const shareUserThread = async (
   userId: string,
-  threadData: CreateThreadRequest,
+  threadId: string,
+  threadData: Partial<CreateThreadRequest>,
 ): Promise<ThreadResponse> => {
   try {
-    const newThread = await prisma.socialThread.create({
+    const sharedThread = await prisma.socialThread.create({
       data: {
         content: threadData.content,
-        mediaUrls: threadData.mediaUrls,
         user: { connect: { id: userId } },
+        originalThread: { connect: { id: threadId } },
       },
       select: {
         id: true,
@@ -54,10 +55,10 @@ export const createNewThread = async (
       },
     });
 
-    return { ...newThread, counts: { likes: 0, comments: 0, shares: 0 } };
+    return { ...sharedThread, counts: { likes: 0, comments: 0, shares: 0 } };
   } catch (error: any) {
-    if (error.code === 'P2025') {
-      const err: any = new Error(getMessage('common.userNotFound'));
+    if (error.code === 'P2003') {
+      const err: any = new Error(getMessage('threads.error.notFound'));
       err.statusCode = 404;
       throw err;
     }

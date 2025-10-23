@@ -1,9 +1,22 @@
 import { ListWithPagination } from '../common/pagination';
 import { User } from '../user';
 
+export interface ThreadBase {
+  id: string;
+  user: Pick<
+    User,
+    'id' | 'profileName' | 'name' | 'surname' | 'type' | 'profileImage'
+  >;
+  content: string | null;
+  createdAt: Date;
+  updatedAt: Date;
+  mediaUrls: string[];
+}
+
 export interface ThreadCounts {
   likes: number;
   comments: number;
+  shares: number;
 }
 
 export interface Like {
@@ -44,16 +57,9 @@ export interface CommentResponse {
   counts: CommentCounts;
 }
 
-export interface ThreadResponse {
-  id: string;
-  user: Pick<
-    User,
-    'id' | 'profileName' | 'name' | 'surname' | 'type' | 'profileImage'
-  >;
-  content: string;
-  createdAt: Date;
-  updatedAt: Date;
-  mediaUrls: string[];
+export interface ThreadResponse extends ThreadBase {
+  originalThreadId: string | null;
+  originalThread: ThreadBase | null;
   counts: ThreadCounts;
 }
 

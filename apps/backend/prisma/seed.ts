@@ -82,15 +82,6 @@ async function main() {
   });
   console.log(`Like for the reply created with ID: ${replyLike.id}`);
 
-  const adminShare = await prisma.socialThreadShare.create({
-    data: {
-      content: 'Warto sprawdzić ten wątek!',
-      userId: adminUser.id,
-      threadId: adminThread.id,
-    },
-  });
-  console.log(`Share created with ID: ${adminShare.id}`);
-
   console.log('Seeding finished successfully! 🎉');
 }
 
