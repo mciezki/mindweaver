@@ -18,6 +18,17 @@ enum UserType {
   ADMIN
 }
 
+enum ArticleType {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+enum ArticleRate {
+  LIKE
+  DISLIKE
+}
+
 model User {
   id        String   @id @default(uuid())
   email     String   @unique
@@ -37,13 +48,17 @@ model User {
   profileImage String?
   coverImage   String?
 
-  activationTokens    ActivationToken[]
-  passwordResetTokens PasswordResetToken[]
-  refreshTokens       RefreshToken[]
-  socialThreads       SocialThread[]
-  userLikes           SocialThreadLike[]
-  userComments        SocialThreadComment[]
-  userCommentsLikes   SocialThreadCommentLike[]
+  activationTokens                ActivationToken[]
+  passwordResetTokens             PasswordResetToken[]
+  refreshTokens                   RefreshToken[]
+  socialThreads                   SocialThread[]
+  userLikes                       SocialThreadLike[]
+  userComments                    SocialThreadComment[]
+  userCommentsLikes               SocialThreadCommentLike[]
+  userPublicationCategories       PublicationCategory[]
+  userPublicationArticles         PublicationArticle[]
+  userPublicationArticlesComments PublicationArticleComment[]
+  userPublicationArticlesRates    PublicationArticleRate[]
 }
 
 model ActivationToken {
@@ -129,4 +144,62 @@ model SocialThreadCommentLike {
   createdAt DateTime            @default(now())
 
   @@unique([commentId, userId])
+}
+
+model PublicationCategory {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name      String
+  slug      String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  articles PublicationArticle[]
+
+  @@unique([userId, slug])
+}
+
+model PublicationArticle {
+  id          String              @id @default(uuid())
+  userId      String
+  user        User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  categoryId  String
+  category    PublicationCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  title       String
+  contentHtml String              @db.Text
+  coverImage  String?
+  status      ArticleType
+  createdAt   DateTime            @default(now())
+  updatedAt   DateTime            @updatedAt
+  publishedAt DateTime?
+  slug        String?
+
+  comments PublicationArticleComment[]
+  rates    PublicationArticleRate[]
+
+  @@unique([userId, slug])
+}
+
+model PublicationArticleComment {
+  id        String             @id @default(uuid())
+  articleId String
+  article   PublicationArticle @relation(fields: [articleId], references: [id], onDelete: Cascade)
+  content   String             @db.Text
+  userId    String?
+  user      User?              @relation(fields: [userId], references: [id], onDelete: SetNull)
+  createdAt DateTime           @default(now())
+  updatedAt DateTime           @updatedAt
+}
+
+model PublicationArticleRate {
+  id        String             @id @default(uuid())
+  articleId String
+  article   PublicationArticle @relation(fields: [articleId], references: [id], onDelete: Cascade)
+  userId    String
+  user      User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  rate      ArticleRate
+  createdAt DateTime           @default(now())
+
+  @@unique([userId, articleId])
 }
