@@ -3,7 +3,6 @@ import { PublicationCategoryResponse } from '@mindweave/types';
 import prisma from '../../../database/prisma';
 import { getMessage } from '../../../locales';
 
-
 export const getCategory = async (
   id: string | undefined,
 ): Promise<PublicationCategoryResponse> => {
@@ -21,14 +20,16 @@ export const getCategory = async (
         description: true,
         _count: {
           select: {
-            articles: true
-          }
-        }
+            articles: true,
+          },
+        },
       },
     });
 
     if (!categoryFromDb) {
-      const err: any = new Error(getMessage('publications.categories.error.notFound'));
+      const err: any = new Error(
+        getMessage('publications.categories.error.notFound'),
+      );
       err.statusCode = 404;
       throw err;
     }
@@ -37,7 +38,7 @@ export const getCategory = async (
 
     return {
       ...categoryData,
-      articlesNumber: _count.articles
+      articlesNumber: _count.articles,
     };
   } catch (error: any) {
     if (error.code === 'P2023') {

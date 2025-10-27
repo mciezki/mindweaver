@@ -9,8 +9,7 @@ export const deleteCategory = async (
   next: NextFunction,
 ) => {
   try {
-
-    const { categoryId } = req.params
+    const { categoryId } = req.params;
 
     await deletePublicationCategory(categoryId);
 

@@ -1,4 +1,7 @@
-import { CreatePublicationCategoryRequest, PublicationCategory } from '@mindweave/types';
+import {
+  CreatePublicationCategoryRequest,
+  PublicationCategory,
+} from '@mindweave/types';
 
 import prisma from '../../../database/prisma';
 import { getMessage } from '../../../locales';
@@ -25,10 +28,12 @@ export const createNewCategory = async (
       },
     });
 
-    return newCategory
+    return newCategory;
   } catch (error: any) {
     if (error.code === 'P2002' && error.meta?.target?.includes('slug')) {
-      const err: any = new Error(getMessage('publications.categories.error.slugExists'));
+      const err: any = new Error(
+        getMessage('publications.categories.error.slugExists'),
+      );
       err.statusCode = 409;
       throw err;
     }

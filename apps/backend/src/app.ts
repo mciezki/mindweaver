@@ -5,9 +5,9 @@ import express from 'express';
 
 import { errorHandler } from './middlewares/errorHandler';
 import authRoutes from './modules/auth/auth.routes';
+import publicationsRoutes from './modules/publications/publications.routes';
 import threadsRoutes from './modules/threads/threads.routes';
 import usersRoutes from './modules/users/users.routes';
-import publicationsRoutes from './modules/publications/publications.routes';
 
 const app = express();
 

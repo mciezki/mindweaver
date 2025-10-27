@@ -1,9 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 
 import { getMessage } from '../../../locales';
-
 import { updatePublicationCategory } from '../services/update-category.service';
-
 
 export const updateCategory = async (
   req: Request,
@@ -11,11 +9,13 @@ export const updateCategory = async (
   next: NextFunction,
 ) => {
   try {
-    const { name, slug, description } = req.body
+    const { name, slug, description } = req.body;
     const { categoryId } = req.params;
 
     const updatedCategory = await updatePublicationCategory(categoryId, {
-      name, description, slug
+      name,
+      description,
+      slug,
     });
 
     res.status(200).json({
