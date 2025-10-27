@@ -1,0 +1,34 @@
+### Get all categories for a specific user (Public Route)
+GET http://localhost:4000/api/publications/user/e7f1a7f7-f845-48a7-b5ed-2757e9d3d96f/categories
+
+
+### Create a new category (Private Route)
+POST http://localhost:4000/api/publications/categories
+Content-Type: application/json
+Cookie: accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlN2YxYTdmNy1mODQ1LTQ4YTctYjVlZC0yNzU3ZTlkM2Q5NmYiLCJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTc2MTU5Mzg4OSwiZXhwIjoxNzYxNTk0Nzg5fQ.vynnpwUKDCPcOV56OfkL1Vf-MScCJUkna7eKCPOLj28
+
+{
+  "name": "Moja Nowa Kategoria 2",
+  "description": "Opis nowej, wspaniałej kategorii artykułów.",
+  "slug": "moja-nowa-kategoria-2"
+}
+
+
+### Get a single category by ID (Public Route)
+GET http://localhost:4000/api/publications/categories/a400894f-0ddc-4547-9e1e-fc1abba2be28
+
+
+### Update a category (Private Route)
+PATCH http://localhost:4000/api/publications/categories/88e64080-6f19-4ba2-b221-371787381033
+Content-Type: application/json
+Cookie: accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlN2YxYTdmNy1mODQ1LTQ4YTctYjVlZC0yNzU3ZTlkM2Q5NmYiLCJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTc2MTU5Mzg4OSwiZXhwIjoxNzYxNTk0Nzg5fQ.vynnpwUKDCPcOV56OfkL1Vf-MScCJUkna7eKCPOLj28
+
+{
+  "name": "Zaktualizowana Nazwa Kategorii",
+  "slug": "zaktualizowany-slug"
+}
+
+
+### Delete a category (Private Route)
+DELETE http://localhost:4000/api/publications/categories/a400894f-0ddc-4547-9e1e-fc1abba2be28
+Cookie: accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlN2YxYTdmNy1mODQ1LTQ4YTctYjVlZC0yNzU3ZTlkM2Q5NmYiLCJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTc2MTU5Mzg4OSwiZXhwIjoxNzYxNTk0Nzg5fQ.vynnpwUKDCPcOV56OfkL1Vf-MScCJUkna7eKCPOLj28
