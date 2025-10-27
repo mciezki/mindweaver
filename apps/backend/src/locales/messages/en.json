@@ -129,5 +129,25 @@
       "updated": "Comment updated",
       "notFound": "Comment not found"
     }
+  },
+  "publications": {
+    "categories": {
+      "success": {
+        "created": "Category has been created!",
+        "updated": "Category has been updated!",
+        "deleted": "Category has been deleted!"
+      },
+      "error": {
+        "notFound": "Category has not been found",
+        "slugExists": "Slug exists"
+      },
+      "validation": {
+        "required": "Content is required",
+        "max": "Content cannot be longer than 1000 signs",
+        "slug": "Slug cannot be longer than 20 signs",
+        "title": "Category name cannot be longer than 20 signs",
+        "format": "Invalid format"
+      }
+    }
   }
 }
