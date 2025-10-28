@@ -148,6 +148,25 @@
         "title": "Category name cannot be longer than 20 signs",
         "format": "Invalid format"
       }
+    },
+    "articles": {
+      "success": {
+        "created": "Article has been created!",
+        "published": "Article has been published!",
+        "updated": "Article has been updated!",
+        "deleted": "Article has been deleted!"
+      },
+      "error": {
+        "notFound": "Category has not been found",
+        "slugExists": "Slug exists"
+      },
+      "validation": {
+        "required": "Content is required",
+        "max": "Content cannot be longer than 1000 signs",
+        "slug": "Slug cannot be longer than 50 signs",
+        "title": "Article name cannot be longer than 150 signs",
+        "format": "Invalid format"
+      }
     }
   }
 }

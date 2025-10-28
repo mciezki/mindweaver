@@ -86,7 +86,7 @@ export interface ThreadCommentsList extends ListWithPagination {
 }
 
 export interface ThreadCommentsResponse {
-  threads: CommentResponse[];
+  comments: CommentResponse[];
   meta: {
     totalCount: number;
     currentPage: number;
@@ -100,7 +100,7 @@ export interface LikesList extends ListWithPagination {
 }
 
 export interface LikesResponse {
-  threads: Like[];
+  likes: Like[];
   meta: {
     totalCount: number;
     currentPage: number;

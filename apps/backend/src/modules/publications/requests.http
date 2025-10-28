@@ -32,3 +32,46 @@ Cookie: accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlN2YxYTd
 ### Delete a category (Private Route)
 DELETE http://localhost:4000/api/publications/categories/a400894f-0ddc-4547-9e1e-fc1abba2be28
 Cookie: accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlN2YxYTdmNy1mODQ1LTQ4YTctYjVlZC0yNzU3ZTlkM2Q5NmYiLCJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTc2MTU5Mzg4OSwiZXhwIjoxNzYxNTk0Nzg5fQ.vynnpwUKDCPcOV56OfkL1Vf-MScCJUkna7eKCPOLj28
+
+
+### Create a new article with a cover image (Private Route)
+POST http://localhost:4000/api/publications/articles/create
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryArtikel
+Cookie: accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlN2YxYTdmNy1mODQ1LTQ4YTctYjVlZC0yNzU3ZTlkM2Q5NmYiLCJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTc2MTY4NzI1MSwiZXhwIjoxNzYxNjg4MTUxfQ.CrpomEHHrsM4DU2MCbqUacbIPec5PfDiUQuTYavVm7s
+
+------WebKitFormBoundaryArtikel
+Content-Disposition: form-data; name="title"
+
+Mój Niesamowity Tytuł Artykułu
+------WebKitFormBoundaryArtikel
+Content-Disposition: form-data; name="contentHtml"
+
+<p>To jest <strong>bardzo</strong> ważna treść mojego artykułu w formacie HTML.</p>
+------WebKitFormBoundaryArtikel
+Content-Disposition: form-data; name="categoryId"
+
+88e64080-6f19-4ba2-b221-371787381033
+------WebKitFormBoundaryArtikel
+Content-Disposition: form-data; name="slug"
+
+moj-niesamowity-artykul-slug
+------WebKitFormBoundaryArtikel
+Content-Disposition: form-data; name="coverArticleImage"; filename="cover.jpg"
+Content-Type: image/jpeg
+
+< /Users/michas/Downloads/avatar.png
+------WebKitFormBoundaryArtikel--
+
+###
+
+### Create a new article without a cover image (Private Route)
+POST http://localhost:4000/api/publications/articles/create
+Content-Type: application/json
+Cookie: accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlN2YxYTdmNy1mODQ1LTQ4YTctYjVlZC0yNzU3ZTlkM2Q5NmYiLCJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTc2MTY4NzI1MSwiZXhwIjoxNzYxNjg4MTUxfQ.CrpomEHHrsM4DU2MCbqUacbIPec5PfDiUQuTYavVm7s
+
+{
+  "title": "Artykuł bez obrazka",
+  "contentHtml": "<p>Treść artykułu bez obrazka okładkowego.</p>",
+  "categoryId": "88e64080-6f19-4ba2-b221-371787381033",
+  "slug": "artykul-bez-obrazka"
+}

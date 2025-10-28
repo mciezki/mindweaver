@@ -1,13 +1,16 @@
 import { Router } from 'express';
 
+import upload from '../../config/multer.config';
 import { authMiddleware } from '../../middlewares/auth.middleware';
 import { createOwnershipMiddleware } from '../../middlewares/createOwnership.middleware';
+import { createArticle } from './controllers/articles/create-article.controller';
 import { categories } from './controllers/categories.controller';
 import { category } from './controllers/category.controller';
 import { createCategory } from './controllers/create-category.controller';
 import { deleteCategory } from './controllers/delete-category.controller';
 import { updateCategory } from './controllers/update-category.controller';
 import {
+  validateCreateArticle,
   validateCreateCategory,
   validateUpdateCategory,
 } from './publications.validator';
@@ -43,6 +46,14 @@ router.delete(
   authMiddleware,
   isCategoryOwner,
   deleteCategory,
+);
+
+router.post(
+  '/articles/create',
+  authMiddleware,
+  upload.fields([{ name: 'coverArticleImage', maxCount: 1 }]),
+  validateCreateArticle,
+  createArticle,
 );
 
 export default router;
