@@ -1,7 +1,9 @@
 import { Router } from 'express';
 
+import upload from '../../config/multer.config';
 import { authMiddleware } from '../../middlewares/auth.middleware';
 import { createOwnershipMiddleware } from '../../middlewares/createOwnership.middleware';
+import { createArticle } from './controllers/articles/create-article.controller';
 import { categories } from './controllers/categories.controller';
 import { category } from './controllers/category.controller';
 import { createCategory } from './controllers/create-category.controller';
@@ -12,8 +14,6 @@ import {
   validateCreateCategory,
   validateUpdateCategory,
 } from './publications.validator';
-import upload from '../../config/multer.config';
-import { createArticle } from './controllers/articles/create-article.controller';
 
 const isCategoryOwner = createOwnershipMiddleware(
   'publicationCategory',
@@ -51,8 +51,9 @@ router.delete(
 router.post(
   '/articles/create',
   authMiddleware,
-  upload.fields([{ name: 'coverArticleImage', maxCount: 1 }]), validateCreateArticle,
+  upload.fields([{ name: 'coverArticleImage', maxCount: 1 }]),
+  validateCreateArticle,
   createArticle,
-)
+);
 
 export default router;

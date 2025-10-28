@@ -40,21 +40,28 @@ export const createNewArticle = async (
             profileImage: true,
           },
         },
-
       },
     });
 
-    const { rates, ...newArticle } = newArticleFromDb
+    const { rates, ...newArticle } = newArticleFromDb;
 
-    return { ...newArticle, commentsNumber: 0, rates: { likes: 0, dislikes: 0 } };
+    return {
+      ...newArticle,
+      commentsNumber: 0,
+      rates: { likes: 0, dislikes: 0 },
+    };
   } catch (error: any) {
     if (error.code === 'P2002' && error.meta?.target?.includes('slug')) {
-      const err: any = new Error(getMessage('publications.articles.error.slugExists'));
+      const err: any = new Error(
+        getMessage('publications.articles.error.slugExists'),
+      );
       err.statusCode = 409;
       throw err;
     }
     if (error.code === 'P2003') {
-      const err: any = new Error(getMessage('publications.articles.error.notFound'));
+      const err: any = new Error(
+        getMessage('publications.articles.error.notFound'),
+      );
       err.statusCode = 404;
       throw err;
     }
