@@ -141,8 +141,27 @@
       "validation": {
         "required": "Treść nie może być pusta",
         "max": "Treść nie może mieć więcej niż 1000 znaków",
-        "slug": "Własny identyfikator nie może mieć więcej niż 20 znaków",
-        "title": "Nazwa kategorii nie może mieć więcej niż 20 znaków",
+        "slug": "Własny identyfikator nie może mieć więcej niż 50 znaków",
+        "title": "Nazwa kategorii nie może mieć więcej niż 50 znaków",
+        "format": "Niewłaściwy format"
+      }
+    },
+    "articles": {
+      "success": {
+        "created": "Artykuł został utworzony!",
+        "published": "Artykuł został opublikowany",
+        "updated": "Artykuł został zaktualizowany!",
+        "deleted": "Artykuł został usunięty!"
+      },
+      "error": {
+        "notFound": "Kategoria nie została znaleziona",
+        "slugExists": "Własny identyfikator o tej nazwie istnieje"
+      },
+      "validation": {
+        "required": "Treść nie może być pusta",
+        "max": "Treść nie może mieć więcej niż 100 znaków",
+        "slug": "Własny identyfikator nie może mieć więcej niż 50 znaków",
+        "title": "Nazwa artykułu nie może mieć więcej niż 150 znaków",
         "format": "Niewłaściwy format"
       }
     }

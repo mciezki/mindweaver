@@ -137,3 +137,40 @@ export const validateUpdateCategory = (
 
   next();
 };
+
+export const validateCreateArticle = (req: Request, res: Response, next: NextFunction): void => {
+  const { title, contentHtml, slug, categoryId } = req.body;
+
+  if (!categoryId || typeof categoryId !== 'string') {
+    res.status(400).json({ message: getMessage('publications.articles.validation.required') });
+    return;
+  }
+
+  if (!title || typeof title !== 'string' || title.trim().length === 0) {
+    res.status(400).json({ message: getMessage('publications.articles.validation.required') });
+    return;
+  }
+  if (title.length > 150) {
+    res.status(400).json({ message: getMessage('publications.articles.validation.title') });
+    return;
+  }
+
+  if (!contentHtml || typeof contentHtml !== 'string' || contentHtml.trim().length === 0) {
+    res.status(400).json({ message: getMessage('publications.articles.validation.required') });
+    return;
+  }
+
+  if (slug !== undefined) {
+    if (slug.length > 50) {
+      res.status(400).json({ message: getMessage('publications.articles.validation.max') });
+      return;
+    }
+    const slugRegex = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+    if (slug.trim().length > 0 && !slugRegex.test(slug)) {
+      res.status(400).json({ message: getMessage('publications.articles.validation.format') });
+      return;
+    }
+  }
+
+  next();
+};

@@ -21,7 +21,6 @@ enum UserType {
 enum ArticleType {
   DRAFT
   PUBLISHED
-  ARCHIVED
 }
 
 enum ArticleRate {
@@ -174,12 +173,10 @@ model PublicationArticle {
   createdAt   DateTime            @default(now())
   updatedAt   DateTime            @updatedAt
   publishedAt DateTime?
-  slug        String?
+  slug        String?             @unique
 
   comments PublicationArticleComment[]
   rates    PublicationArticleRate[]
-
-  @@unique([userId, slug])
 }
 
 model PublicationArticleComment {

@@ -8,9 +8,12 @@ import { createCategory } from './controllers/create-category.controller';
 import { deleteCategory } from './controllers/delete-category.controller';
 import { updateCategory } from './controllers/update-category.controller';
 import {
+  validateCreateArticle,
   validateCreateCategory,
   validateUpdateCategory,
 } from './publications.validator';
+import upload from '../../config/multer.config';
+import { createArticle } from './controllers/articles/create-article.controller';
 
 const isCategoryOwner = createOwnershipMiddleware(
   'publicationCategory',
@@ -44,5 +47,12 @@ router.delete(
   isCategoryOwner,
   deleteCategory,
 );
+
+router.post(
+  '/articles/create',
+  authMiddleware,
+  upload.fields([{ name: 'coverArticleImage', maxCount: 1 }]), validateCreateArticle,
+  createArticle,
+)
 
 export default router;
