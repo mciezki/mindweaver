@@ -162,7 +162,8 @@
         "max": "Treść nie może mieć więcej niż 100 znaków",
         "slug": "Własny identyfikator nie może mieć więcej niż 50 znaków",
         "title": "Nazwa artykułu nie może mieć więcej niż 150 znaków",
-        "format": "Niewłaściwy format"
+        "format": "Niewłaściwy format",
+        "status": "Niewłaściwy status"
       }
     }
   }
