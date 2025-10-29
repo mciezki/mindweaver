@@ -62,16 +62,100 @@ Content-Type: image/jpeg
 < /Users/michas/Downloads/avatar.png
 ------WebKitFormBoundaryArtikel--
 
-###
 
 ### Create a new article without a cover image (Private Route)
 POST http://localhost:4000/api/publications/articles/create
 Content-Type: application/json
-Cookie: accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlN2YxYTdmNy1mODQ1LTQ4YTctYjVlZC0yNzU3ZTlkM2Q5NmYiLCJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTc2MTY4NzI1MSwiZXhwIjoxNzYxNjg4MTUxfQ.CrpomEHHrsM4DU2MCbqUacbIPec5PfDiUQuTYavVm7s
+Cookie: accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlN2YxYTdmNy1mODQ1LTQ4YTctYjVlZC0yNzU3ZTlkM2Q5NmYiLCJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTc2MTc3MDYwMiwiZXhwIjoxNzYxNzcxNTAyfQ.iEmKVw8FPoh2d_S3bqnkLdI70a9447s13pZP-6nJ348
 
 {
   "title": "Artykuł bez obrazka",
   "contentHtml": "<p>Treść artykułu bez obrazka okładkowego.</p>",
   "categoryId": "88e64080-6f19-4ba2-b221-371787381033",
-  "slug": "artykul-bez-obrazka"
+  "slug": "artykul-bez-obrazka-2"
 }
+
+### Change an article's status (Private Route)
+PATCH http://localhost:4000/api/publications/articles/c60e4503-a47e-4faa-a7f6-be204752d1b2/status
+Content-Type: application/json
+Cookie: accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlN2YxYTdmNy1mODQ1LTQ4YTctYjVlZC0yNzU3ZTlkM2Q5NmYiLCJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTc2MTc3MDYwMiwiZXhwIjoxNzYxNzcxNTAyfQ.iEmKVw8FPoh2d_S3bqnkLdI70a9447s13pZP-6nJ348
+
+{
+  "status": "PUBLISHED"
+}
+
+
+### Change an article's status back to draft
+PATCH http://localhost:4000/api/publications/articles/ae29588e-7973-40bd-ac6f-8c15589cfd2d/status
+Content-Type: application/json
+Cookie: accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlN2YxYTdmNy1mODQ1LTQ4YTctYjVlZC0yNzU3ZTlkM2Q5NmYiLCJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTc2MTc3MDYwMiwiZXhwIjoxNzYxNzcxNTAyfQ.iEmKVw8FPoh2d_S3bqnkLdI70a9447s13pZP-6nJ348
+
+{
+  "status": "DRAFT"
+}
+
+### Delete an article (Private Route)
+DELETE http://localhost:4000/api/publications/articles/ae29588e-7973-40bd-ac6f-8c15589cfd2d
+Cookie: accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlN2YxYTdmNy1mODQ1LTQ4YTctYjVlZC0yNzU3ZTlkM2Q5NmYiLCJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTc2MTc3MDYwMiwiZXhwIjoxNzYxNzcxNTAyfQ.iEmKVw8FPoh2d_S3bqnkLdI70a9447s13pZP-6nJ348
+
+
+### Update an article (Text + New Cover Image) (Private Route)
+PATCH http://localhost:4000/api/publications/articles/c60e4503-a47e-4faa-a7f6-be204752d1b2
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryUpdateArticle
+Cookie: accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlN2YxYTdmNy1mODQ1LTQ4YTctYjVlZC0yNzU3ZTlkM2Q5NmYiLCJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTc2MTc3Mjg3MiwiZXhwIjoxNzYxNzczNzcyfQ.vpRgI5A2MSZ88yKak01sNFycXjZIY24VCky9isErA9k
+
+------WebKitFormBoundaryUpdateArticle
+Content-Disposition: form-data; name="title"
+
+To jest mój zaktualizowany tytuł!
+------WebKitFormBoundaryUpdateArticle
+Content-Disposition: form-data; name="contentHtml"
+
+<p>Zaktualizowana <b>treść</b> HTML.</p>
+------WebKitFormBoundaryUpdateArticle
+Content-Disposition: form-data; name="categoryId"
+
+88e64080-6f19-4ba2-b221-371787381033
+------WebKitFormBoundaryUpdateArticle
+Content-Disposition: form-data; name="slug"
+
+zaktualizowany-super-slug
+------WebKitFormBoundaryUpdateArticle
+Content-Disposition: form-data; name="coverArticleImage"; filename="new-cover.jpg"
+Content-Type: image/jpeg
+
+< /Users/michas/Downloads/background.jpg
+------WebKitFormBoundaryUpdateArticle--
+
+
+### Update an article (Text + Remove Cover Image) (Private Route)
+PATCH http://localhost:4000/api/publications/articles/c60e4503-a47e-4faa-a7f6-be204752d1b2
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryRemoveImage
+Cookie: accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlN2YxYTdmNy1mODQ1LTQ4YTctYjVlZC0yNzU3ZTlkM2Q5NmYiLCJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTc2MTc3Mjg3MiwiZXhwIjoxNzYxNzczNzcyfQ.vpRgI5A2MSZ88yKak01sNFycXjZIY24VCky9isErA9k
+
+------WebKitFormBoundaryRemoveImage
+Content-Disposition: form-data; name="title"
+
+Tylko zmieniam tytuł i usuwam obrazek
+------WebKitFormBoundaryRemoveImage
+Content-Disposition: form-data; name="coverImage"
+
+null
+------WebKitFormBoundaryRemoveImage--
+
+###
+
+### Update an article (Text Only, No Image Change) (Private Route)
+PATCH http://localhost:4000/api/publications/articles/c60e4503-a47e-4faa-a7f6-be204752d1b2
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryTextOnly
+Cookie: accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlN2YxYTdmNy1mODQ1LTQ4YTctYjVlZC0yNzU3ZTlkM2Q5NmYiLCJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTc2MTc3Mjg3MiwiZXhwIjoxNzYxNzczNzcyfQ.vpRgI5A2MSZ88yKak01sNFycXjZIY24VCky9isErA9k
+
+------WebKitFormBoundaryTextOnly
+Content-Disposition: form-data; name="title"
+
+Zmieniam tylko tytuł, nic więcej
+------WebKitFormBoundaryTextOnly
+Content-Disposition: form-data; name="slug"
+
+nowy-slug-bez-zmiany-obrazka
+------WebKitFormBoundaryTextOnly--

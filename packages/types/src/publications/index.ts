@@ -87,3 +87,7 @@ export interface ArticleCommentsResponse {
     limit: number;
   };
 }
+
+export interface ArticleChangeStatusRequest {
+  status: 'DRAFT' | 'PUBLISHED';
+}

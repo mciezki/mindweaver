@@ -157,7 +157,7 @@
         "deleted": "Article has been deleted!"
       },
       "error": {
-        "notFound": "Category has not been found",
+        "notFound": "Article has not been found",
         "slugExists": "Slug exists"
       },
       "validation": {
@@ -165,7 +165,8 @@
         "max": "Content cannot be longer than 1000 signs",
         "slug": "Slug cannot be longer than 50 signs",
         "title": "Article name cannot be longer than 150 signs",
-        "format": "Invalid format"
+        "format": "Invalid format",
+        "status": "Invalid status"
       }
     }
   }
