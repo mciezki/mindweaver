@@ -1,6 +1,5 @@
 import {
   CreatePublicationArticle,
-  CreateThreadRequest,
 } from '@mindweave/types';
 import { NextFunction, Request, Response } from 'express';
 

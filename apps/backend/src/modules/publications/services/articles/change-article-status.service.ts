@@ -1,10 +1,7 @@
 import {
     ArticleChangeStatusRequest,
-    CreatePublicationCategoryRequest,
     PublicationArticle,
-    PublicationCategory,
 } from '@mindweave/types';
-import { Prisma } from '@prisma/client';
 
 import prisma from '../../../../database/prisma';
 import { getMessage } from '../../../../locales';
