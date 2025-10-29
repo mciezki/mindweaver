@@ -124,20 +124,16 @@ export const validateCreateArticle = (
   const { title, contentHtml, slug, categoryId } = req.body;
 
   if (!categoryId || typeof categoryId !== 'string') {
-    res
-      .status(400)
-      .json({
-        message: getMessage('publications.articles.validation.required'),
-      });
+    res.status(400).json({
+      message: getMessage('publications.articles.validation.required'),
+    });
     return;
   }
 
   if (!title || typeof title !== 'string' || title.trim().length === 0) {
-    res
-      .status(400)
-      .json({
-        message: getMessage('publications.articles.validation.required'),
-      });
+    res.status(400).json({
+      message: getMessage('publications.articles.validation.required'),
+    });
     return;
   }
   if (title.length > 150) {
@@ -152,11 +148,9 @@ export const validateCreateArticle = (
     typeof contentHtml !== 'string' ||
     contentHtml.trim().length === 0
   ) {
-    res
-      .status(400)
-      .json({
-        message: getMessage('publications.articles.validation.required'),
-      });
+    res.status(400).json({
+      message: getMessage('publications.articles.validation.required'),
+    });
     return;
   }
 
@@ -169,18 +163,15 @@ export const validateCreateArticle = (
     }
     const slugRegex = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
     if (slug.trim().length > 0 && !slugRegex.test(slug)) {
-      res
-        .status(400)
-        .json({
-          message: getMessage('publications.articles.validation.format'),
-        });
+      res.status(400).json({
+        message: getMessage('publications.articles.validation.format'),
+      });
       return;
     }
   }
 
   next();
 };
-
 
 export const validateChangeArticleStatus = (
   req: Request,
@@ -189,13 +180,12 @@ export const validateChangeArticleStatus = (
 ): void => {
   const { status } = req.body;
 
-  if (status !== "DRAFT" && status !== "PUBLISHED") {
+  if (status !== 'DRAFT' && status !== 'PUBLISHED') {
     res.status(400).json({
       message: getMessage('publications.articles.validation.status'),
     });
     return;
   }
-
 
   next();
 };
@@ -208,47 +198,40 @@ export const validateUpdateArticle = (
   const { title, contentHtml, slug, categoryId } = req.body;
 
   if (categoryId !== undefined) {
-
     if (!categoryId || typeof categoryId !== 'string') {
-      res
-        .status(400)
-        .json({
-          message: getMessage('publications.articles.validation.required'),
-        });
+      res.status(400).json({
+        message: getMessage('publications.articles.validation.required'),
+      });
       return;
     }
   }
 
   if (title !== undefined) {
-
     if (!title || typeof title !== 'string' || title.trim().length === 0) {
-      res
-        .status(400)
-        .json({
-          message: getMessage('publications.articles.validation.required'),
-        });
+      res.status(400).json({
+        message: getMessage('publications.articles.validation.required'),
+      });
       return;
     }
     if (title.length > 150) {
       res
         .status(400)
-        .json({ message: getMessage('publications.articles.validation.title') });
+        .json({
+          message: getMessage('publications.articles.validation.title'),
+        });
       return;
     }
   }
 
   if (contentHtml !== undefined) {
-
     if (
       !contentHtml ||
       typeof contentHtml !== 'string' ||
       contentHtml.trim().length === 0
     ) {
-      res
-        .status(400)
-        .json({
-          message: getMessage('publications.articles.validation.required'),
-        });
+      res.status(400).json({
+        message: getMessage('publications.articles.validation.required'),
+      });
       return;
     }
   }
@@ -262,11 +245,9 @@ export const validateUpdateArticle = (
     }
     const slugRegex = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
     if (slug.trim().length > 0 && !slugRegex.test(slug)) {
-      res
-        .status(400)
-        .json({
-          message: getMessage('publications.articles.validation.format'),
-        });
+      res.status(400).json({
+        message: getMessage('publications.articles.validation.format'),
+      });
       return;
     }
   }

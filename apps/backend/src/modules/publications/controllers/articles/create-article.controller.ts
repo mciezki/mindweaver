@@ -1,6 +1,4 @@
-import {
-  CreatePublicationArticle,
-} from '@mindweave/types';
+import { CreatePublicationArticle } from '@mindweave/types';
 import { NextFunction, Request, Response } from 'express';
 
 import { getMessage } from '../../../../locales';

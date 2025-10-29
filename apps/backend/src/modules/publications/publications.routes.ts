@@ -3,7 +3,10 @@ import { Router } from 'express';
 import upload from '../../config/multer.config';
 import { authMiddleware } from '../../middlewares/auth.middleware';
 import { createOwnershipMiddleware } from '../../middlewares/createOwnership.middleware';
+import { changeStatus } from './controllers/articles/change-article-status.controller';
 import { createArticle } from './controllers/articles/create-article.controller';
+import { deleteArticle } from './controllers/articles/delete-article.controller';
+import { updateArticle } from './controllers/articles/update-article.controller';
 import { categories } from './controllers/categories.controller';
 import { category } from './controllers/category.controller';
 import { createCategory } from './controllers/create-category.controller';
@@ -16,9 +19,6 @@ import {
   validateUpdateArticle,
   validateUpdateCategory,
 } from './publications.validator';
-import { changeStatus } from './controllers/articles/change-article-status.controller';
-import { deleteArticle } from './controllers/articles/delete-article.controller';
-import { updateArticle } from './controllers/articles/update-article.controller';
 
 const isCategoryOwner = createOwnershipMiddleware(
   'publicationCategory',

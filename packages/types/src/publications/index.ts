@@ -11,7 +11,7 @@ export interface PublicationCategory {
 }
 
 export interface CreatePublicationCategoryRequest
-  extends Pick<PublicationCategory, 'name' | 'slug' | 'description'> { }
+  extends Pick<PublicationCategory, 'name' | 'slug' | 'description'> {}
 
 export interface PublicationCategoryResponse extends PublicationCategory {
   articlesNumber: number;
@@ -58,7 +58,7 @@ export interface CreatePublicationArticle
   extends Pick<
     PublicationArticle,
     'title' | 'coverImage' | 'contentHtml' | 'slug' | 'categoryId'
-  > { }
+  > {}
 
 export interface PublicationArticlesList extends ListWithPagination {
   articles: PublicationArticle[];
@@ -89,5 +89,5 @@ export interface ArticleCommentsResponse {
 }
 
 export interface ArticleChangeStatusRequest {
-  status: "DRAFT" | "PUBLISHED"
+  status: 'DRAFT' | 'PUBLISHED';
 }
