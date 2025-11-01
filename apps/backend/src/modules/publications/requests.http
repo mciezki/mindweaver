@@ -86,9 +86,9 @@ Cookie: accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlN2YxYTd
 
 
 ### Change an article's status back to draft
-PATCH http://localhost:4000/api/publications/articles/ae29588e-7973-40bd-ac6f-8c15589cfd2d/status
+PATCH http://localhost:4000/api/publications/articles/c60e4503-a47e-4faa-a7f6-be204752d1b2/status
 Content-Type: application/json
-Cookie: accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlN2YxYTdmNy1mODQ1LTQ4YTctYjVlZC0yNzU3ZTlkM2Q5NmYiLCJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTc2MTc3MDYwMiwiZXhwIjoxNzYxNzcxNTAyfQ.iEmKVw8FPoh2d_S3bqnkLdI70a9447s13pZP-6nJ348
+Cookie: accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlN2YxYTdmNy1mODQ1LTQ4YTctYjVlZC0yNzU3ZTlkM2Q5NmYiLCJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTc2MTk5MTg3NSwiZXhwIjoxNzYxOTkyNzc1fQ.UsbSNsFScpl2AfJgHzjnumj3fzn_PfM8r2-suZ99bq0
 
 {
   "status": "DRAFT"
@@ -159,3 +159,13 @@ Content-Disposition: form-data; name="slug"
 
 nowy-slug-bez-zmiany-obrazka
 ------WebKitFormBoundaryTextOnly--
+
+
+### Get a single article (Public / Smart Route)
+GET http://localhost:4000/api/publications/articles/c60e4503-a47e-4faa-a7f6-be204752d1b2
+
+###
+
+### Get a single article (Private / As Owner)
+GET http://localhost:4000/api/publications/articles/c60e4503-a47e-4faa-a7f6-be204752d1b2
+Cookie: accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlN2YxYTdmNy1mODQ1LTQ4YTctYjVlZC0yNzU3ZTlkM2Q5NmYiLCJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTc2MTk5MTg3NSwiZXhwIjoxNzYxOTkyNzc1fQ.UsbSNsFScpl2AfJgHzjnumj3fzn_PfM8r2-suZ99bq0

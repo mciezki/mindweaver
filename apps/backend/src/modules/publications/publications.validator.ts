@@ -214,11 +214,9 @@ export const validateUpdateArticle = (
       return;
     }
     if (title.length > 150) {
-      res
-        .status(400)
-        .json({
-          message: getMessage('publications.articles.validation.title'),
-        });
+      res.status(400).json({
+        message: getMessage('publications.articles.validation.title'),
+      });
       return;
     }
   }

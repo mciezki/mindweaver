@@ -3,6 +3,8 @@ import { Router } from 'express';
 import upload from '../../config/multer.config';
 import { authMiddleware } from '../../middlewares/auth.middleware';
 import { createOwnershipMiddleware } from '../../middlewares/createOwnership.middleware';
+import { optionalAuthMiddleware } from '../../middlewares/optionalAuth.middleware';
+import { article } from './controllers/articles/article.controller';
 import { changeStatus } from './controllers/articles/change-article-status.controller';
 import { createArticle } from './controllers/articles/create-article.controller';
 import { deleteArticle } from './controllers/articles/delete-article.controller';
@@ -73,6 +75,8 @@ router.patch(
   validateChangeArticleStatus,
   changeStatus,
 );
+
+router.get('/articles/:articleId', optionalAuthMiddleware, article);
 
 router.delete(
   '/articles/:articleId',

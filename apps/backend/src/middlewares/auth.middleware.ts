@@ -5,17 +5,6 @@ import { getMessage } from '../locales';
 
 const JWT_SECRET = process.env.JWT_SECRET || '';
 
-declare global {
-  namespace Express {
-    interface Request {
-      user?: {
-        userId: string;
-        email: string;
-      };
-    }
-  }
-}
-
 export const authMiddleware = (
   req: Request,
   res: Response,
