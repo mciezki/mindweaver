@@ -2,6 +2,7 @@ import { CreatePublicationArticle, PublicationArticle } from '@mindweave/types';
 
 import prisma from '../../../../database/prisma';
 import { getMessage } from '../../../../locales';
+import { sanitizeRichText } from '../../../../utils/functions/sanitize-html';
 
 export const createNewArticle = async (
   userId: string,
@@ -10,7 +11,7 @@ export const createNewArticle = async (
   try {
     const newArticleFromDb = await prisma.publicationArticle.create({
       data: {
-        contentHtml: articleData.contentHtml,
+        contentHtml: sanitizeRichText(articleData.contentHtml),
         coverImage: articleData.coverImage,
         slug: articleData.slug,
         title: articleData.title,
