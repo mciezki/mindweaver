@@ -2,10 +2,9 @@ import { CreateThreadRequest } from '@mindweave/types';
 import { NextFunction, Request, Response } from 'express';
 
 import { getMessage } from '../../../locales';
-import { uploadMultipleFilesToCloudinary } from '../../../services/cloudinary.service';
 import { shareUserThread } from '../services/share-thread.service';
 
-export const shareThread = async (
+export const shareThreadController = async (
   req: Request,
   res: Response,
   next: NextFunction,

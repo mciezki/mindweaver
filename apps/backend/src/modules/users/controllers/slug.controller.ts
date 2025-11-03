@@ -3,7 +3,11 @@ import { NextFunction, Request, Response } from 'express';
 import { getMessage } from '../../../locales';
 import { getUniqueUserSlug } from '../services/slug.service';
 
-export const slug = async (req: Request, res: Response, next: NextFunction) => {
+export const slugController = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
   try {
     const userId = req.user?.userId;
 

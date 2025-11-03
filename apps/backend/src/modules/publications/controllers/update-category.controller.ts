@@ -3,7 +3,7 @@ import { NextFunction, Request, Response } from 'express';
 import { getMessage } from '../../../locales';
 import { updatePublicationCategory } from '../services/update-category.service';
 
-export const updateCategory = async (
+export const updateCategoryController = async (
   req: Request,
   res: Response,
   next: NextFunction,

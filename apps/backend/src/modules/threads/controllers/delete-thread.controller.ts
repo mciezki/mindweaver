@@ -3,7 +3,7 @@ import { NextFunction, Request, Response } from 'express';
 import { getMessage } from '../../../locales';
 import { deleteUserThread } from '../services/delete-thread.service';
 
-export const deleteThread = async (
+export const deleteThreadController = async (
   req: Request,
   res: Response,
   next: NextFunction,

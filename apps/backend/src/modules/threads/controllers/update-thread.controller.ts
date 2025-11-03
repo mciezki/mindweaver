@@ -13,7 +13,7 @@ interface UpdateThreadBody {
   existingMediaUrls?: string;
 }
 
-export const updateThread = async (
+export const updateThreadController = async (
   req: Request,
   res: Response,
   next: NextFunction,

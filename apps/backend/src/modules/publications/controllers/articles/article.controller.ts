@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 
 import { getArticle } from '../../services/articles/article.service';
 
-export const article = async (
+export const articleController = async (
   req: Request,
   res: Response,
   next: NextFunction,

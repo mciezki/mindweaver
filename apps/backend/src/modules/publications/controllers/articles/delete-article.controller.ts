@@ -3,7 +3,7 @@ import { NextFunction, Request, Response } from 'express';
 import { getMessage } from '../../../../locales';
 import { deletePublicationArticle } from '../../services/articles/delete-article.service';
 
-export const deleteArticle = async (
+export const deleteArticleController = async (
   req: Request,
   res: Response,
   next: NextFunction,

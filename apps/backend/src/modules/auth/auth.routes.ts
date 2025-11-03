@@ -9,32 +9,32 @@ import {
   validateRequestResetPassword,
   validateResetPassword,
 } from './auth.validator';
-import { activate } from './controllers/activate.controller';
-import { login } from './controllers/login.controller';
-import { logout } from './controllers/logout.controller';
-import { profile } from './controllers/profile.controller';
-import { refresh } from './controllers/refresh-token.controller';
-import { register } from './controllers/register.controller';
+import { activateController } from './controllers/activate.controller';
+import { loginController } from './controllers/login.controller';
+import { logoutController } from './controllers/logout.controller';
+import { profileController } from './controllers/profile.controller';
+import { refreshController } from './controllers/refresh-token.controller';
+import { registerController } from './controllers/register.controller';
 import {
-  requestResetPassword,
-  resetPassword,
+  requestResetPasswordController,
+  resetPasswordController,
 } from './controllers/reset-password.controller';
-import { updateProfile } from './controllers/update-user.controller';
+import { updateProfileController } from './controllers/update-user.controller';
 
 const router = Router();
 
-router.post('/register', validateRegister, register);
-router.post('/login', validateLogin, login);
-router.post('/logout', logout);
+router.post('/register', validateRegister, registerController);
+router.post('/login', validateLogin, loginController);
+router.post('/logout', logoutController);
 
-router.post('/activate', activate);
+router.post('/activate', activateController);
 
 router.post(
   '/request-password-reset',
   validateRequestResetPassword,
-  requestResetPassword,
+  requestResetPasswordController,
 );
-router.post('/reset-password', validateResetPassword, resetPassword);
+router.post('/reset-password', validateResetPassword, resetPasswordController);
 
 router.patch(
   '/profile/update',
@@ -44,11 +44,11 @@ router.patch(
     { name: 'coverImage', maxCount: 1 },
   ]),
   validateProfileUpdate,
-  updateProfile,
+  updateProfileController,
 );
 
-router.post('/refresh', refresh);
+router.post('/refresh', refreshController);
 
-router.get('/profile', authMiddleware, profile);
+router.get('/profile', authMiddleware, profileController);
 
 export default router;

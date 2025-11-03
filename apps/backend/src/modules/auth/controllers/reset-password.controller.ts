@@ -6,7 +6,7 @@ import {
   resetUserPassword,
 } from '../services/reset-password.service';
 
-export const requestResetPassword = async (
+export const requestResetPasswordController = async (
   req: Request,
   res: Response,
   next: NextFunction,
@@ -29,7 +29,7 @@ export const requestResetPassword = async (
 
 // ______________________________________
 
-export const resetPassword = async (
+export const resetPasswordController = async (
   req: Request,
   res: Response,
   next: NextFunction,

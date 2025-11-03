@@ -275,3 +275,55 @@ export const validateRateArticle = (
 
   next();
 };
+
+export const validateCreateArticleComment = (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): void => {
+  const { content } = req.body;
+
+  if (!content || content.trim().length < 1) {
+    res
+      .status(400)
+      .json({
+        message: getMessage('publications.articles.validation.required'),
+      });
+    return;
+  }
+
+  if (content.length > 1000) {
+    res
+      .status(400)
+      .json({ message: getMessage('publications.articles.validation.max') });
+    return;
+  }
+
+  next();
+};
+
+export const validateUpdateArticleComment = (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  const { content } = req.body;
+
+  if (content !== undefined) {
+    if (content.trim().length < 1) {
+      res
+        .status(400)
+        .json({
+          message: getMessage('publications.articles.validation.required'),
+        });
+      return;
+    }
+    if (content.length > 1000) {
+      res
+        .status(400)
+        .json({ message: getMessage('publications.articles.validation.max') });
+      return;
+    }
+  }
+  next();
+};

@@ -3,7 +3,11 @@ import { NextFunction, Request, Response } from 'express';
 import { getMessage } from '../../../locales';
 import { getPublicUser } from '../services/user.service';
 
-export const user = async (req: Request, res: Response, next: NextFunction) => {
+export const userController = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
   try {
     const { slugOrId } = req.params;
 

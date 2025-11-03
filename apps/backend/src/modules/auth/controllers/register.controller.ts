@@ -3,7 +3,7 @@ import { NextFunction, Request, Response } from 'express';
 import { getMessage } from '../../../locales';
 import { registerUser } from '../services/register.service';
 
-export const register = async (
+export const registerController = async (
   req: Request,
   res: Response,
   next: NextFunction,

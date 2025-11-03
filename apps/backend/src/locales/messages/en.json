@@ -168,6 +168,16 @@
         "format": "Invalid format",
         "status": "Invalid status"
       }
+    },
+    "comments": {
+      "success": {
+        "created": "Comment has been created!",
+        "updated": "Comment has been updated!",
+        "deleted": "Comment has been deleted!"
+      },
+      "error": {
+        "notFound": "Comment has not been found"
+      }
     }
   }
 }

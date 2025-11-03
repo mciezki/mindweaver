@@ -3,21 +3,21 @@ import { Router } from 'express';
 import upload from '../../config/multer.config';
 import { authMiddleware } from '../../middlewares/auth.middleware';
 import { createOwnershipMiddleware } from '../../middlewares/createOwnership.middleware';
-import { commentLikes } from './controllers/comments/comment-likes.controller';
-import { commentReplies } from './controllers/comments/comment-replies.controller';
-import { comments } from './controllers/comments/comments.controller';
-import { createComment } from './controllers/comments/create-comment.controller';
-import { deleteComment } from './controllers/comments/delete-comment.controller';
-import { commentLike } from './controllers/comments/toggle-comment-like.controller';
-import { updateComment } from './controllers/comments/update-comment.controller';
-import { createThread } from './controllers/create-thread.controller';
-import { deleteThread } from './controllers/delete-thread.controller';
-import { shareThread } from './controllers/share-thread.controller';
-import { threadLikes } from './controllers/thread-likes.controller';
-import { thread } from './controllers/thread.controller';
-import { threads } from './controllers/threads.controller';
-import { threadLike } from './controllers/toggle-thread-like.controller';
-import { updateThread } from './controllers/update-thread.controller';
+import { commentLikesController } from './controllers/comments/comment-likes.controller';
+import { commentRepliesController } from './controllers/comments/comment-replies.controller';
+import { commentsController } from './controllers/comments/comments.controller';
+import { createCommentController } from './controllers/comments/create-comment.controller';
+import { deleteCommentController } from './controllers/comments/delete-comment.controller';
+import { commentLikeController } from './controllers/comments/toggle-comment-like.controller';
+import { updateCommentController } from './controllers/comments/update-comment.controller';
+import { createThreadController } from './controllers/create-thread.controller';
+import { deleteThreadController } from './controllers/delete-thread.controller';
+import { shareThreadController } from './controllers/share-thread.controller';
+import { threadLikesController } from './controllers/thread-likes.controller';
+import { threadController } from './controllers/thread.controller';
+import { threadsController } from './controllers/threads.controller';
+import { threadLikeController } from './controllers/toggle-thread-like.controller';
+import { updateThreadController } from './controllers/update-thread.controller';
 import {
   validateCreateThread,
   validateCreateThreadComment,
@@ -39,7 +39,7 @@ router.post(
   authMiddleware,
   upload.array('media', 5),
   validateCreateThread,
-  createThread,
+  createThreadController,
 );
 
 router.patch(
@@ -48,47 +48,60 @@ router.patch(
   isThreadOwner,
   upload.array('media', 5),
   validateUpdateThread,
-  updateThread,
+  updateThreadController,
 );
 
-router.delete('/:threadId', authMiddleware, isThreadOwner, deleteThread);
-router.get('/', threads);
-router.get('/:threadId', thread);
+router.delete(
+  '/:threadId',
+  authMiddleware,
+  isThreadOwner,
+  deleteThreadController,
+);
+router.get('/', threadsController);
+router.get('/:threadId', threadController);
 router.post(
   '/:threadId/share',
   authMiddleware,
   validateShareThread,
-  shareThread,
+  shareThreadController,
 );
 
 // likes
-router.post('/:threadId/like', authMiddleware, threadLike);
-router.get('/:threadId/likes', authMiddleware, threadLikes);
+router.post('/:threadId/like', authMiddleware, threadLikeController);
+router.get('/:threadId/likes', authMiddleware, threadLikesController);
 
 // comments
-router.get('/:threadId/comments', authMiddleware, comments);
+router.get('/:threadId/comments', authMiddleware, commentsController);
 
 router.post(
   '/:threadId/comments',
   authMiddleware,
   validateCreateThreadComment,
-  createComment,
+  createCommentController,
 );
 router.delete(
   '/comments/:commentId',
   authMiddleware,
   isCommentOwner,
-  deleteComment,
+  deleteCommentController,
 );
 router.patch(
   '/comments/:commentId',
   authMiddleware,
   isCommentOwner,
   validateUpdateThreadComment,
-  updateComment,
+  updateCommentController,
 );
-router.get('/comments/:commentId/replies', authMiddleware, commentReplies);
-router.get('/comments/:commentId/likes', authMiddleware, commentLikes);
-router.post('/comments/:commentId/like', authMiddleware, commentLike);
+router.get(
+  '/comments/:commentId/replies',
+  authMiddleware,
+  commentRepliesController,
+);
+router.get(
+  '/comments/:commentId/likes',
+  authMiddleware,
+  commentLikesController,
+);
+router.post('/comments/:commentId/like', authMiddleware, commentLikeController);
 
 export default router;

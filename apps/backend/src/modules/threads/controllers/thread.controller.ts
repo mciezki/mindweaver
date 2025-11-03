@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 
 import { getThread } from '../services/thread.service';
 
-export const thread = async (
+export const threadController = async (
   req: Request,
   res: Response,
   next: NextFunction,

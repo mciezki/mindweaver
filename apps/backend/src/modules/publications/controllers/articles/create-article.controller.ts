@@ -5,7 +5,7 @@ import { getMessage } from '../../../../locales';
 import { uploadImageToCloudinary } from '../../../../services/cloudinary.service';
 import { createNewArticle } from '../../services/articles/create-article.service';
 
-export const createArticle = async (
+export const createArticleController = async (
   req: Request,
   res: Response,
   next: NextFunction,

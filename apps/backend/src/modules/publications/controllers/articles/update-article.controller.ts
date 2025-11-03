@@ -9,7 +9,7 @@ import {
 } from '../../../../services/cloudinary.service';
 import { updateUserArticle } from '../../services/articles/update-article.service';
 
-export const updateArticle = async (
+export const updateArticleController = async (
   req: Request,
   res: Response,
   next: NextFunction,

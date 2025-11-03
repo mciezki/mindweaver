@@ -165,6 +165,16 @@
         "format": "Niewłaściwy format",
         "status": "Niewłaściwy status"
       }
+    },
+    "comments": {
+      "success": {
+        "created": "Komentarz został utworzony!",
+        "updated": "Komentarz został zaktualizowany!",
+        "deleted": "Komentarz został usunięty!"
+      },
+      "error": {
+        "notFound": "Komentarz nie został znaleziony"
+      }
     }
   }
 }

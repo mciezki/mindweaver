@@ -3,7 +3,7 @@ import { NextFunction, Request, Response } from 'express';
 import { getMessage } from '../../../locales';
 import { getProfile } from '../services/profile.service';
 
-export const profile = async (
+export const profileController = async (
   req: Request,
   res: Response,
   next: NextFunction,

@@ -8,7 +8,7 @@ import {
 } from '../../../utils/consts';
 import { refreshAccessToken } from '../services/refresh-token.service';
 
-export const refresh = async (
+export const refreshController = async (
   req: Request,
   res: Response,
   next: NextFunction,

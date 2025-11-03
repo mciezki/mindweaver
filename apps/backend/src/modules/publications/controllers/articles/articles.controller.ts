@@ -4,7 +4,7 @@ import { NextFunction, Request, Response } from 'express';
 import { getMessage } from '../../../../locales';
 import { getUserArticlesList } from '../../services/articles/articles.service';
 
-export const articles = async (
+export const articlesController = async (
   req: Request,
   res: Response,
   next: NextFunction,

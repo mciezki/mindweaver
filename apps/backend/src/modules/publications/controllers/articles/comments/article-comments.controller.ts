@@ -1,17 +1,17 @@
 import { NextFunction, Request, Response } from 'express';
 
-import { getMessage } from '../../../locales';
-import { getPublicThreadsList } from '../services/threads.service';
+import { getMessage } from '../../../../../locales';
+import { getArticleComments } from '../../../services/articles/comments/article-comments.service';
 
-export const threadsController = async (
+export const articleCommentsController = async (
   req: Request,
   res: Response,
   next: NextFunction,
 ) => {
   try {
-    const { search, page, limit } = req.query;
+    const { articleId } = req.params;
+    const { page, limit } = req.query;
 
-    const searchString = (search as string) || '';
     const pageNumber = parseInt(page as string) || 1;
     const limitNumber = parseInt(limit as string) || 25;
 
@@ -21,14 +21,13 @@ export const threadsController = async (
       throw err;
     }
 
-    const result = await getPublicThreadsList({
-      search: searchString,
+    const result = await getArticleComments(articleId, {
       page: pageNumber,
       limit: limitNumber,
     });
 
     res.status(200).json({
-      threads: result.threads,
+      comments: result.comments,
       meta: {
         totalCount: result.totalCount,
         currentPage: pageNumber,

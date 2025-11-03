@@ -3,7 +3,7 @@ import { NextFunction, Request, Response } from 'express';
 import { getMessage } from '../../../../locales';
 import { deleteThreadComment } from '../../services/comments/delete-comment.service';
 
-export const deleteComment = async (
+export const deleteCommentController = async (
   req: Request,
   res: Response,
   next: NextFunction,
