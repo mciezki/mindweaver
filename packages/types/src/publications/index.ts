@@ -34,6 +34,8 @@ export interface PublicationArticleRate {
   createdAt: Date;
 }
 
+export type ArticleStatus = 'DRAFT' | 'PUBLISHED';
+
 export interface PublicationArticle {
   id: string;
   user: Pick<
@@ -44,7 +46,7 @@ export interface PublicationArticle {
   title: string;
   contentHtml: string;
   coverImage: string | null;
-  status: 'DRAFT' | 'PUBLISHED';
+  status: ArticleStatus;
   createdAt: Date;
   updatedAt: Date;
   publishedAt: Date | null;
@@ -54,6 +56,14 @@ export interface PublicationArticle {
   rates: { likes: number; dislikes: number };
 }
 
+export interface PublicationListArticle
+  extends Omit<PublicationArticle, 'commentsNumber' | 'rates'> {
+  counts: {
+    comments: number;
+    rates: number;
+  };
+}
+
 export interface CreatePublicationArticle
   extends Pick<
     PublicationArticle,
@@ -61,11 +71,11 @@ export interface CreatePublicationArticle
   > {}
 
 export interface PublicationArticlesList extends ListWithPagination {
-  articles: PublicationArticle[];
+  articles: PublicationListArticle[];
 }
 
 export interface PublicationArticlesResponse {
-  articles: PublicationArticle[];
+  articles: PublicationListArticle[];
   meta: {
     totalCount: number;
     currentPage: number;
@@ -89,5 +99,5 @@ export interface ArticleCommentsResponse {
 }
 
 export interface ArticleChangeStatusRequest {
-  status: 'DRAFT' | 'PUBLISHED';
+  status: ArticleStatus;
 }

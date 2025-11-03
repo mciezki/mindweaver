@@ -15,7 +15,7 @@ Cookie: accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlN2YxYTd
 
 
 ### Get a single category by ID (Public Route)
-GET http://localhost:4000/api/publications/categories/a400894f-0ddc-4547-9e1e-fc1abba2be28
+GET http://localhost:4000/api/publications/categories/moja-nowa-kategoria-2
 
 
 ### Update a category (Private Route)
@@ -76,9 +76,9 @@ Cookie: accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlN2YxYTd
 }
 
 ### Change an article's status (Private Route)
-PATCH http://localhost:4000/api/publications/articles/c60e4503-a47e-4faa-a7f6-be204752d1b2/status
+PATCH http://localhost:4000/api/publications/articles/c4ab9074-e839-4687-a07f-910fc487d054/status
 Content-Type: application/json
-Cookie: accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlN2YxYTdmNy1mODQ1LTQ4YTctYjVlZC0yNzU3ZTlkM2Q5NmYiLCJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTc2MTc3MDYwMiwiZXhwIjoxNzYxNzcxNTAyfQ.iEmKVw8FPoh2d_S3bqnkLdI70a9447s13pZP-6nJ348
+Cookie: accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlN2YxYTdmNy1mODQ1LTQ4YTctYjVlZC0yNzU3ZTlkM2Q5NmYiLCJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTc2MjE5NTM1OSwiZXhwIjoxNzYyMTk2MjU5fQ.A6k0cZQHF-P3hXF6lzSTiznkPWdQ9oYqTCIrPiT74Hk
 
 {
   "status": "PUBLISHED"
@@ -162,10 +162,24 @@ nowy-slug-bez-zmiany-obrazka
 
 
 ### Get a single article (Public / Smart Route)
-GET http://localhost:4000/api/publications/articles/c60e4503-a47e-4faa-a7f6-be204752d1b2
+GET http://localhost:4000/api/publications/articles/zaktualizowany-super-slug
 
 ###
 
 ### Get a single article (Private / As Owner)
 GET http://localhost:4000/api/publications/articles/c60e4503-a47e-4faa-a7f6-be204752d1b2
 Cookie: accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlN2YxYTdmNy1mODQ1LTQ4YTctYjVlZC0yNzU3ZTlkM2Q5NmYiLCJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTc2MTk5MTg3NSwiZXhwIjoxNzYxOTkyNzc1fQ.UsbSNsFScpl2AfJgHzjnumj3fzn_PfM8r2-suZ99bq0
+
+### Get all PUBLISHED articles in a category (Public Route)
+GET http://localhost:4000/api/publications/user/e7f1a7f7-f845-48a7-b5ed-2757e9d3d96f/categories/88e64080-6f19-4ba2-b221-371787381033/articles/published
+
+###
+
+### Get all DRAFT articles (Private Route - requires auth)
+GET http://localhost:4000/api/publications/user/e7f1a7f7-f845-48a7-b5ed-2757e9d3d96f/categories/88e64080-6f19-4ba2-b221-371787381033/articles/draft
+Cookie: accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlN2YxYTdmNy1mODQ1LTQ4YTctYjVlZC0yNzU3ZTlkM2Q5NmYiLCJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTc2MjE5NTM1OSwiZXhwIjoxNzYyMTk2MjU5fQ.A6k0cZQHF-P3hXF6lzSTiznkPWdQ9oYqTCIrPiT74Hk
+
+###
+
+### Get PUBLISHED articles with pagination and search
+GET http://localhost:4000/api/publications/user/e7f1a7f7-f845-48a7-b5ed-2757e9d3d96f/categories/88e64080-6f19-4ba2-b221-371787381033/articles/published?page=1&limit=5&search=obrazka

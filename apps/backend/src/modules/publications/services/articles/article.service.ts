@@ -4,19 +4,21 @@ import prisma from '../../../../database/prisma';
 import { getMessage } from '../../../../locales';
 
 export const getArticle = async (
-  id: string | undefined,
+  slugOrArticleId: string | undefined,
   viewerId: string | undefined,
 ): Promise<PublicationArticle> => {
   try {
-    if (!id) {
+    if (!slugOrArticleId) {
       const err: any = new Error(getMessage('threads.error.invalidId'));
       err.statusCode = 400;
       throw err;
     }
 
     const [articleFromDb, likes, dislikes] = await prisma.$transaction([
-      prisma.publicationArticle.findUnique({
-        where: { id },
+      prisma.publicationArticle.findFirst({
+        where: {
+          OR: [{ id: slugOrArticleId }, { slug: slugOrArticleId }],
+        },
         select: {
           id: true,
           categoryId: true,
@@ -47,10 +49,16 @@ export const getArticle = async (
         },
       }),
       prisma.publicationArticleRate.count({
-        where: { articleId: id, rate: 'LIKE' },
+        where: {
+          article: { OR: [{ id: slugOrArticleId }, { slug: slugOrArticleId }] },
+          rate: 'LIKE',
+        },
       }),
       prisma.publicationArticleRate.count({
-        where: { articleId: id, rate: 'DISLIKE' },
+        where: {
+          article: { OR: [{ id: slugOrArticleId }, { slug: slugOrArticleId }] },
+          rate: 'DISLIKE',
+        },
       }),
     ]);
 

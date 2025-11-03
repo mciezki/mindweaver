@@ -8,10 +8,10 @@ export const article = async (
   next: NextFunction,
 ) => {
   try {
-    const { articleId } = req.params;
+    const { slugOrArticleId } = req.params;
     const viewerId = req.user?.userId;
 
-    const article = await getArticle(articleId, viewerId);
+    const article = await getArticle(slugOrArticleId, viewerId);
 
     res.status(200).json(article);
   } catch (error) {
