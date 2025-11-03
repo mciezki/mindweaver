@@ -11,7 +11,7 @@ export interface PublicationCategory {
 }
 
 export interface CreatePublicationCategoryRequest
-  extends Pick<PublicationCategory, 'name' | 'slug' | 'description'> {}
+  extends Pick<PublicationCategory, 'name' | 'slug' | 'description'> { }
 
 export interface PublicationCategoryResponse extends PublicationCategory {
   articlesNumber: number;
@@ -26,11 +26,14 @@ export interface PublicationArticleComment {
   updatedAt: Date;
 }
 
+export type ArticleRate = "LIKE" | "DISLIKE"
+
+
 export interface PublicationArticleRate {
   id: string;
   articleId: string;
   userId: string;
-  rate: 'LIKE' | 'DISLIKE';
+  rate: ArticleRate;
   createdAt: Date;
 }
 
@@ -68,7 +71,7 @@ export interface CreatePublicationArticle
   extends Pick<
     PublicationArticle,
     'title' | 'coverImage' | 'contentHtml' | 'slug' | 'categoryId'
-  > {}
+  > { }
 
 export interface PublicationArticlesList extends ListWithPagination {
   articles: PublicationListArticle[];
@@ -100,4 +103,8 @@ export interface ArticleCommentsResponse {
 
 export interface ArticleChangeStatusRequest {
   status: ArticleStatus;
+}
+
+export interface ToggleRateResponse {
+  rate: ArticleRate | null
 }

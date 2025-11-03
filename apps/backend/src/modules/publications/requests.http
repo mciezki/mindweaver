@@ -162,9 +162,8 @@ nowy-slug-bez-zmiany-obrazka
 
 
 ### Get a single article (Public / Smart Route)
-GET http://localhost:4000/api/publications/articles/zaktualizowany-super-slug
+GET http://localhost:4000/api/publications/articles/artykul-bez-obrazka
 
-###
 
 ### Get a single article (Private / As Owner)
 GET http://localhost:4000/api/publications/articles/c60e4503-a47e-4faa-a7f6-be204752d1b2
@@ -173,13 +172,30 @@ Cookie: accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlN2YxYTd
 ### Get all PUBLISHED articles in a category (Public Route)
 GET http://localhost:4000/api/publications/user/e7f1a7f7-f845-48a7-b5ed-2757e9d3d96f/categories/88e64080-6f19-4ba2-b221-371787381033/articles/published
 
-###
 
 ### Get all DRAFT articles (Private Route - requires auth)
 GET http://localhost:4000/api/publications/user/e7f1a7f7-f845-48a7-b5ed-2757e9d3d96f/categories/88e64080-6f19-4ba2-b221-371787381033/articles/draft
 Cookie: accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlN2YxYTdmNy1mODQ1LTQ4YTctYjVlZC0yNzU3ZTlkM2Q5NmYiLCJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTc2MjE5NTM1OSwiZXhwIjoxNzYyMTk2MjU5fQ.A6k0cZQHF-P3hXF6lzSTiznkPWdQ9oYqTCIrPiT74Hk
 
-###
 
 ### Get PUBLISHED articles with pagination and search
 GET http://localhost:4000/api/publications/user/e7f1a7f7-f845-48a7-b5ed-2757e9d3d96f/categories/88e64080-6f19-4ba2-b221-371787381033/articles/published?page=1&limit=5&search=obrazka
+
+### Rate an article as "LIKE" (Private Route)
+POST http://localhost:4000/api/publications/articles/c4ab9074-e839-4687-a07f-910fc487d054/rate
+Content-Type: application/json
+Cookie: accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlN2YxYTdmNy1mODQ1LTQ4YTctYjVlZC0yNzU3ZTlkM2Q5NmYiLCJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTc2MjE5OTIxNSwiZXhwIjoxNzYyMjAwMTE1fQ.umGsZC7VnygOpom2lxTz8DvmmyXr2g_0Jegh1kbXx_c
+
+{
+  "rate": "LIKE"
+}
+
+
+### Rate an article as "DISLIKE" (Private Route)
+POST http://localhost:4000/api/publications/articles/c4ab9074-e839-4687-a07f-910fc487d054/rate
+Content-Type: application/json
+Cookie: accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlN2YxYTdmNy1mODQ1LTQ4YTctYjVlZC0yNzU3ZTlkM2Q5NmYiLCJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTc2MjE5OTIxNSwiZXhwIjoxNzYyMjAwMTE1fQ.umGsZC7VnygOpom2lxTz8DvmmyXr2g_0Jegh1kbXx_c
+
+{
+  "rate": "DISLIKE"
+}

@@ -19,9 +19,11 @@ import {
   validateChangeArticleStatus,
   validateCreateArticle,
   validateCreateCategory,
+  validateRateArticle,
   validateUpdateArticle,
   validateUpdateCategory,
 } from './publications.validator';
+import { articleRate } from './controllers/articles/toggle-article-rates.controller';
 
 const isCategoryOwner = createOwnershipMiddleware(
   'publicationCategory',
@@ -99,5 +101,7 @@ router.patch(
   validateUpdateArticle,
   updateArticle,
 );
+
+router.post('/articles/:articleId/rate', authMiddleware, validateRateArticle, articleRate)
 
 export default router;

@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 
 import { getMessage } from '../../locales';
+import { ArticleRate } from '@mindweave/types';
 
 export const validateCreateCategory = (
   req: Request,
@@ -248,6 +249,28 @@ export const validateUpdateArticle = (
       });
       return;
     }
+  }
+
+  next();
+};
+
+export const validateRateArticle = (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): void => {
+  const { rate } = req.body;
+
+  if (!rate || typeof rate !== 'string') {
+    res.status(400).json();
+    return;
+  }
+
+  const assertedRate = rate.toUpperCase() as ArticleRate;
+
+  if (assertedRate !== 'LIKE' && assertedRate !== 'DISLIKE') {
+    res.status(400).json();
+    return;
   }
 
   next();
