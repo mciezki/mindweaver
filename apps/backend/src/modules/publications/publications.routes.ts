@@ -3,6 +3,9 @@ import { Router } from 'express';
 import upload from '../../config/multer.config';
 import { authMiddleware } from '../../middlewares/auth.middleware';
 import { createOwnershipMiddleware } from '../../middlewares/createOwnership.middleware';
+import { optionalAuthMiddleware } from '../../middlewares/optionalAuth.middleware';
+import { article } from './controllers/articles/article.controller';
+import { articles } from './controllers/articles/articles.controller';
 import { changeStatus } from './controllers/articles/change-article-status.controller';
 import { createArticle } from './controllers/articles/create-article.controller';
 import { deleteArticle } from './controllers/articles/delete-article.controller';
@@ -33,6 +36,11 @@ const isArticleOwner = createOwnershipMiddleware(
 const router = Router();
 
 router.get('/user/:userId/categories', categories);
+router.get(
+  '/user/:userId/categories/:slugOrCategoryId/articles/:status',
+  optionalAuthMiddleware,
+  articles,
+);
 
 router.post(
   '/categories',
@@ -41,7 +49,7 @@ router.post(
   createCategory,
 );
 
-router.get('/categories/:categoryId', category);
+router.get('/categories/:slugOrCategoryId', category);
 
 router.patch(
   '/categories/:categoryId',
@@ -73,6 +81,8 @@ router.patch(
   validateChangeArticleStatus,
   changeStatus,
 );
+
+router.get('/articles/:slugOrArticleId', optionalAuthMiddleware, article);
 
 router.delete(
   '/articles/:articleId',

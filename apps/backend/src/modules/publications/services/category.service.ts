@@ -4,12 +4,12 @@ import prisma from '../../../database/prisma';
 import { getMessage } from '../../../locales';
 
 export const getCategory = async (
-  id: string | undefined,
+  slugOrCategoryId: string | undefined,
 ): Promise<PublicationCategoryResponse> => {
   try {
-    const categoryFromDb = await prisma.publicationCategory.findUnique({
+    const categoryFromDb = await prisma.publicationCategory.findFirst({
       where: {
-        id,
+        OR: [{ id: slugOrCategoryId }, { slug: slugOrCategoryId }],
       },
       select: {
         id: true,

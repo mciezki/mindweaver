@@ -8,9 +8,9 @@ export const category = async (
   next: NextFunction,
 ) => {
   try {
-    const { categoryId } = req.params;
+    const { slugOrCategoryId } = req.params;
 
-    const category = await getCategory(categoryId);
+    const category = await getCategory(slugOrCategoryId);
 
     res.status(200).json(category);
   } catch (error) {
