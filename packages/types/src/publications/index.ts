@@ -21,9 +21,29 @@ export interface PublicationArticleComment {
   id: string;
   articleId: string;
   content: string;
-  userId: string | null;
+  user: Pick<
+    User,
+    'id' | 'profileName' | 'name' | 'surname' | 'type' | 'profileImage'
+  > | null;
   createdAt: Date;
   updatedAt: Date;
+}
+
+export interface PublicationArticleCommentRequest
+  extends Pick<PublicationArticleComment, 'content'> {}
+
+export interface PublicationArticleCommentsList extends ListWithPagination {
+  comments: PublicationArticleComment[];
+}
+
+export interface PublicationArticleCommentsResponse {
+  comments: PublicationArticleComment[];
+  meta: {
+    totalCount: number;
+    currentPage: number;
+    totalPages: number;
+    limit: number;
+  };
 }
 
 export type ArticleRate = 'LIKE' | 'DISLIKE';

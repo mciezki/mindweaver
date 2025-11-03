@@ -3,7 +3,7 @@ import { NextFunction, Request, Response } from 'express';
 import { getMessage } from '../../../../locales';
 import { getCommentLikes } from '../../services/comments/comment-likes.service';
 
-export const commentLikes = async (
+export const commentLikesController = async (
   req: Request,
   res: Response,
   next: NextFunction,

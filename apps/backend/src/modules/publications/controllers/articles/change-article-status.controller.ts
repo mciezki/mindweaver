@@ -3,7 +3,7 @@ import { NextFunction, Request, Response } from 'express';
 import { getMessage } from '../../../../locales';
 import { changeArticleStatus } from '../../services/articles/change-article-status.service';
 
-export const changeStatus = async (
+export const changeStatusController = async (
   req: Request,
   res: Response,
   next: NextFunction,

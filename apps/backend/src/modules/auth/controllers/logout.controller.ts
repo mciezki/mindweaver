@@ -4,7 +4,7 @@ import { getMessage } from '../../../locales';
 import { COOKIES_BASIC_OPTIONS } from '../../../utils/consts';
 import { revokeRefreshToken } from '../services/refresh-token.service';
 
-export const logout = async (
+export const logoutController = async (
   req: Request,
   res: Response,
   next: NextFunction,

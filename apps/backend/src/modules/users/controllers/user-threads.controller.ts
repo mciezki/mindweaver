@@ -3,7 +3,7 @@ import { NextFunction, Request, Response } from 'express';
 import { getMessage } from '../../../locales';
 import { getUserThreadsList } from '../services/user-threads.service';
 
-export const userThreads = async (
+export const userThreadsController = async (
   req: Request,
   res: Response,
   next: NextFunction,

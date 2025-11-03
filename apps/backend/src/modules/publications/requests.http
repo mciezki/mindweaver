@@ -199,3 +199,31 @@ Cookie: accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlN2YxYTd
 {
   "rate": "DISLIKE"
 }
+
+### Get all comments for an article (Public Route)
+GET http://localhost:4000/api/publications/articles/c4ab9074-e839-4687-a07f-910fc487d054/comments
+
+
+### Create a new comment on an article (Private Route)
+POST http://localhost:4000/api/publications/articles/c4ab9074-e839-4687-a07f-910fc487d054/comment
+Content-Type: application/json
+Cookie: accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlN2YxYTdmNy1mODQ1LTQ4YTctYjVlZC0yNzU3ZTlkM2Q5NmYiLCJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTc2MjIwOTgwOCwiZXhwIjoxNzYyMjEwNzA4fQ.pWk4JrCdPNdWtYtvw4T19v0XVIZUrqd4mre4n1TBdEs
+
+{
+  "content": "To jest mój nowy, wspaniały komentarz do artykułu! Dupa 2"
+}
+
+
+### Update an article comment (Private Route)
+PATCH http://localhost:4000/api/publications/articles/c4ab9074-e839-4687-a07f-910fc487d054/comments/15e86c76-5263-4b70-91c1-4382ef606360
+Content-Type: application/json
+Cookie: accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlN2YxYTdmNy1mODQ1LTQ4YTctYjVlZC0yNzU3ZTlkM2Q5NmYiLCJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTc2MjIwOTgwOCwiZXhwIjoxNzYyMjEwNzA4fQ.pWk4JrCdPNdWtYtvw4T19v0XVIZUrqd4mre4n1TBdEs
+
+{
+  "content": "Zaktualizowana treść mojego komentarza."
+}
+
+
+### Delete an article comment (Private Route)
+DELETE http://localhost:4000/api/publications/articles/c4ab9074-e839-4687-a07f-910fc487d054/comments/15e86c76-5263-4b70-91c1-4382ef606360
+Cookie: accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlN2YxYTdmNy1mODQ1LTQ4YTctYjVlZC0yNzU3ZTlkM2Q5NmYiLCJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTc2MjIwOTgwOCwiZXhwIjoxNzYyMjEwNzA4fQ.pWk4JrCdPNdWtYtvw4T19v0XVIZUrqd4mre4n1TBdEs

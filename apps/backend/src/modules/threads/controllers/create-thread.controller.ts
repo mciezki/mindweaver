@@ -5,7 +5,7 @@ import { getMessage } from '../../../locales';
 import { uploadMultipleFilesToCloudinary } from '../../../services/cloudinary.service';
 import { createNewThread } from '../services/create-thread.service';
 
-export const createThread = async (
+export const createThreadController = async (
   req: Request,
   res: Response,
   next: NextFunction,

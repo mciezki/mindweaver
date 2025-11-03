@@ -4,7 +4,7 @@ import { NextFunction, Request, Response } from 'express';
 import { getMessage } from '../../../../locales';
 import { toggleArticleRates } from '../../services/articles/toggle-article-rates.service';
 
-export const articleRate = async (
+export const articleRateController = async (
   req: Request,
   res: Response,
   next: NextFunction,

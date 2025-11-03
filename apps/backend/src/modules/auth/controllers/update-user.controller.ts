@@ -5,7 +5,7 @@ import { getMessage } from '../../../locales';
 import { uploadImageToCloudinary } from '../../../services/cloudinary.service';
 import { updateUserProfile } from '../services/update-user.service';
 
-export const updateProfile = async (
+export const updateProfileController = async (
   req: Request,
   res: Response,
   next: NextFunction,

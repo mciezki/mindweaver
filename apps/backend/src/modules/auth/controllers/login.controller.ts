@@ -8,7 +8,7 @@ import {
 } from '../../../utils/consts';
 import { loginUser } from '../services/login.service';
 
-export const login = async (
+export const loginController = async (
   req: Request,
   res: Response,
   next: NextFunction,

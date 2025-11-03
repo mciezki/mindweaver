@@ -1,17 +1,17 @@
 import { NextFunction, Request, Response } from 'express';
 
-import { getMessage } from '../../../../locales';
-import { createThreadComment } from '../../services/comments/create-comment.service';
+import { getMessage } from '../../../../../locales';
+import { createArticleComment } from '../../../services/articles/comments/create-article-comment.service';
 
-export const createCommentController = async (
+export const createArticleCommentController = async (
   req: Request,
   res: Response,
   next: NextFunction,
 ) => {
   try {
-    const { threadId } = req.params;
+    const { articleId } = req.params;
     const userId = req.user?.userId;
-    const { content, parentId } = req.body;
+    const { content } = req.body;
 
     if (!userId) {
       const err: any = new Error(getMessage('auth.error.invalidToken'));
@@ -19,9 +19,8 @@ export const createCommentController = async (
       throw err;
     }
 
-    const result = await createThreadComment(userId, threadId, {
+    const result = await createArticleComment(userId, articleId, {
       content,
-      parentId,
     });
 
     res.status(201).json(result);

@@ -4,7 +4,7 @@ import { NextFunction, Request, Response } from 'express';
 import { getMessage } from '../../../locales';
 import { createNewCategory } from '../services/create-category.service';
 
-export const createCategory = async (
+export const createCategoryController = async (
   req: Request,
   res: Response,
   next: NextFunction,

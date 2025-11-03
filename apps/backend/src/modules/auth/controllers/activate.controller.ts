@@ -3,7 +3,7 @@ import { NextFunction, Request, Response } from 'express';
 import { getMessage } from '../../../locales';
 import { activateAccount } from '../services/activate.service';
 
-export const activate = async (
+export const activateController = async (
   req: Request,
   res: Response,
   next: NextFunction,

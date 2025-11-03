@@ -3,7 +3,7 @@ import { NextFunction, Request, Response } from 'express';
 import { getMessage } from '../../../locales';
 import { toggleThreadLike } from '../services/toggle-thread-like.service';
 
-export const threadLike = async (
+export const threadLikeController = async (
   req: Request,
   res: Response,
   next: NextFunction,
