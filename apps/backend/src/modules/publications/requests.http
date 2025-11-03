@@ -70,9 +70,9 @@ Cookie: accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlN2YxYTd
 
 {
   "title": "Artykuł bez obrazka",
-  "contentHtml": "<p>Treść artykułu bez obrazka okładkowego.</p>",
+  "contentHtml": "<p><iframe />Treść artykułu bez obrazka okładkowego.</p>",
   "categoryId": "88e64080-6f19-4ba2-b221-371787381033",
-  "slug": "artykul-bez-obrazka-2"
+  "slug": "artykul-bez-obrazka-4"
 }
 
 ### Change an article's status (Private Route)

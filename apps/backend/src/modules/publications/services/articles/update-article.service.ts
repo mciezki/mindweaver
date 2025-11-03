@@ -3,6 +3,7 @@ import { Prisma } from '@prisma/client';
 
 import prisma from '../../../../database/prisma';
 import { getMessage } from '../../../../locales';
+import { sanitizeRichText } from '../../../../utils/functions/sanitize-html';
 
 export const updateUserArticle = async (
   id: string,
@@ -20,7 +21,7 @@ export const updateUserArticle = async (
     dataToUpdate.slug = articleData.slug;
   }
   if (articleData.contentHtml !== undefined) {
-    dataToUpdate.contentHtml = articleData.contentHtml;
+    dataToUpdate.contentHtml = sanitizeRichText(articleData.contentHtml);
   }
   if (articleData.categoryId !== undefined) {
     dataToUpdate.category = {
