@@ -9,6 +9,7 @@ import { articles } from './controllers/articles/articles.controller';
 import { changeStatus } from './controllers/articles/change-article-status.controller';
 import { createArticle } from './controllers/articles/create-article.controller';
 import { deleteArticle } from './controllers/articles/delete-article.controller';
+import { articleRate } from './controllers/articles/toggle-article-rates.controller';
 import { updateArticle } from './controllers/articles/update-article.controller';
 import { categories } from './controllers/categories.controller';
 import { category } from './controllers/category.controller';
@@ -19,6 +20,7 @@ import {
   validateChangeArticleStatus,
   validateCreateArticle,
   validateCreateCategory,
+  validateRateArticle,
   validateUpdateArticle,
   validateUpdateCategory,
 } from './publications.validator';
@@ -98,6 +100,13 @@ router.patch(
   upload.fields([{ name: 'coverArticleImage', maxCount: 1 }]),
   validateUpdateArticle,
   updateArticle,
+);
+
+router.post(
+  '/articles/:articleId/rate',
+  authMiddleware,
+  validateRateArticle,
+  articleRate,
 );
 
 export default router;

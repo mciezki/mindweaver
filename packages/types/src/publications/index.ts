@@ -26,11 +26,13 @@ export interface PublicationArticleComment {
   updatedAt: Date;
 }
 
+export type ArticleRate = 'LIKE' | 'DISLIKE';
+
 export interface PublicationArticleRate {
   id: string;
   articleId: string;
   userId: string;
-  rate: 'LIKE' | 'DISLIKE';
+  rate: ArticleRate;
   createdAt: Date;
 }
 
@@ -100,4 +102,8 @@ export interface ArticleCommentsResponse {
 
 export interface ArticleChangeStatusRequest {
   status: ArticleStatus;
+}
+
+export interface ToggleRateResponse {
+  rate: ArticleRate | null;
 }
