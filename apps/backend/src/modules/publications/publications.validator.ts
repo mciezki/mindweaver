@@ -1,7 +1,7 @@
+import { ArticleRate } from '@mindweave/types';
 import { NextFunction, Request, Response } from 'express';
 
 import { getMessage } from '../../locales';
-import { ArticleRate } from '@mindweave/types';
 
 export const validateCreateCategory = (
   req: Request,
