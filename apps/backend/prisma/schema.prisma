@@ -58,6 +58,8 @@ model User {
   userPublicationArticles         PublicationArticle[]
   userPublicationArticlesComments PublicationArticleComment[]
   userPublicationArticlesRates    PublicationArticleRate[]
+  userConversations               ConversationParticipant[]
+  userMessages                    ConversationMessage[]
 }
 
 model ActivationToken {
@@ -200,4 +202,38 @@ model PublicationArticleRate {
   createdAt DateTime           @default(now())
 
   @@unique([userId, articleId])
+}
+
+model Conversation {
+  id            String   @id @default(uuid())
+  name          String?
+  lastMessageAt DateTime @default(now())
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  isGroup       Boolean  @default(false)
+
+  participants ConversationParticipant[]
+  messages     ConversationMessage[]
+}
+
+model ConversationParticipant {
+  id             String       @id @default(uuid())
+  userId         String
+  user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  conversationId String
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+
+  lastReadAt DateTime?
+
+  @@unique([userId, conversationId])
+}
+
+model ConversationMessage {
+  id             String       @id @default(uuid())
+  conversationId String
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  senderId       String?
+  sender         User?        @relation(fields: [senderId], references: [id], onDelete: SetNull)
+  content        String       @db.Text
+  createdAt      DateTime     @default(now())
 }
