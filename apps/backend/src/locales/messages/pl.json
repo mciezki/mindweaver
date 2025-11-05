@@ -176,5 +176,16 @@
         "notFound": "Komentarz nie został znaleziony"
       }
     }
+  },
+  "conversations": {
+    "validation": {
+      "participantId": "Identyfikator uczestnika jest wymagany.",
+      "cannotChatWithSelf": "Nie możesz utworzyć konwersacji sam ze sobą.",
+      "conversationId": "Identyfikator konwersacji jest wymagany.",
+      "message": {
+        "required": "Treść wiadomości nie może być pusta.",
+        "max": "Wiadomość jest zbyt długa (maks. 5000 znaków)."
+      }
+    }
   }
 }

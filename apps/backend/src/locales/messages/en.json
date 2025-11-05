@@ -179,5 +179,16 @@
         "notFound": "Comment has not been found"
       }
     }
+  },
+  "conversations": {
+    "validation": {
+      "participantId": "Participant ID is required.",
+      "cannotChatWithSelf": "You cannot create a conversation with yourself.",
+      "conversationId": "Conversation ID is required.",
+      "message": {
+        "required": "Message content cannot be empty.",
+        "max": "Message is too long (max 5000 characters)."
+      }
+    }
   }
 }

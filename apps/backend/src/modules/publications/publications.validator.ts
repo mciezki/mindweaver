@@ -284,11 +284,9 @@ export const validateCreateArticleComment = (
   const { content } = req.body;
 
   if (!content || content.trim().length < 1) {
-    res
-      .status(400)
-      .json({
-        message: getMessage('publications.articles.validation.required'),
-      });
+    res.status(400).json({
+      message: getMessage('publications.articles.validation.required'),
+    });
     return;
   }
 
@@ -311,11 +309,9 @@ export const validateUpdateArticleComment = (
 
   if (content !== undefined) {
     if (content.trim().length < 1) {
-      res
-        .status(400)
-        .json({
-          message: getMessage('publications.articles.validation.required'),
-        });
+      res.status(400).json({
+        message: getMessage('publications.articles.validation.required'),
+      });
       return;
     }
     if (content.length > 1000) {
