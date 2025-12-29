@@ -5,6 +5,7 @@ import express from 'express';
 
 import { errorHandler } from './middlewares/errorHandler';
 import authRoutes from './modules/auth/auth.routes';
+import chatRoutes from './modules/chat/chat.routes';
 import publicationsRoutes from './modules/publications/publications.routes';
 import threadsRoutes from './modules/threads/threads.routes';
 import usersRoutes from './modules/users/users.routes';
@@ -30,6 +31,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/users', usersRoutes);
 app.use('/api/threads', threadsRoutes);
 app.use('/api/publications', publicationsRoutes);
+app.use('/api/chat', chatRoutes);
 
 app.use(errorHandler);
 

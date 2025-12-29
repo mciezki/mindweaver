@@ -1,0 +1,39 @@
+### Find or create a new 1-on-1 conversation (Private Route)
+POST http://localhost:4000/api/chat/conversations
+Content-Type: application/json
+Cookie: accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlN2YxYTdmNy1mODQ1LTQ4YTctYjVlZC0yNzU3ZTlkM2Q5NmYiLCJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTc2MjM3Njg1MywiZXhwIjoxNzYyMzc3NzUzfQ.a2NbRlCE5x1GjiI7poBSO4UZMgSb_yXCvFp_XSQlE90
+
+{
+  "participantId": "ad72c4ff-441c-4186-9059-181ce4237645"
+}
+
+### Send a new message to a conversation (Private Route)
+POST http://localhost:4000/api/chat/conversations/e3fc2aa8-f6d5-4113-b953-a920356cedd0/messages
+Content-Type: application/json
+Cookie: accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlN2YxYTdmNy1mODQ1LTQ4YTctYjVlZC0yNzU3ZTlkM2Q5NmYiLCJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTc2MjM3Njg1MywiZXhwIjoxNzYyMzc3NzUzfQ.a2NbRlCE5x1GjiI7poBSO4UZMgSb_yXCvFp_XSQlE90
+
+{
+  "content": "To jest moja nowa wiadomość w tej konwersacji!"
+}
+
+
+### Get message history for a conversation (Private Route)
+GET http://localhost:4000/api/chat/conversations/e3fc2aa8-f6d5-4113-b953-a920356cedd0/messages
+Cookie: accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlN2YxYTdmNy1mODQ1LTQ4YTctYjVlZC0yNzU3ZTlkM2Q5NmYiLCJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTc2NzAwOTQ0NCwiZXhwIjoxNzY3MDEwMzQ0fQ.T7X6L8po9Xl9X1BouWNSSLWSXyodYkAhxow6YWftFJM
+
+
+### Get second page of message history
+GET http://localhost:4000/api/chat/conversations/e3fc2aa8-f6d5-4113-b953-a920356cedd0/messages?page=1&limit=1
+Cookie: accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlN2YxYTdmNy1mODQ1LTQ4YTctYjVlZC0yNzU3ZTlkM2Q5NmYiLCJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTc2MjM3Njg1MywiZXhwIjoxNzYyMzc3NzUzfQ.a2NbRlCE5x1GjiI7poBSO4UZMgSb_yXCvFp_XSQlE90
+
+### Mark a conversation as read (Private Route)
+POST http://localhost:4000/api/chat/conversations/e3fc2aa8-f6d5-4113-b953-a920356cedd0/read
+Cookie: accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlN2YxYTdmNy1mODQ1LTQ4YTctYjVlZC0yNzU3ZTlkM2Q5NmYiLCJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTc2MjM3NzgyMiwiZXhwIjoxNzYyMzc4NzIyfQ.Zn6UGiBld2JaDo9ktLhi-18T0pJVPtqdhPWQgI3L-cU
+
+### Get user's inbox (All conversations & Private Route)
+GET http://localhost:4000/api/chat/conversations
+Cookie: accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlN2YxYTdmNy1mODQ1LTQ4YTctYjVlZC0yNzU3ZTlkM2Q5NmYiLCJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTc2NzAwOTQ0NCwiZXhwIjoxNzY3MDEwMzQ0fQ.T7X6L8po9Xl9X1BouWNSSLWSXyodYkAhxow6YWftFJM
+
+### Get user's inbox with pagination
+GET http://localhost:4000/api/chat/conversations?page=2&limit=10
+Cookie: accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlN2YxYTdmNy1mODQ1LTQ4YTctYjVlZC0yNzU3ZTlkM2Q5NmYiLCJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTc2NzAwOTQ0NCwiZXhwIjoxNzY3MDEwMzQ0fQ.T7X6L8po9Xl9X1BouWNSSLWSXyodYkAhxow6YWftFJM
