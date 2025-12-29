@@ -8,6 +8,7 @@ import {
 } from './chat.validator';
 import { createMessageController } from './controllers/create-message.controller';
 import { findOrCreateConversationController } from './controllers/find-or-create-conversation.controller';
+import { getConversationsController } from './controllers/get-conversations.controller';
 import { getMessagesController } from './controllers/get-messages.controller';
 import { markAsReadController } from './controllers/mark-as-read.controller';
 
@@ -41,5 +42,7 @@ router.post(
   isConversationParticipant,
   markAsReadController,
 );
+
+router.get('/conversations', authMiddleware, getConversationsController);
 
 export default router;

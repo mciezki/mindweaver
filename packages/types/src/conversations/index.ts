@@ -18,8 +18,8 @@ export interface ConversationResponse {
   lastMessageAt: Date;
   participants: ConversationParticipantResponse[];
 
-  lastMessage?: MessageResponse | null
-  unreadCount?: number
+  lastMessage?: MessageResponse | null;
+  unreadCount?: number;
 }
 
 export interface CreateMessageRequest {
