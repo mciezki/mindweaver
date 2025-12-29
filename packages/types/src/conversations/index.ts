@@ -17,6 +17,9 @@ export interface ConversationResponse {
   isGroup: boolean;
   lastMessageAt: Date;
   participants: ConversationParticipantResponse[];
+
+  lastMessage?: MessageResponse | null
+  unreadCount?: number
 }
 
 export interface CreateMessageRequest {
@@ -41,6 +44,16 @@ export interface PaginatedMessages extends ListWithPagination {
 // Typ dla finalnej odpowiedzi API (z kontrolera)
 export interface MessagesResponse {
   messages: MessageResponse[];
+  meta: {
+    totalCount: number;
+    currentPage: number;
+    totalPages: number;
+    limit: number;
+  };
+}
+
+export interface InboxResponse {
+  conversations: ConversationResponse[];
   meta: {
     totalCount: number;
     currentPage: number;
