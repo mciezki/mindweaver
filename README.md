@@ -198,7 +198,8 @@ You can run scripts from the monorepo root or within individual app directories.
 - [x] **Backend:** Auth Module (JWT/Cookies)
 - [x] **Backend:** Social & Publications Module
 - [x] **Backend:** Chat Module (REST API & Logic)
-- [ ] **Backend:** WebSockets Integration (Real-time messages/Notifications) _(In Progress)_
+- [x] **Backend:** WebSockets Integration (Real-time messages/Notifications)
+- [ ] **Backend:** Setup database & mail engine on docker
 - [ ] **Frontend:** Integration with new Backend endpoints
 - [ ] **Mobile:** React Native Application
 
