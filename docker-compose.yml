@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: mindweaver_db
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: mindweaver
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: mindweaver_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: always
+
+  mail:
+    image: axllent/mailpit
+    container_name: mindweaver_mail
+    ports:
+      - "1025:1025" # Port SMTP 
+      - "8025:8025" # Port WWW 
+    restart: always
+
+volumes:
+  postgres_data:
