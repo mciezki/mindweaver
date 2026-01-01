@@ -1,0 +1,635 @@
+tags:
+  - name: Publications
+    description: Management of Categories, Articles, Comments, and Rates.
+
+components:
+  schemas:
+    # --- Shared / Previews ---
+    UserPreview:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        profileName:
+          type: string
+          nullable: true
+        name:
+          type: string
+        surname:
+          type: string
+        profileImage:
+          type: string
+          nullable: true
+        type:
+          type: string
+
+    # --- Categories ---
+    PublicationCategory:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        slug:
+          type: string
+          nullable: true
+        description:
+          type: string
+        articlesNumber:
+          type: integer
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+
+    CreateCategoryRequest:
+      type: object
+      required:
+        - name
+        - description
+      properties:
+        name:
+          type: string
+        slug:
+          type: string
+        description:
+          type: string
+
+    # --- Articles ---
+    PublicationArticle:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        categoryId:
+          type: string
+          format: uuid
+        title:
+          type: string
+        contentHtml:
+          type: string
+        coverImage:
+          type: string
+          nullable: true
+        status:
+          type: string
+          enum: [DRAFT, PUBLISHED]
+        slug:
+          type: string
+          nullable: true
+        publishedAt:
+          type: string
+          format: date-time
+          nullable: true
+        createdAt:
+          type: string
+          format: date-time
+        commentsNumber:
+          type: integer
+        rates:
+          type: object
+          properties:
+            likes:
+              type: integer
+            dislikes:
+              type: integer
+        user:
+          $ref: '#/components/schemas/UserPreview'
+
+    ArticleListResponse:
+      type: object
+      properties:
+        articles:
+          type: array
+          items:
+            $ref: '#/components/schemas/PublicationArticle'
+        totalCount:
+          type: integer
+        totalPages:
+          type: integer
+
+    ChangeArticleStatusRequest:
+      type: object
+      required:
+        - status
+      properties:
+        status:
+          type: string
+          enum: [DRAFT, PUBLISHED]
+
+    RateArticleRequest:
+      type: object
+      required:
+        - rate
+      properties:
+        rate:
+          type: string
+          enum: [LIKE, DISLIKE]
+
+    ToggleRateResponse:
+      type: object
+      properties:
+        rate:
+          type: string
+          enum: [LIKE, DISLIKE]
+          nullable: true
+
+    # --- Comments ---
+    ArticleComment:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        articleId:
+          type: string
+          format: uuid
+        content:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        user:
+          $ref: '#/components/schemas/UserPreview'
+
+    CreateCommentRequest:
+      type: object
+      required:
+        - content
+      properties:
+        content:
+          type: string
+
+    CommentsListResponse:
+      type: object
+      properties:
+        comments:
+          type: array
+          items:
+            $ref: '#/components/schemas/ArticleComment'
+        totalCount:
+          type: integer
+        totalPages:
+          type: integer
+
+paths:
+  # ==========================================
+  # CATEGORIES
+  # ==========================================
+  /api/publications/user/{userId}/categories:
+    get:
+      summary: Get user categories
+      tags: [Publications]
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        200:
+          description: List of categories.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PublicationCategory'
+
+  /api/publications/categories:
+    post:
+      summary: Create new category
+      tags: [Publications]
+      security:
+        - cookieAuth: []
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCategoryRequest'
+      responses:
+        201:
+          description: Category created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicationCategory'
+        409:
+          description: Slug already exists.
+
+  /api/publications/categories/{slugOrCategoryId}:
+    get:
+      summary: Get single category
+      tags: [Publications]
+      parameters:
+        - in: path
+          name: slugOrCategoryId
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Category details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicationCategory'
+        404:
+          description: Category not found.
+
+  /api/publications/categories/{categoryId}:
+    patch:
+      summary: Update category
+      tags: [Publications]
+      security:
+        - cookieAuth: []
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: categoryId
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCategoryRequest'
+      responses:
+        200:
+          description: Category updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicationCategory'
+        403:
+          description: Not owner.
+    delete:
+      summary: Delete category
+      tags: [Publications]
+      security:
+        - cookieAuth: []
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: categoryId
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        200:
+          description: Category deleted.
+
+  # ==========================================
+  # ARTICLES LIST
+  # ==========================================
+  /api/publications/user/{userId}/categories/{slugOrCategoryId}/articles/{status}:
+    get:
+      summary: Get list of articles (filtered)
+      tags: [Publications]
+      security:
+        - cookieAuth: []
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - in: path
+          name: slugOrCategoryId
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: status
+          required: true
+          schema:
+            type: string
+            enum: [DRAFT, PUBLISHED]
+        - in: query
+          name: page
+          schema:
+            type: integer
+            default: 1
+        - in: query
+          name: limit
+          schema:
+            type: integer
+            default: 10
+        - in: query
+          name: search
+          schema:
+            type: string
+      responses:
+        200:
+          description: List of articles.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArticleListResponse'
+
+  # ==========================================
+  # ARTICLES CRUD
+  # ==========================================
+  /api/publications/articles/create:
+    post:
+      summary: Create new article
+      tags: [Publications]
+      security:
+        - cookieAuth: []
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required: [title, contentHtml, categoryId]
+              properties:
+                coverArticleImage:
+                  type: string
+                  format: binary
+                title:
+                  type: string
+                contentHtml:
+                  type: string
+                categoryId:
+                  type: string
+                  format: uuid
+                slug:
+                  type: string
+      responses:
+        201:
+          description: Article created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicationArticle'
+        409:
+          description: Slug exists.
+
+  /api/publications/articles/{slugOrArticleId}:
+    get:
+      summary: Get single article
+      tags: [Publications]
+      security:
+        - cookieAuth: []
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: slugOrArticleId
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Article details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicationArticle'
+        404:
+          description: Article not found.
+
+  /api/publications/articles/{articleId}:
+    patch:
+      summary: Update article
+      tags: [Publications]
+      security:
+        - cookieAuth: []
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: articleId
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                coverArticleImage:
+                  type: string
+                  format: binary
+                title:
+                  type: string
+                contentHtml:
+                  type: string
+                categoryId:
+                  type: string
+                  format: uuid
+                slug:
+                  type: string
+      responses:
+        200:
+          description: Article updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicationArticle'
+        403:
+          description: Not owner.
+    delete:
+      summary: Delete article
+      tags: [Publications]
+      security:
+        - cookieAuth: []
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: articleId
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        200:
+          description: Article deleted.
+
+  /api/publications/articles/{articleId}/status:
+    patch:
+      summary: Change article status
+      tags: [Publications]
+      security:
+        - cookieAuth: []
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: articleId
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChangeArticleStatusRequest'
+      responses:
+        200:
+          description: Status changed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicationArticle'
+
+  # ==========================================
+  # INTERACTIONS (Rates, Comments)
+  # ==========================================
+  /api/publications/articles/{articleId}/rate:
+    post:
+      summary: Rate article (Like/Dislike)
+      tags: [Publications]
+      security:
+        - cookieAuth: []
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: articleId
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RateArticleRequest'
+      responses:
+        200:
+          description: Rate toggled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ToggleRateResponse'
+
+  /api/publications/articles/{articleId}/comment:
+    post:
+      summary: Add comment
+      tags: [Publications]
+      security:
+        - cookieAuth: []
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: articleId
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCommentRequest'
+      responses:
+        201:
+          description: Comment created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArticleComment'
+
+  /api/publications/articles/{articleId}/comments:
+    get:
+      summary: Get article comments
+      tags: [Publications]
+      parameters:
+        - in: path
+          name: articleId
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - in: query
+          name: page
+          schema:
+            type: integer
+            default: 1
+        - in: query
+          name: limit
+          schema:
+            type: integer
+            default: 10
+      responses:
+        200:
+          description: List of comments.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommentsListResponse'
+
+  /api/publications/articles/{articleId}/comments/{commentId}:
+    patch:
+      summary: Update comment
+      tags: [Publications]
+      security:
+        - cookieAuth: []
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: articleId
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - in: path
+          name: commentId
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCommentRequest'
+      responses:
+        200:
+          description: Comment updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArticleComment'
+    delete:
+      summary: Delete comment
+      tags: [Publications]
+      security:
+        - cookieAuth: []
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: articleId
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - in: path
+          name: commentId
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        200:
+          description: Comment deleted.

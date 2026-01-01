@@ -13,7 +13,7 @@ export const sendActivationEmail = async (
   token: string,
   userName: string,
 ) => {
-  console.log(getMessage('emails.activation.subject'))
+  console.log(getMessage('emails.activation.subject'));
   const mailOptions = {
     from: process.env.EMAIL_FROM || 'no-reply@mindweave.com',
     to: email,

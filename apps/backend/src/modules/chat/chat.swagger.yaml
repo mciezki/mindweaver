@@ -1,0 +1,284 @@
+tags:
+  - name: Chat
+    description: Real-time messaging and conversation management
+
+components:
+  schemas:
+    # --- Shared Sub-Schemas ---
+    UserPreview:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        profileName:
+          type: string
+          nullable: true
+        name:
+          type: string
+        surname:
+          type: string
+        profileImage:
+          type: string
+          nullable: true
+
+    # --- DTO Models ---
+    CreateConversationRequest:
+      type: object
+      required:
+        - participantId
+      properties:
+        participantId:
+          type: string
+          format: uuid
+          description: ID of the user you want to chat with.
+
+    CreateMessageRequest:
+      type: object
+      required:
+        - content
+      properties:
+        content:
+          type: string
+          minLength: 1
+
+    # --- Response Models ---
+    ConversationParticipant:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        lastReadAt:
+          type: string
+          format: date-time
+          nullable: true
+        user:
+          $ref: '#/components/schemas/UserPreview'
+
+    Message:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        content:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        conversationId:
+          type: string
+          format: uuid
+        sender:
+          $ref: '#/components/schemas/UserPreview'
+
+    Conversation:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+          nullable: true
+        isGroup:
+          type: boolean
+        lastMessageAt:
+          type: string
+          format: date-time
+        participants:
+          type: array
+          items:
+            $ref: '#/components/schemas/ConversationParticipant'
+        lastMessage:
+          $ref: '#/components/schemas/Message'
+        unreadCount:
+          type: integer
+          description: Number of unread messages for the current user.
+
+    # --- Complex Responses ---
+    FindOrCreateConversationResponse:
+      type: object
+      properties:
+        conversation:
+          $ref: '#/components/schemas/Conversation'
+        isNew:
+          type: boolean
+          description: True if a new conversation was created, False if an existing one was found.
+
+    InboxResponse:
+      type: object
+      properties:
+        conversations:
+          type: array
+          items:
+            $ref: '#/components/schemas/Conversation'
+        meta:
+          type: object
+          properties:
+            totalCount:
+              type: integer
+            currentPage:
+              type: integer
+            totalPages:
+              type: integer
+            limit:
+              type: integer
+
+    MessagesListResponse:
+      type: object
+      properties:
+        messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/Message'
+        meta: # lub totalCount/totalPages w zależności od implementacji mappera, tutaj wg typu PaginatedMessages
+          type: object
+          properties:
+            totalCount:
+              type: integer
+            totalPages:
+              type: integer
+
+paths:
+  /api/chat/conversations:
+    get:
+      summary: Get user inbox (List of conversations)
+      description: Returns a paginated list of conversations with unread counts and last message previews.
+      tags: [Chat]
+      security:
+        - cookieAuth: []
+        - bearerAuth: []
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+            default: 1
+        - in: query
+          name: limit
+          schema:
+            type: integer
+            default: 20
+      responses:
+        200:
+          description: List of conversations retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InboxResponse'
+        401:
+          description: Unauthorized.
+
+    post:
+      summary: Start a conversation (Find or Create)
+      description: Finds an existing 1-on-1 conversation or creates a new one if it doesn't exist.
+      tags: [Chat]
+      security:
+        - cookieAuth: []
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateConversationRequest'
+      responses:
+        200:
+          description: Conversation returned (existing or new).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FindOrCreateConversationResponse'
+        404:
+          description: Target participant not found.
+        400:
+          description: Validation error.
+
+  /api/chat/conversations/{conversationId}/messages:
+    get:
+      summary: Get messages in a conversation
+      tags: [Chat]
+      security:
+        - cookieAuth: []
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: conversationId
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - in: query
+          name: page
+          schema:
+            type: integer
+            default: 1
+        - in: query
+          name: limit
+          schema:
+            type: integer
+            default: 30
+      responses:
+        200:
+          description: Messages history.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessagesListResponse'
+        403:
+          description: User is not a participant of this conversation.
+
+    post:
+      summary: Send a message
+      description: Sends a message and updates the conversation's `lastMessageAt`. Triggers WebSocket event.
+      tags: [Chat]
+      security:
+        - cookieAuth: []
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: conversationId
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateMessageRequest'
+      responses:
+        201:
+          description: Message sent successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Message'
+        403:
+          description: User is not a participant of this conversation.
+
+  /api/chat/conversations/{conversationId}/read:
+    post:
+      summary: Mark conversation as read
+      description: Updates `lastReadAt` timestamp for the current user in the conversation.
+      tags: [Chat]
+      security:
+        - cookieAuth: []
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: conversationId
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        200:
+          description: Marked as read successfully.
+        403:
+          description: User is not a participant of this conversation.
+        404:
+          description: Conversation not found.

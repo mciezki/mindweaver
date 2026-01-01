@@ -1,0 +1,191 @@
+tags:
+  - name: Users
+    description: Public profiles, user search, and slug management.
+
+components:
+  schemas:
+    # --- Models ---
+    PublicUser:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        email:
+          type: string
+          format: email
+        name:
+          type: string
+        surname:
+          type: string
+        birthday:
+          type: string
+          format: date-time
+        sex:
+          type: string
+          enum: [m, f]
+        createdAt:
+          type: string
+          format: date-time
+        profileName:
+          type: string
+          nullable: true
+        slug:
+          type: string
+          nullable: true
+        description:
+          type: string
+          nullable: true
+        profileImage:
+          type: string
+          nullable: true
+        coverImage:
+          type: string
+          nullable: true
+
+    ProposedUserSlug:
+      type: object
+      properties:
+        slug:
+          type: string
+          description: A unique, URL-friendly identifier generated based on user name.
+
+    # --- Responses ---
+    PublicUserListResponse:
+      type: object
+      properties:
+        users:
+          type: array
+          items:
+            $ref: '#/components/schemas/PublicUser'
+        totalCount:
+          type: integer
+        totalPages:
+          type: integer
+
+    # Specyficzna odpowiedź dla listy wątków usera (płaska struktura z serwisu)
+    UserThreadsListResponse:
+      type: object
+      properties:
+        threads:
+          type: array
+          items:
+            # Odwołujemy się do definicji z modułu Threads (threads.yaml)
+            $ref: '#/components/schemas/ThreadResponse'
+        totalCount:
+          type: integer
+        totalPages:
+          type: integer
+
+paths:
+  # ==========================================
+  # USERS SEARCH & LIST
+  # ==========================================
+  /api/users:
+    get:
+      summary: Search and list users
+      tags: [Users]
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+            default: 1
+        - in: query
+          name: limit
+          schema:
+            type: integer
+            default: 10
+        - in: query
+          name: search
+          schema:
+            type: string
+            description: Search by name, email, slug, or profile name.
+      responses:
+        200:
+          description: List of users.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicUserListResponse'
+
+  # ==========================================
+  # SLUG GENERATION
+  # ==========================================
+  /api/users/slug:
+    get:
+      summary: Generate unique user slug
+      description: Generates a unique slug based on current user's name/profileName. Used during profile update.
+      tags: [Users]
+      security:
+        - cookieAuth: []
+        - bearerAuth: []
+      responses:
+        200:
+          description: Proposed slug returned.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProposedUserSlug'
+        401:
+          description: Unauthorized.
+        404:
+          description: User not found.
+
+  # ==========================================
+  # SINGLE USER & THREADS
+  # ==========================================
+  /api/users/{slugOrId}:
+    get:
+      summary: Get public user profile
+      tags: [Users]
+      parameters:
+        - in: path
+          name: slugOrId
+          required: true
+          schema:
+            type: string
+          description: User ID (UUID) or unique Slug.
+      responses:
+        200:
+          description: Public user profile data.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicUser'
+        404:
+          description: User not found.
+
+  /api/users/{slugOrId}/threads:
+    get:
+      summary: Get user threads
+      tags: [Users]
+      parameters:
+        - in: path
+          name: slugOrId
+          required: true
+          schema:
+            type: string
+          description: User ID (UUID) or unique Slug.
+        - in: query
+          name: page
+          schema:
+            type: integer
+            default: 1
+        - in: query
+          name: limit
+          schema:
+            type: integer
+            default: 10
+        - in: query
+          name: search
+          schema:
+            type: string
+            description: Search within user's threads content.
+      responses:
+        200:
+          description: List of user's threads.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserThreadsListResponse'

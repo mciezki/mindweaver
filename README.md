@@ -1,6 +1,6 @@
-# MindWeaver (Monorepo) 🧠
+# MindWeave (Monorepo) 🧠
 
-Welcome to the **MindWeaver** repository. This is a full-stack social and publication platform built with a modern, type-safe stack.
+Welcome to the **MindWeave** repository. This is a full-stack social and publication platform built with a modern, type-safe stack.
 
 > **🚧 Project Status & Context**
 >
@@ -20,7 +20,7 @@ Welcome to the **MindWeaver** repository. This is a full-stack social and public
 - [Getting Started](#-getting-started)
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
-  - [Database Setup](#database-setup)
+  - [Database & Env Setup](#database--environment-setup)
   - [Running the App](#running-the-applications)
 - [Scripts](#-scripts)
 - [Roadmap](#-roadmap)
@@ -54,6 +54,12 @@ A sophisticated 1-on-1 messaging engine:
 - **Interactions:** System for Likes and Nested Comments (Threaded discussions).
 - **Publications:** Article management system with categories and draft/published states.
 
+### 📚 API Documentation
+
+- **Interactive UI:** Full OpenAPI 3.0 specification available via Swagger UI.
+- **Modular Design:** Documentation definitions are co-located with modules (`*.yaml`) for better maintainability.
+- **Testing:** Endpoints can be tested directly from the browser with cookie-based auth support.
+
 ---
 
 ## 🛠 Tech Stack
@@ -67,7 +73,8 @@ This project uses **TurboRepo** for monorepo management.
 - **Language:** TypeScript
 - **Database:** PostgreSQL
 - **ORM:** Prisma (Schema validation, Migrations, Type-safe queries)
-- **Real-time:** Socket.io _(Implementation in progress)_
+- **Real-time:** Socket.io
+- **Docs:** Swagger UI, OpenAPI
 - **Auth:** `jsonwebtoken`, `bcryptjs`, `cookie-parser`
 - **Email:** Nodemailer
 
@@ -109,7 +116,7 @@ Follow these steps to set up the project locally.
 
 - **Node.js** (v18 or higher)
 - **npm** (v9 or higher)
-- **PostgreSQL** database instance (local or cloud)
+- **Docker** & **Docker Compose** (for Database and Mailpit)
 - **Git**
 
 ### Installation
@@ -134,34 +141,38 @@ Follow these steps to set up the project locally.
     ```
     _This command builds the `@mindweave/types` package and reinstalls dependencies in apps to ensure they pick up the latest types._
 
-### Database Setup
+### Database & Environment Setup
 
-1.  Navigate to the backend folder:
+1.  **Start Infrastructure (Docker):**
+    The project uses Docker to host PostgreSQL and Mailpit (Email server).
+    Run this in the root directory:
+
+    ```bash
+    docker compose up -d
+    ```
+
+2.  **Env Setup:**
+    Navigate to the backend folder:
 
     ```bash
     cd apps/backend
     ```
 
-2.  Create a `.env` file based on `.env.example`:
+    Create a `.env` file based on `.env.example`:
 
     ```env
-    DATABASE_URL="postgresql://user:password@localhost:5432/mindweave_db?schema=public"
+    DATABASE_URL="postgresql://mindweaver:admin@localhost:5432/mindweaver_db?schema=public"
     JWT_SECRET="YOUR_SUPER_SECRET_KEY"
-    JWT_EXPIRES_IN="15m"
-    JWT_REFRESH_EXPIRES_IN=7
-    # Ethereal Email (for testing)
-    EMAIL_HOST=smtp.ethereal.email
-    EMAIL_PORT=587
-    EMAIL_USER=your_user
-    EMAIL_PASS=your_password
-    FRONTEND_URL="http://localhost:3000"
+    # ... other keys
+    EMAIL_HOST=localhost
+    EMAIL_PORT=1025
     ```
 
-3.  **Run Migrations & Seed:**
+3.  **Run Migrations:**
     ```bash
     npm run db:setup
     ```
-    _This will reset the DB, apply migrations, and seed initial data._
+    _This will apply migrations to the Docker database and seed initial data._
 
 ### Running the Applications
 
@@ -174,6 +185,8 @@ npm run dev
 This will concurrently start:
 
 - **Backend API:** `http://localhost:4000/api`
+- **Swagger Docs:** `http://localhost:4000/api-docs` 📖
+- **Mailpit (Emails):** `http://localhost:8025` 📬
 - **Frontend:** `http://localhost:3000`
 
 ---
@@ -199,8 +212,8 @@ You can run scripts from the monorepo root or within individual app directories.
 - [x] **Backend:** Social & Publications Module
 - [x] **Backend:** Chat Module (REST API & Logic)
 - [x] **Backend:** WebSockets Integration (Real-time messages/Notifications)
-- [x] **Backend:** Setup database & mail engine on docker
-- [ ] **Backend:** Setup swagger
+- [x] **Backend:** Setup database & mail engine on Docker
+- [x] **Backend:** Setup Swagger/OpenAPI Documentation
 - [ ] **Frontend:** Next.js Application in monorepo
 - [ ] **Mobile:** React Native Application
 
