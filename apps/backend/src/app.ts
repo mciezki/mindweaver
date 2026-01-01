@@ -4,13 +4,13 @@ import 'dotenv/config';
 import express from 'express';
 import swaggerUi from 'swagger-ui-express';
 
+import { swaggerSpec } from './config/swagger.config';
 import { errorHandler } from './middlewares/errorHandler';
 import authRoutes from './modules/auth/auth.routes';
 import chatRoutes from './modules/chat/chat.routes';
 import publicationsRoutes from './modules/publications/publications.routes';
 import threadsRoutes from './modules/threads/threads.routes';
 import usersRoutes from './modules/users/users.routes';
-import { swaggerSpec } from './config/swagger.config';
 
 const app = express();
 

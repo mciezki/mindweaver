@@ -146,16 +146,20 @@ Follow these steps to set up the project locally.
 1.  **Start Infrastructure (Docker):**
     The project uses Docker to host PostgreSQL and Mailpit (Email server).
     Run this in the root directory:
+
     ```bash
     docker compose up -d
     ```
 
 2.  **Env Setup:**
     Navigate to the backend folder:
+
     ```bash
     cd apps/backend
     ```
+
     Create a `.env` file based on `.env.example`:
+
     ```env
     DATABASE_URL="postgresql://mindweaver:admin@localhost:5432/mindweaver_db?schema=public"
     JWT_SECRET="YOUR_SUPER_SECRET_KEY"
