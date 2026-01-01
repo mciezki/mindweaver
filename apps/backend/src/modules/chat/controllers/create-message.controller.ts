@@ -2,6 +2,8 @@ import { CreateMessageRequest } from '@mindweave/types';
 import { NextFunction, Request, Response } from 'express';
 
 import { getMessage } from '../../../locales';
+import { getIO } from '../../../socket';
+import { SOCKET_EVENTS } from '../../../utils/sockets';
 import { createMessage } from '../services/create-message.service';
 
 export const createMessageController = async (
@@ -20,9 +22,22 @@ export const createMessageController = async (
       throw err;
     }
 
-    const newMessage = await createMessage(userId, conversationId, body);
+    const { message, recipients } = await createMessage(
+      userId,
+      conversationId,
+      body,
+    );
 
-    res.status(201).json(newMessage);
+    const io = getIO();
+
+    recipients.forEach((recipientId) => {
+      if (recipientId !== userId) {
+        io.to(recipientId).emit(SOCKET_EVENTS.message, message);
+        console.log(`📡 Emitted 'conversation:message' to user ${recipientId}`);
+      }
+    });
+
+    res.status(201).json(message);
   } catch (error) {
     next(error);
   }
