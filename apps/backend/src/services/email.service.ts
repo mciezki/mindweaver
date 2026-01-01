@@ -4,13 +4,8 @@ import { getMessage } from '../locales';
 
 const transporter = nodemailer.createTransport({
   host: process.env.EMAIL_HOST,
-  port: parseInt(process.env.EMAIL_PORT || '587'),
+  port: parseInt(process.env.EMAIL_PORT || '1025'),
   secure: process.env.EMAIL_PORT === '465',
-
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS,
-  },
 });
 
 export const sendActivationEmail = async (
@@ -18,10 +13,11 @@ export const sendActivationEmail = async (
   token: string,
   userName: string,
 ) => {
+  console.log(getMessage('emails.activation.subject'))
   const mailOptions = {
     from: process.env.EMAIL_FROM || 'no-reply@mindweave.com',
     to: email,
-    subject: getMessage('emails.activation.subject'),
+    subject: getMessage('auth.emails.activation.subject'),
     html: `<h1>Witaj, ${userName}!</h1>
                 <p>Dziękujemy za rejestrację w MindWeave. Aby aktywować swoje konto, użyj poniższego kodu:</p>
                 <h2>${token}</h2>
@@ -44,7 +40,7 @@ export const sendPasswordResetEmail = async (email: string, token: string) => {
   const mailOptions = {
     from: process.env.EMAIL_FROM || 'no-reply@mindweave.com',
     to: email,
-    subject: getMessage('emails.resetPassword.subject'),
+    subject: getMessage('auth.emails.resetPassword.subject'),
     html: `<h1>Witaj!</h1>
                 <p>Widzimy, że zaginęło Twoje hasło. Aby je zresetować kliknij w poniższy link:</p>
                 <h2>${token}</h2>
