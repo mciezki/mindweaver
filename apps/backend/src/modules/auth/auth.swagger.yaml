@@ -1,0 +1,318 @@
+tags:
+  - name: Auth
+    description: User management and authentication
+
+components:
+  schemas:
+    # --- DTO Models ---
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        email:
+          type: string
+          format: email
+        name:
+          type: string
+        surname:
+          type: string
+        birthday:
+          type: string
+          format: date-time
+        sex:
+          type: string
+          enum: [m, f]
+        active:
+          type: boolean
+          description: Indicates if the account has been activated via email.
+        profileName:
+          type: string
+          nullable: true
+        slug:
+          type: string
+          nullable: true
+        description:
+          type: string
+          nullable: true
+        profileImage:
+          type: string
+          nullable: true
+        coverImage:
+          type: string
+          nullable: true
+        createdAt:
+          type: string
+          format: date-time
+
+    RegisterRequest:
+      type: object
+      required:
+        - email
+        - password
+        - name
+        - surname
+        - birthday
+        - sex
+      properties:
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+          format: password
+          minLength: 8
+        name:
+          type: string
+        surname:
+          type: string
+        birthday:
+          type: string
+          format: date-time
+          example: "1990-01-01T00:00:00.000Z"
+        sex:
+          type: string
+          enum: [m, f]
+
+    LoginRequest:
+      type: object
+      required:
+        - email
+        - password
+      properties:
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+          format: password
+
+    AuthResponse:
+      type: object
+      properties:
+        user:
+          $ref: '#/components/schemas/User'
+        accessToken:
+          type: string
+          description: Short-lived JWT access token.
+        refreshToken:
+          type: string
+          description: Long-lived refresh token (also returned in HttpOnly Cookie).
+
+paths:
+  /api/auth/register:
+    post:
+      summary: Register a new user
+      tags: [Auth]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterRequest'
+      responses:
+        201:
+          description: User created successfully. Email activation required.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user:
+                    $ref: '#/components/schemas/User'
+        400:
+          description: Validation error.
+        409:
+          description: Email already exists.
+
+  /api/auth/login:
+    post:
+      summary: User login
+      tags: [Auth]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+      responses:
+        200:
+          description: Logged in successfully. Returns tokens and sets HttpOnly Cookies.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+        401:
+          description: Invalid email or password.
+        403:
+          description: Account not activated.
+
+  /api/auth/logout:
+    post:
+      summary: User logout
+      description: Removes refresh token from database and clears cookies.
+      tags: [Auth]
+      responses:
+        200:
+          description: Logged out successfully.
+
+  /api/auth/activate:
+    post:
+      summary: Activate account
+      description: Activates account based on token sent via email.
+      tags: [Auth]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - token
+              properties:
+                token:
+                  type: string
+      responses:
+        200:
+          description: Account activated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        400:
+          description: Token invalid, expired, or already used.
+        404:
+          description: User not found.
+
+  /api/auth/request-password-reset:
+    post:
+      summary: Request password reset
+      description: Sends an email with a password reset token.
+      tags: [Auth]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email]
+              properties:
+                email:
+                  type: string
+                  format: email
+      responses:
+        200:
+          description: Email sent (or simulated success for security).
+
+  /api/auth/reset-password:
+    post:
+      summary: Reset password
+      tags: [Auth]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [token, password]
+              properties:
+                token:
+                  type: string
+                password:
+                  type: string
+                  format: password
+                  minLength: 8
+      responses:
+        200:
+          description: Password changed successfully.
+        400:
+          description: Token invalid or expired.
+
+  /api/auth/profile/update:
+    patch:
+      summary: Update user profile
+      description: Allows updating text data and uploading images.
+      tags: [Auth]
+      security:
+        - cookieAuth: []
+        - bearerAuth: []
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                profileImage:
+                  type: string
+                  format: binary
+                  description: Profile picture file (max 1)
+                coverImage:
+                  type: string
+                  format: binary
+                  description: Cover image file (max 1)
+                name:
+                  type: string
+                surname:
+                  type: string
+                profileName:
+                  type: string
+                slug:
+                  type: string
+                description:
+                  type: string
+                birthday:
+                  type: string
+                  format: date-time
+                password:
+                  type: string
+                  format: password
+      responses:
+        200:
+          description: Profile updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        400:
+          description: Validation error or invalid file format.
+        401:
+          description: Unauthorized.
+        409:
+          description: Slug or Email already exists.
+
+  /api/auth/refresh:
+    post:
+      summary: Refresh Access Token
+      description: Requires `refreshToken` cookie. Returns a new token pair.
+      tags: [Auth]
+      security:
+        - cookieAuth: []
+      responses:
+        200:
+          description: Tokens refreshed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+        401:
+          description: Refresh token invalid, expired, or revoked.
+
+  /api/auth/profile:
+    get:
+      summary: Get current user profile
+      tags: [Auth]
+      security:
+        - cookieAuth: []
+        - bearerAuth: []
+      responses:
+        200:
+          description: User profile data.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        401:
+          description: Unauthorized.
+        404:
+          description: User not found.

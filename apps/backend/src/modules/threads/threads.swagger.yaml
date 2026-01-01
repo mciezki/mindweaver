@@ -1,0 +1,594 @@
+tags:
+  - name: Social Threads
+    description: Microblogging, media posts, shares, and interactions.
+
+components:
+  schemas:
+    # --- Shared ---
+    UserPreview:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        profileName:
+          type: string
+          nullable: true
+        name:
+          type: string
+        surname:
+          type: string
+        profileImage:
+          type: string
+          nullable: true
+        type:
+          type: string
+
+    # --- Threads ---
+    ThreadCounts:
+      type: object
+      properties:
+        likes:
+          type: integer
+        comments:
+          type: integer
+        shares:
+          type: integer
+
+    ThreadBase:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        content:
+          type: string
+          nullable: true
+        mediaUrls:
+          type: array
+          items:
+            type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        user:
+          $ref: '#/components/schemas/UserPreview'
+
+    # Pełna odpowiedź wątku (może zawierać udostępniony wątek w środku)
+    ThreadResponse:
+      allOf:
+        - $ref: '#/components/schemas/ThreadBase'
+        - type: object
+          properties:
+            originalThreadId:
+              type: string
+              format: uuid
+              nullable: true
+            originalThread:
+              $ref: '#/components/schemas/ThreadBase'
+            counts:
+              $ref: '#/components/schemas/ThreadCounts'
+
+    ThreadsListResponse:
+      type: object
+      properties:
+        threads:
+          type: array
+          items:
+            $ref: '#/components/schemas/ThreadResponse'
+        meta:
+          type: object
+          properties:
+            totalCount:
+              type: integer
+            currentPage:
+              type: integer
+            totalPages:
+              type: integer
+            limit:
+              type: integer
+
+    # --- Comments ---
+    CommentCounts:
+      type: object
+      properties:
+        likes:
+          type: integer
+        replies:
+          type: integer
+
+    CommentResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        content:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        parentId:
+          type: string
+          format: uuid
+          nullable: true
+        user:
+          $ref: '#/components/schemas/UserPreview'
+        counts:
+          $ref: '#/components/schemas/CommentCounts'
+
+    CommentsListResponse:
+      type: object
+      properties:
+        comments:
+          type: array
+          items:
+            $ref: '#/components/schemas/CommentResponse'
+        meta:
+          type: object
+          properties:
+            totalCount:
+              type: integer
+            currentPage:
+              type: integer
+            totalPages:
+              type: integer
+            limit:
+              type: integer
+
+    # --- Requests ---
+    CreateCommentRequest:
+      type: object
+      required:
+        - content
+      properties:
+        content:
+          type: string
+        parentId:
+          type: string
+          format: uuid
+          nullable: true
+          description: Optional ID of the parent comment (for nested replies).
+
+    ShareThreadRequest:
+      type: object
+      properties:
+        content:
+          type: string
+          description: Optional commentary added to the shared thread.
+
+    ToggleLikeResponse:
+      type: object
+      properties:
+        liked:
+          type: boolean
+
+    LikesListResponse:
+      type: object
+      properties:
+        likes:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              user:
+                $ref: '#/components/schemas/UserPreview'
+        meta:
+          type: object
+          properties:
+            totalCount:
+              type: integer
+            totalPages:
+              type: integer
+
+paths:
+  # ==========================================
+  # THREADS CRUD
+  # ==========================================
+  /api/threads:
+    get:
+      summary: Get public threads feed
+      description: Returns a paginated list of threads. Allows searching.
+      tags: [Social Threads]
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+            default: 1
+        - in: query
+          name: limit
+          schema:
+            type: integer
+            default: 10
+        - in: query
+          name: search
+          schema:
+            type: string
+            description: Search by content or user name/slug.
+      responses:
+        200:
+          description: List of threads.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ThreadsListResponse'
+
+  /api/threads/create:
+    post:
+      summary: Create new thread
+      tags: [Social Threads]
+      security:
+        - cookieAuth: []
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                content:
+                  type: string
+                media:
+                  type: array
+                  items:
+                    type: string
+                    format: binary
+                  description: Array of image files (max 5).
+      responses:
+        201:
+          description: Thread created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ThreadResponse'
+        404:
+          description: User not found.
+
+  /api/threads/{threadId}:
+    get:
+      summary: Get single thread
+      tags: [Social Threads]
+      parameters:
+        - in: path
+          name: threadId
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        200:
+          description: Thread details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ThreadResponse'
+        404:
+          description: Thread not found.
+
+    patch:
+      summary: Update thread
+      tags: [Social Threads]
+      security:
+        - cookieAuth: []
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: threadId
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                content:
+                  type: string
+                media:
+                  type: array
+                  items:
+                    type: string
+                    format: binary
+                  description: New files to upload.
+                existingMediaUrls:
+                  type: array
+                  items:
+                    type: string
+                  description: List of URLs of existing images to keep.
+      responses:
+        200:
+          description: Thread updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ThreadResponse'
+        403:
+          description: Not owner.
+        404:
+          description: Thread not found.
+
+    delete:
+      summary: Delete thread
+      tags: [Social Threads]
+      security:
+        - cookieAuth: []
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: threadId
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        200:
+          description: Thread deleted.
+        403:
+          description: Not owner.
+
+  # ==========================================
+  # INTERACTIONS (Share, Like)
+  # ==========================================
+  /api/threads/{threadId}/share:
+    post:
+      summary: Share a thread (Repost)
+      tags: [Social Threads]
+      security:
+        - cookieAuth: []
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: threadId
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ShareThreadRequest'
+      responses:
+        201:
+          description: Thread shared successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ThreadResponse'
+
+  /api/threads/{threadId}/like:
+    post:
+      summary: Toggle like on thread
+      tags: [Social Threads]
+      security:
+        - cookieAuth: []
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: threadId
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        200:
+          description: Like toggled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ToggleLikeResponse'
+
+  /api/threads/{threadId}/likes:
+    get:
+      summary: Get users who liked the thread
+      tags: [Social Threads]
+      security:
+        - cookieAuth: []
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: threadId
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - in: query
+          name: page
+          schema:
+            type: integer
+            default: 1
+      responses:
+        200:
+          description: List of likes.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LikesListResponse'
+
+  # ==========================================
+  # COMMENTS
+  # ==========================================
+  /api/threads/{threadId}/comments:
+    get:
+      summary: Get thread comments (Top level)
+      tags: [Social Threads]
+      security:
+        - cookieAuth: []
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: threadId
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - in: query
+          name: page
+          schema:
+            type: integer
+            default: 1
+      responses:
+        200:
+          description: List of comments.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommentsListResponse'
+
+    post:
+      summary: Add comment to thread
+      tags: [Social Threads]
+      security:
+        - cookieAuth: []
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: threadId
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCommentRequest'
+      responses:
+        201:
+          description: Comment created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommentResponse'
+
+  /api/threads/comments/{commentId}:
+    patch:
+      summary: Update comment
+      tags: [Social Threads]
+      security:
+        - cookieAuth: []
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: commentId
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [content]
+              properties:
+                content:
+                  type: string
+      responses:
+        200:
+          description: Comment updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommentResponse'
+    delete:
+      summary: Delete comment
+      tags: [Social Threads]
+      security:
+        - cookieAuth: []
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: commentId
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        200:
+          description: Comment deleted.
+
+  /api/threads/comments/{commentId}/replies:
+    get:
+      summary: Get replies to a comment
+      tags: [Social Threads]
+      security:
+        - cookieAuth: []
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: commentId
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - in: query
+          name: page
+          schema:
+            type: integer
+            default: 1
+      responses:
+        200:
+          description: List of replies.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommentsListResponse'
+
+  /api/threads/comments/{commentId}/like:
+    post:
+      summary: Toggle like on comment
+      tags: [Social Threads]
+      security:
+        - cookieAuth: []
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: commentId
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        200:
+          description: Like toggled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ToggleLikeResponse'
+
+  /api/threads/comments/{commentId}/likes:
+    get:
+      summary: Get users who liked a comment
+      tags: [Social Threads]
+      security:
+        - cookieAuth: []
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: commentId
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        200:
+          description: List of likes.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LikesListResponse'
