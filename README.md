@@ -33,22 +33,26 @@ Welcome to the **MindWeaver** repository. This is a full-stack social and public
 The application is designed as a robust social platform with the following modules:
 
 ### 🔐 Authentication & Security (Auth Module)
-* **JWT Architecture:** Short-lived Access Tokens and long-lived Refresh Tokens (stored in HTTP-Only cookies).
-* **Account Lifecycle:** Registration, Email Activation, Login, and Secure Logout.
-* **Password Management:** Secure password reset flows via email tokens.
-* **Middleware:** Role-based access control and token verification.
+
+- **JWT Architecture:** Short-lived Access Tokens and long-lived Refresh Tokens (stored in HTTP-Only cookies).
+- **Account Lifecycle:** Registration, Email Activation, Login, and Secure Logout.
+- **Password Management:** Secure password reset flows via email tokens.
+- **Middleware:** Role-based access control and token verification.
 
 ### 💬 Chat System (Chat Module)
+
 A sophisticated 1-on-1 messaging engine:
-* **Smart Room Creation:** "Find or Create" logic to handle conversation initialization.
-* **Inbox Aggregation:** Complex query logic to fetch conversation lists with **unread message counters**, **last message previews**, and participant data in a single request.
-* **Messaging:** Send and receive messages with pagination.
-* **Read Receipts:** Functionality to mark conversations as read and update counters.
+
+- **Smart Room Creation:** "Find or Create" logic to handle conversation initialization.
+- **Inbox Aggregation:** Complex query logic to fetch conversation lists with **unread message counters**, **last message previews**, and participant data in a single request.
+- **Messaging:** Send and receive messages with pagination.
+- **Read Receipts:** Functionality to mark conversations as read and update counters.
 
 ### 📝 Social & Publications
-* **Social Threads:** Create posts with multimedia support.
-* **Interactions:** System for Likes and Nested Comments (Threaded discussions).
-* **Publications:** Article management system with categories and draft/published states.
+
+- **Social Threads:** Create posts with multimedia support.
+- **Interactions:** System for Likes and Nested Comments (Threaded discussions).
+- **Publications:** Article management system with categories and draft/published states.
 
 ---
 
@@ -57,25 +61,28 @@ A sophisticated 1-on-1 messaging engine:
 This project uses **TurboRepo** for monorepo management.
 
 ### **Backend (`apps/backend`)**
-* **Runtime:** Node.js
-* **Framework:** Express.js
-* **Language:** TypeScript
-* **Database:** PostgreSQL
-* **ORM:** Prisma (Schema validation, Migrations, Type-safe queries)
-* **Real-time:** Socket.io *(Implementation in progress)*
-* **Auth:** `jsonwebtoken`, `bcryptjs`, `cookie-parser`
-* **Email:** Nodemailer
+
+- **Runtime:** Node.js
+- **Framework:** Express.js
+- **Language:** TypeScript
+- **Database:** PostgreSQL
+- **ORM:** Prisma (Schema validation, Migrations, Type-safe queries)
+- **Real-time:** Socket.io _(Implementation in progress)_
+- **Auth:** `jsonwebtoken`, `bcryptjs`, `cookie-parser`
+- **Email:** Nodemailer
 
 ### **Frontend (`apps/web`)**
-* **Framework:** Next.js (App Router)
-* **Language:** TypeScript
-* **UI Library:** Material-UI (MUI)
-* **State/API:** TanStack Query (React Query), Axios
-* **Forms:** React Hook Form, Zod
-* **i18n:** react-i18next
+
+- **Framework:** Next.js (App Router)
+- **Language:** TypeScript
+- **UI Library:** Material-UI (MUI)
+- **State/API:** TanStack Query (React Query), Axios
+- **Forms:** React Hook Form, Zod
+- **i18n:** react-i18next
 
 ### **Shared (`packages/types`)**
-* A dedicated package for sharing TypeScript interfaces/types between Backend and Frontend to ensure end-to-end type safety.
+
+- A dedicated package for sharing TypeScript interfaces/types between Backend and Frontend to ensure end-to-end type safety.
 
 ---
 
@@ -99,39 +106,44 @@ This project uses **TurboRepo** for monorepo management.
 Follow these steps to set up the project locally.
 
 ### Prerequisites
-* **Node.js** (v18 or higher)
-* **npm** (v9 or higher)
-* **PostgreSQL** database instance (local or cloud)
-* **Git**
+
+- **Node.js** (v18 or higher)
+- **npm** (v9 or higher)
+- **PostgreSQL** database instance (local or cloud)
+- **Git**
 
 ### Installation
 
 1.  **Clone the repository:**
+
     ```bash
     git clone <this-repo-url>
     cd mindweave
     ```
 
 2.  **Install dependencies:**
+
     ```bash
     npm install
     ```
 
 3.  **Build shared types:**
-    *Crucial step!* The backend relies on `packages/types`.
+    _Crucial step!_ The backend relies on `packages/types`.
     ```bash
     npm run build:types
     ```
-    *This command builds the `@mindweave/types` package and reinstalls dependencies in apps to ensure they pick up the latest types.*
+    _This command builds the `@mindweave/types` package and reinstalls dependencies in apps to ensure they pick up the latest types._
 
 ### Database Setup
 
 1.  Navigate to the backend folder:
+
     ```bash
     cd apps/backend
     ```
 
 2.  Create a `.env` file based on `.env.example`:
+
     ```env
     DATABASE_URL="postgresql://user:password@localhost:5432/mindweave_db?schema=public"
     JWT_SECRET="YOUR_SUPER_SECRET_KEY"
@@ -149,7 +161,7 @@ Follow these steps to set up the project locally.
     ```bash
     npm run db:setup
     ```
-    *This will reset the DB, apply migrations, and seed initial data.*
+    _This will reset the DB, apply migrations, and seed initial data._
 
 ### Running the Applications
 
@@ -160,8 +172,9 @@ npm run dev
 ```
 
 This will concurrently start:
-* **Backend API:** `http://localhost:4000/api`
-* **Frontend:** `http://localhost:3000`
+
+- **Backend API:** `http://localhost:4000/api`
+- **Frontend:** `http://localhost:3000`
 
 ---
 
@@ -169,25 +182,25 @@ This will concurrently start:
 
 You can run scripts from the monorepo root or within individual app directories.
 
-* `npm install`: Installs dependencies for all workspaces.
-* `npm run dev`: Starts all applications in development mode concurrently.
-* `npm run build`: Builds all applications for production.
-* `npm run lint`: Lints code across all projects.
-* `npm run format`: Formats code using Prettier.
-* `npm run check-types`: Runs TypeScript type checking across all projects.
-* `npm run build:types`: Builds the shared `@mindweave/types` package and re-installs dependencies in apps. (**Run this after changing types!**)
+- `npm install`: Installs dependencies for all workspaces.
+- `npm run dev`: Starts all applications in development mode concurrently.
+- `npm run build`: Builds all applications for production.
+- `npm run lint`: Lints code across all projects.
+- `npm run format`: Formats code using Prettier.
+- `npm run check-types`: Runs TypeScript type checking across all projects.
+- `npm run build:types`: Builds the shared `@mindweave/types` package and re-installs dependencies in apps. (**Run this after changing types!**)
 
 ---
 
 ## 🗺️ Roadmap
 
-* [x] **Core:** Monorepo Setup & CI/CD Scripts
-* [x] **Backend:** Auth Module (JWT/Cookies)
-* [x] **Backend:** Social & Publications Module
-* [x] **Backend:** Chat Module (REST API & Logic)
-* [ ] **Backend:** WebSockets Integration (Real-time messages/Notifications) *(In Progress)*
-* [ ] **Frontend:** Integration with new Backend endpoints
-* [ ] **Mobile:** React Native Application
+- [x] **Core:** Monorepo Setup & CI/CD Scripts
+- [x] **Backend:** Auth Module (JWT/Cookies)
+- [x] **Backend:** Social & Publications Module
+- [x] **Backend:** Chat Module (REST API & Logic)
+- [ ] **Backend:** WebSockets Integration (Real-time messages/Notifications) _(In Progress)_
+- [ ] **Frontend:** Integration with new Backend endpoints
+- [ ] **Mobile:** React Native Application
 
 ---
 
